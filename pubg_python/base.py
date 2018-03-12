@@ -51,7 +51,7 @@ class PUBG(PUBGRequestMixin):
     @property
     def shard_url(self):
         url = furl.furl(self.URL)
-        url.path = self.shard.value
+        url.path = 'shards/{}'.format(self.shard.value)
         return url
 
     @requires_shard
