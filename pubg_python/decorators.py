@@ -12,6 +12,7 @@ def requires_shard(f):
 def requires_endpoint(f):
     def wrapper(self, *args, **kwargs):
         if self.endpoint is None:
-            raise exceptions.EndpointNotDefinedError('')
+            raise exceptions.EndpointNotDefinedError(
+                'An endpoint is required for this call')
         return f(self, *args, **kwargs)
     return wrapper

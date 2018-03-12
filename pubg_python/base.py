@@ -45,7 +45,7 @@ class PUBG(PUBGRequestMixin):
     @shard.setter
     def shard(self, value):
         if not isinstance(value, Shard):
-            raise InvalidShardError('Shard not valid')
+            raise InvalidShardError('Invalid Shard')
         self._shard = value
 
     @property
