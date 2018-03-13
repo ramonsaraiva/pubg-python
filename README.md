@@ -15,7 +15,7 @@ A python wrapper for the PUBG developer API
 The PUBG API shards data by platform and region, and therefore requires a shard to be specified in the URL for most requests.
 
 ```python
-from pubg_pytho import PUBG, Shard
+from pubg_python import PUBG, Shard
 
 api = PUBG('<api-key>', Shard.PC_NA)
 ```
