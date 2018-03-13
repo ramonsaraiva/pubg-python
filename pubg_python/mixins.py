@@ -29,9 +29,16 @@ class PaginatedQuerySetMixin:
         return self
 
 
-class SortableMixin:
+class SortableQuerySetMixin:
 
     def sort(self, sort_key, ascending=True):
         sort_key = sort_key if ascending else '-{}'.format(sort_key)
         self.endpoint.args['sort'] = sort_key
+        return self
+
+
+class FilterableQuerySetMixin:
+
+    def filter(self, filter_key, filter_value):
+        self.endpoint.args['filter[{}]'.format(filter_key)] = filter_value
         return self

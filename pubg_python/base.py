@@ -11,9 +11,10 @@ from .domain import (
 )
 from .exceptions import InvalidShardError
 from .mixins import (
+    FilterableQuerySetMixin,
     PaginatedQuerySetMixin,
     RequestMixin,
-    SortableMixin,
+    SortableQuerySetMixin,
 )
 
 
@@ -81,7 +82,8 @@ class BaseQuerySet:
             self.domain, response, self.session)
 
 
-class QuerySet(PaginatedQuerySetMixin, SortableMixin, BaseQuerySet):
+class QuerySet(PaginatedQuerySetMixin, SortableQuerySetMixin,
+               FilterableQuerySetMixin, BaseQuerySet):
     domain = Domain
 
 
