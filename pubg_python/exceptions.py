@@ -4,11 +4,3 @@ class InvalidShardError(Exception):
 
 class ShardNotDefinedError(Exception):
      pass
-
-
-class EndpointNotDefinedError(Exception):
-    pass
-
-
-class PUBGResponseError(Exception):
-    pass

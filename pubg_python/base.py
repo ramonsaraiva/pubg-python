@@ -1,19 +1,20 @@
 import json
-import urllib.parse
 from enum import Enum
-
-import furl
-import requests
 
 from .decorators import (
     requires_shard,
     requires_endpoint,
 )
-from .exceptions import (
-    InvalidShardError,
-    PUBGResponseError,
+from .domain import (
+    Domain,
+    Match,
 )
-from .mixins import PUBGRequestMixin
+from .exceptions import InvalidShardError
+from .mixins import (
+    PaginatedQuerySetMixin,
+    RequestMixin,
+    SortableMixin,
+)
 
 
 class Shard(Enum):
@@ -31,12 +32,11 @@ class Shard(Enum):
     XBOX_OC = 'xbox-oc'  # Oceania
 
 
-class PUBG(PUBGRequestMixin):
+class PUBG(RequestMixin):
 
     def __init__(self, api_key, shard=None, gzip=False):
         super().__init__(api_key, gzip)
         self.shard = shard
-        self.endpoint = None
 
     @property
     def shard(self):
@@ -50,56 +50,56 @@ class PUBG(PUBGRequestMixin):
 
     @property
     def shard_url(self):
-        url = furl.furl(self.URL)
+        url = self.url.copy()
         url.path = 'shards/{}'.format(self.shard.value)
         return url
 
     @requires_shard
     def matches(self, id=None):
-        self.endpoint = self.shard_url
-        self.endpoint.path.segments.append('matches')
-        if id:
-            self.endpoint.path.segments.append(id)
-        return self
+        url = self.shard_url
+        return MatchQuerySet(self.session, url, lookup=id)
 
-    @requires_endpoint
-    def sort(self, sort_key, ascending=True):
-        sort_key = sort_key if ascending else '-{}'.format(sort_key)
-        self.endpoint.args['sort'] = sort_key
-        return self
 
-    @requires_endpoint
-    def limit(self, value):
-        self.endpoint.args['page[limit]'] = value
-        return self
+class BaseQuerySet:
+    path = None
+    domain = Domain
 
-    @requires_endpoint
-    def offset(self, value):
-        self.endpoint.args['page[offset]'] = value
-        return self
+    def __init__(self, session, endpoint, lookup=None):
+        self.session = session
+        self.endpoint = endpoint
+        self.lookup = lookup
+        
+        self.endpoint.path.segments.append(self.path)
+        if self.lookup:
+            self.endpoint.path.segments.append(self.lookup)
 
-    @requires_endpoint
     def fetch(self):
         response = self.session.get(self.endpoint)
-        return PUBGResponse(response, self.session)
+        if self.lookup:
+            return self.domain(json.loads(response.text))
+        return MultiResponse(
+            self.domain, response, self.session)
 
 
-class PUBGResponse():
+class QuerySet(PaginatedQuerySetMixin, SortableMixin, BaseQuerySet):
+    domain = Domain
 
-    def __init__(self, response, session):
+
+class MatchQuerySet(QuerySet):
+    path = 'matches'
+    domain = Match
+
+
+class MultiResponse:
+
+    def __init__(self, domain, response, session):
+        self.domain = domain
         self.response = response
         self.session = session
-        self.data = json.loads(response.text)
+        self.data = json.loads(self.response.text)
 
-    @property
-    def response(self):
-        return self._response
-
-    @response.setter
-    def response(self, value):
-        if not value or value.status_code != 200:
-            raise PUBGResponseError('Something went wrong with your request')
-        self._response = value
+    def __iter__(self):
+        return (self.domain(data) for data in self.data['data'])
 
     def has_links(self):
         return 'links' in self.data
@@ -110,15 +110,14 @@ class PUBGResponse():
     def has_prev(self):
         return self.has_links() and 'next' in self.data['links']
 
-    def next_response(self, endpoint):
-        return PUBGResponse(self.session.get(endpoint), self.session)
-
     def next(self):
         if not self.has_next():
             return None
-        return self.next_response(self.data['links']['next'])
+        response = self.session.get(self.data['links']['next'])
+        return MultiResponse(self.domain, response, self.session)
 
     def prev(self):
         if not self.has_prev():
             return None
-        return self.next_response(self.data['links']['prev'])
+        response = self.session.get(self.data['links']['prev'])
+        return MultiResponse(self.domain, response, self.session)
