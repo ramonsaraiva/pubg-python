@@ -1,1 +1,4 @@
-from .base import PUBG, Shard
+from .base import (
+    PUBG,
+    Shard,
+)

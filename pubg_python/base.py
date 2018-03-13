@@ -58,28 +58,34 @@ class PUBG(RequestMixin):
     @requires_shard
     def matches(self, id=None):
         url = self.shard_url
-        return MatchQuerySet(self.session, url, lookup=id)
+        url.path.segments.append('matches')
+        return MatchQuerySet(self.session, url)
 
 
 class BaseQuerySet:
     path = None
     domain = Domain
 
-    def __init__(self, session, endpoint, lookup=None):
+    def __init__(self, session, endpoint):
         self.session = session
         self.endpoint = endpoint
-        self.lookup = lookup
-        
-        self.endpoint.path.segments.append(self.path)
-        if self.lookup:
-            self.endpoint.path.segments.append(self.lookup)
 
-    def fetch(self):
-        response = self.session.get(self.endpoint)
-        if self.lookup:
-            return self.domain(json.loads(response.text))
+    def __iter__(self):
         return MultiResponse(
-            self.domain, response, self.session)
+            self.domain, self.fetch(), self.session).__iter__()
+
+    def __getitem__(self, key):
+        return MultiResponse(
+            self.domain, self.fetch(), self.session).__getitem__(key)
+
+    def fetch(self, id=None):
+        if id is not None:
+            self.endpoint.path.segments.append(id)
+        return self.session.get(self.endpoint)
+
+    def get(self, id):
+        response = self.fetch(id)
+        return self.domain(json.loads(response.text))
 
 
 class QuerySet(PaginatedQuerySetMixin, SortableQuerySetMixin,
@@ -102,6 +108,9 @@ class MultiResponse:
 
     def __iter__(self):
         return (self.domain(data) for data in self.data['data'])
+
+    def __getitem__(self, key):
+        return self.domain(self.data['data'][key])
 
     def has_links(self):
         return 'links' in self.data
