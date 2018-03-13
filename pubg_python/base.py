@@ -32,8 +32,8 @@ class Shard(Enum):
 
 class PUBG(RequestMixin):
 
-    def __init__(self, api_key, shard=None, gzip=False):
-        super().__init__(api_key, gzip)
+    def __init__(self, api_key, shard=None):
+        super().__init__(api_key)
         self.shard = shard
 
     @property
