@@ -27,7 +27,7 @@ A list of shards can be found [here](https://developer.playbattlegrounds.com/doc
 Retrieving a list of matches is as simple as this:
 
 ```python
-matches = api.matches().fetch()
+matches = api.matches()
 ```
 
 ## Retrieving a single match
@@ -35,7 +35,7 @@ matches = api.matches().fetch()
 Retrieving a single match is also a piece of cake:
 
 ```python
-match = api.matches(id=12345).fetch()
+match = api.matches().get(12345)
 ```
 
 ### Limits and Offsets
@@ -43,7 +43,7 @@ match = api.matches(id=12345).fetch()
 Offsetting 5 matches and limitting by 10
 
 ```python
-matches = api.matches().limit(10).offset(5).fetch()
+matches = api.matches().limit(10).offset(5)
 ```
 
 ### Sorting
@@ -51,8 +51,8 @@ matches = api.matches().limit(10).offset(5).fetch()
 `sort` defaults to ascending, you can use `ascending=False` for a descending sort
 
 ```python
-matches = api.matches().limit(10).sort('createdAt').fetch()
-matches = api.matches().limit(10).sort('createdAt', ascending=False).fetch()
+matches = api.matches().limit(10).sort('createdAt')
+matches = api.matches().limit(10).sort('createdAt', ascending=False)
 ```
 
 ### Filtering
@@ -60,16 +60,7 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False).fetch()
 Applying a `gameMode` filter: [you can check all available filters here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches)
 
 ```python
-squad_matches = api.matches().filter('gameMode', 'squad').fetch()
-```
-
-### Iterating a QuerySet
-
-QuerySets are iterable, so let's say you want to iterate through all `Matches`:
-
-```python
-for match in api.matches().limit(10).fetch():
-    print(match)
+squad_matches = api.matches().filter('gameMode', 'squad')
 ```
 
 ### Pagination
@@ -87,7 +78,7 @@ previous_matches = matches.prev()
 Be aware of rate limits:
 
 ```python
-matches = api.matches().fetch()
+matches = api.matches()
 while matches:
     for match in matches:
         print(match)
