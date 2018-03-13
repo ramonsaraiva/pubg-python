@@ -9,10 +9,10 @@ def requires_shard(f):
     return wrapper
 
 
-def requires_endpoint(f):
+def invalidates_cache(f):
+    # TODO: can probably be a class decorator
     def wrapper(self, *args, **kwargs):
-        if self.endpoint is None:
-            raise exceptions.EndpointNotDefinedError(
-                'An endpoint is required for this call')
+        if self._response:
+            self._response = None
         return f(self, *args, **kwargs)
     return wrapper

@@ -2,6 +2,8 @@ import requests
 
 import furl
 
+from .decorators import invalidates_cache
+
 
 class RequestMixin:
 
@@ -20,10 +22,12 @@ class RequestMixin:
 
 class PaginatedQuerySetMixin:
 
+    @invalidates_cache
     def limit(self, value):
         self.endpoint.args['page[limit]'] = value
         return self
 
+    @invalidates_cache
     def offset(self, value):
         self.endpoint.args['page[offset]'] = value
         return self
@@ -31,6 +35,7 @@ class PaginatedQuerySetMixin:
 
 class SortableQuerySetMixin:
 
+    @invalidates_cache
     def sort(self, sort_key, ascending=True):
         sort_key = sort_key if ascending else '-{}'.format(sort_key)
         self.endpoint.args['sort'] = sort_key
@@ -39,6 +44,7 @@ class SortableQuerySetMixin:
 
 class FilterableQuerySetMixin:
 
+    @invalidates_cache
     def filter(self, filter_key, filter_value):
         self.endpoint.args['filter[{}]'.format(filter_key)] = filter_value
         return self

@@ -1,10 +1,7 @@
 import json
 from enum import Enum
 
-from .decorators import (
-    requires_shard,
-    requires_endpoint,
-)
+from .decorators import requires_shard
 from .domain import (
     Domain,
     Match,
@@ -69,6 +66,7 @@ class BaseQuerySet:
     def __init__(self, session, endpoint):
         self.session = session
         self.endpoint = endpoint
+        self._response = None
 
     def __iter__(self):
         return MultiResponse(
@@ -79,9 +77,13 @@ class BaseQuerySet:
             self.domain, self.fetch(), self.session).__getitem__(key)
 
     def fetch(self, id=None):
+        if self._response is not None:
+            return self._response
+
         if id is not None:
             self.endpoint.path.segments.append(id)
-        return self.session.get(self.endpoint)
+        self._response = self.session.get(self.endpoint)
+        return self._response
 
     def get(self, id):
         response = self.fetch(id)
