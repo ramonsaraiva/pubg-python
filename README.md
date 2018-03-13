@@ -39,6 +39,7 @@ match = api.matches(id=12345).fetch()
 ```
 
 ### Limits and Offsets
+
 Offsetting 5 matches and limitting by 10
 
 ```python
@@ -52,6 +53,14 @@ matches = api.matches().limit(10).offset(5).fetch()
 ```python
 matches = api.matches().limit(10).sort('createdAt').fetch()
 matches = api.matches().limit(10).sort('createdAt', ascending=False).fetch()
+```
+
+### Filtering
+
+Applying a `gameMode` filter: [you can check all available filters here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches)
+
+```python
+squad_matches = api.matches().filter('gameMode', 'squad').fetch()
 ```
 
 ### Iterating a QuerySet
