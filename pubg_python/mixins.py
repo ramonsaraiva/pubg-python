@@ -53,5 +53,6 @@ class FilterableQuerySetMixin:
         if isinstance(filter_value, Enum):
             filter_value = filter_value.value
 
-        self.endpoint.args['filter[{}]'.format(filter_key.value)] = filter_value
+        self.endpoint.args['filter[{}]'.format(
+            filter_key.value)] = filter_value
         return self

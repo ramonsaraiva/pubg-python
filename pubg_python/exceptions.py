@@ -1,11 +1,9 @@
-from enum import Enum
-
 class InvalidShardError(Exception):
     pass
 
 
 class ShardNotDefinedError(Exception):
-     pass
+    pass
 
 
 class InvalidFilterError(Exception):

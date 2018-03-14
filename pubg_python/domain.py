@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Shard(Enum):
     PC_AS = 'pc-as'  # Asia
     PC_EU = 'pc-eu'  # Europe
@@ -38,7 +39,7 @@ class Domain:
 
     def __str__(self):
         return self.id
-    
+
     def from_json(self):
         self.id = self._data.get('id')
 

@@ -1,5 +1,6 @@
 from . import exceptions
 
+
 def requires_shard(f):
     def wrapper(self, *args, **kwargs):
         if self.shard is None:
