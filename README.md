@@ -38,6 +38,25 @@ Retrieving a single match is also a piece of cake:
 match = api.matches().get(12345)
 ```
 
+## Playing around with the match data
+
+A simple example of how you can manipulate the data:
+The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+
+```python
+match = api.matches().get(12345)
+
+print(match.duration)
+print(match.game_mode)
+
+for roster in match.rosters:
+    print(roster.participants)
+    print(roster.won)
+
+    for participant in roster.participants:
+        print(participant.actor)
+```
+
 ### Limits and Offsets
 
 Offsetting 5 matches and limitting by 10
