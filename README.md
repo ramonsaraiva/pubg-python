@@ -20,7 +20,7 @@ from pubg_python import PUBG, Shard
 api = PUBG('<api-key>', Shard.PC_NA)
 ```
 
-A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/base.py)
+A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
 ## Retrieving a list of matches
 
@@ -76,10 +76,23 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False)
 
 ### Filtering
 
-Applying a `gameMode` filter: [you can check all available filters here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches)
+Applying a `gameMode` filter:
+A list of filters can be found [here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+
+```python
+from pubg_python import Filter, GameMode
+
+squad_matches = api.matches().filter(Filter.GAME_MODE, GameMode.SQUAD)
+solo_matches = api.matches().filter(Filter.GAME_MODE, GameMode.SOLO)
+after_2018 = api.matches().filter(Filter.CREATED_AT_START, '2018-01-01T00:00:00Z')
+```
+
+You don't need to use the `Enum`s if you don't want to:
 
 ```python
 squad_matches = api.matches().filter('gameMode', 'squad')
+solo_matches = api.matches().filter('gameMode', 'solo')
+after_2018 = api.matches().filter('createdAt-start', '2018-01-01T00:00:00Z')
 ```
 
 ### Pagination
