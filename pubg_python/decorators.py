@@ -12,7 +12,7 @@ def requires_shard(f):
 def invalidates_cache(f):
     # TODO: can probably be a class decorator
     def wrapper(self, *args, **kwargs):
-        if self._response:
-            self._response = None
+        if self._data:
+            self._data = None
         return f(self, *args, **kwargs)
     return wrapper
