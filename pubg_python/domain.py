@@ -3,7 +3,7 @@ from enum import Enum
 class Shard(Enum):
     PC_AS = 'pc-as'  # Asia
     PC_EU = 'pc-eu'  # Europe
-    PC_KAKAO = 'pc-kakao'  # ?
+    PC_KAKAO = 'pc-kakao'  # Kakaogames server (Korea only)
     PC_KRJP = 'pc-krjp'  # Korea/Japan
     PC_NA = 'pc-na'  # North America
     PC_OC = 'pc-oc'  # Oceania
