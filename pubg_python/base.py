@@ -1,12 +1,12 @@
 import json
 
+from . import exceptions
 from .decorators import requires_shard
 from .domain import (
     Domain,
     Match,
     Shard,
 )
-from .exceptions import InvalidShardError
 from .mixins import (
     FilterableQuerySetMixin,
     PaginatedQuerySetMixin,
@@ -16,6 +16,14 @@ from .mixins import (
 
 
 class PUBG(RequestMixin):
+
+    API_OK = 200
+    API_ERRORS_MAPPING = {
+        401: exceptions.UnauthorizedError,
+        404: exceptions.NotFoundError,
+        415: exceptions.InvalidContentTypeError,
+        429: exceptions.RateLimitError,
+    }
 
     def __init__(self, api_key, shard=None):
         super().__init__(api_key)
@@ -28,7 +36,7 @@ class PUBG(RequestMixin):
     @shard.setter
     def shard(self, value):
         if not isinstance(value, Shard):
-            raise InvalidShardError('Invalid Shard')
+            raise exceptions.InvalidShardError('Invalid Shard')
         self._shard = value
 
     @property
@@ -41,34 +49,45 @@ class PUBG(RequestMixin):
     def matches(self, id=None):
         url = self.shard_url
         url.path.segments.append('matches')
-        return MatchQuerySet(self.session, url)
+        return MatchQuerySet(self, url)
+
+    def request(self, endpoint):
+        response = self.session.get(endpoint)
+
+        if response.status_code != self.API_OK:
+            exception = self.API_ERRORS_MAPPING.get(
+                response.status_code, exceptions.APIError)
+            raise exception()
+
+        return json.loads(response.text)
 
 
 class BaseQuerySet:
-    path = None
     domain = Domain
 
-    def __init__(self, session, endpoint):
-        self.session = session
+    def __init__(self, client, endpoint):
+        self.client = client
         self.endpoint = endpoint
-        self._response = None
+        self._data = None
 
     def __iter__(self):
+        data = self.fetch()
         return MultiResponse(
-            self.domain, self.fetch(), self.session).__iter__()
+            self.domain, data, self.session).__iter__()
 
     def __getitem__(self, key):
+        data = self.fetch()
         return MultiResponse(
-            self.domain, self.fetch(), self.session).__getitem__(key)
+            self.domain, data, self.session).__getitem__(key)
 
     def fetch(self, id=None):
-        if self._response is not None:
-            return self._response
+        if self._data is not None:
+            return self._data
 
         if id is not None:
             self.endpoint.path.segments.append(id)
-        self._response = self.session.get(self.endpoint)
-        return self._response
+        self._data = self.client.request(self.endpoint)
+        return self._data
 
     def get(self, id):
         response = self.fetch(id)
@@ -77,45 +96,56 @@ class BaseQuerySet:
 
 class QuerySet(PaginatedQuerySetMixin, SortableQuerySetMixin,
                FilterableQuerySetMixin, BaseQuerySet):
-    domain = Domain
+    pass
 
 
 class MatchQuerySet(QuerySet):
-    path = 'matches'
     domain = Match
 
 
 class MultiResponse:
 
-    def __init__(self, domain, response, session):
+    def __init__(self, client, domain, data):
+        self.client = client
         self.domain = domain
-        self.response = response
-        self.session = session
-        self.data = json.loads(self.response.text)
+        self.data = data
 
     def __iter__(self):
         return (self.domain(data) for data in self.data['data'])
 
-    def __getitem__(self, key):
-        return self.domain(self.data['data'][key])
+    def __getitem__(self, index):
+        return self.domain(self.data['data'][index])
 
-    def has_links(self):
-        return 'links' in self.data
+    @property
+    def links(self):
+        if 'links' not in self['data']:
+            return None
+        return self['data']['links']
 
-    def has_next(self):
-        return self.has_links() and 'next' in self.data['links']
+    @property
+    def next_url(self):
+        links = self.links
+        if links and 'next' in self.links:
+            return links['next']
+        return None
 
-    def has_prev(self):
-        return self.has_links() and 'next' in self.data['links']
+    @property
+    def last_url(self):
+        links = self.links
+        if links and 'prev' in self.links:
+            return links['prev']
+        return None
 
     def next(self):
-        if not self.has_next():
+        next_url = self.next_url
+        if next_url is None:
             return None
-        response = self.session.get(self.data['links']['next'])
-        return MultiResponse(self.domain, response, self.session)
+        self.data = self.client.request(next_url)
+        return self
 
     def prev(self):
-        if not self.has_prev():
+        prev_url = self.prev_url
+        if prev_url is None:
             return None
-        response = self.session.get(self.data['links']['prev'])
-        return MultiResponse(self.domain, response, self.session)
+        self.data = self.client.request(prev_url)
+        return self
