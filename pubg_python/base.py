@@ -1,10 +1,10 @@
 import json
-from enum import Enum
 
 from .decorators import requires_shard
 from .domain import (
     Domain,
     Match,
+    Shard,
 )
 from .exceptions import InvalidShardError
 from .mixins import (
@@ -13,21 +13,6 @@ from .mixins import (
     RequestMixin,
     SortableQuerySetMixin,
 )
-
-
-class Shard(Enum):
-    PC_AS = 'pc-as'  # Asia
-    PC_EU = 'pc-eu'  # Europe
-    PC_KAKAO = 'pc-kakao'  # ?
-    PC_KRJP = 'pc-krjp'  # Korea/Japan
-    PC_NA = 'pc-na'  # North America
-    PC_OC = 'pc-oc'  # Oceania
-    PC_SA = 'pc-sa'  # South and Central America
-    PC_SEA = 'pc-sea'  # South East Asia
-    XBOX_AS = 'xbox-as'  # Asia
-    XBOX_EU = 'xbox-eu'  # Europe
-    XBOX_NA = 'xbox-na'  # North America
-    XBOX_OC = 'xbox-oc'  # Oceania
 
 
 class PUBG(RequestMixin):

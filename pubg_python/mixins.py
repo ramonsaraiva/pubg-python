@@ -1,8 +1,12 @@
 import requests
 
+from enum import Enum
+
 import furl
 
 from .decorators import invalidates_cache
+from .domain import Filter
+from .exceptions import InvalidFilterError
 
 
 class RequestMixin:
@@ -44,5 +48,10 @@ class FilterableQuerySetMixin:
 
     @invalidates_cache
     def filter(self, filter_key, filter_value):
-        self.endpoint.args['filter[{}]'.format(filter_key)] = filter_value
+        if not isinstance(filter_key, Filter):
+            raise InvalidFilterError("Invalid Filter")
+        if isinstance(filter_value, Enum):
+            filter_value = filter_value.value
+
+        self.endpoint.args['filter[{}]'.format(filter_key.value)] = filter_value
         return self

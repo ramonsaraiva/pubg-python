@@ -1,5 +1,30 @@
-import json
-from collections import namedtuple
+from enum import Enum
+
+class Shard(Enum):
+    PC_AS = 'pc-as'  # Asia
+    PC_EU = 'pc-eu'  # Europe
+    PC_KAKAO = 'pc-kakao'  # ?
+    PC_KRJP = 'pc-krjp'  # Korea/Japan
+    PC_NA = 'pc-na'  # North America
+    PC_OC = 'pc-oc'  # Oceania
+    PC_SA = 'pc-sa'  # South and Central America
+    PC_SEA = 'pc-sea'  # South East Asia
+    XBOX_AS = 'xbox-as'  # Asia
+    XBOX_EU = 'xbox-eu'  # Europe
+    XBOX_NA = 'xbox-na'  # North America
+    XBOX_OC = 'xbox-oc'  # Oceania
+
+
+class Filter(Enum):
+    CREATED_AT_START = 'createdAt-start'
+    CREATED_AT_END = 'createdAt-end'
+    PLAYER_IDS = 'playerIds'
+    GAME_MODE = 'gameMode'
+
+
+class GameMode(Enum):
+    SOLO = 'solo'
+    SQUAD = 'squad'
 
 
 class Domain:

@@ -4,3 +4,7 @@ class InvalidShardError(Exception):
 
 class ShardNotDefinedError(Exception):
      pass
+
+
+class InvalidFilterError(Exception):
+    pass
