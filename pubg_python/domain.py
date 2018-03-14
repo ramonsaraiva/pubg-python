@@ -7,15 +7,21 @@ class Domain:
     def __init__(self, data):
         self._data = data
         self.from_json()
+
+    def __repr__(self):
+        return '<{0} {1}>'.format(self.__class__.__name__, self.id)
+
+    def __str__(self):
+        return self.id
     
     def from_json(self):
-        pass
+        self.id = self._data.get('id')
 
 
 class Match(Domain):
 
     def from_json(self):
-        self.id = self._data.get('id')
+        super().from_json()
         self.created_at = self._data.get('createdAt')
         self.duration = self._data.get('duration')
         self.rounds = self._data.get('rounds')
@@ -40,7 +46,7 @@ class Match(Domain):
 class Roster(Domain):
 
     def from_json(self):
-        self.id = self._data.get('id')
+        super().from_json()
         self.team = self._data.get('team')
         self.stats = self._data.get('stats')
         self.won = self._data.get('won')
@@ -55,7 +61,7 @@ class Roster(Domain):
 class Participant(Domain):
 
     def from_json(self):
-        self.id = self._data.get('id')
+        super().from_json()
         self.stats = self._data.get('stats')
         self.actor = self._data.get('actor')
         self.shard_id = self._data.get('shardId')
@@ -64,7 +70,7 @@ class Participant(Domain):
 class Asset(Domain):
 
     def from_json(self):
-        self.id = self._data.get('id')
+        super().from_json()
         self.title_id = self._data.get('titleId')
         self.shard_id = self._data.get('shardId')
         self.name = self._data.get('name')
