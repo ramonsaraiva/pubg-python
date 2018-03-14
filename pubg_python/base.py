@@ -73,12 +73,12 @@ class BaseQuerySet:
     def __iter__(self):
         data = self.fetch()
         return MultiResponse(
-            self.domain, data, self.session).__iter__()
+            self, self.domain, data).__iter__()
 
     def __getitem__(self, key):
         data = self.fetch()
         return MultiResponse(
-            self.domain, data, self.session).__getitem__(key)
+            self, self.domain, data).__getitem__(key)
 
     def fetch(self, id=None):
         if self._data is not None:
@@ -90,8 +90,7 @@ class BaseQuerySet:
         return self._data
 
     def get(self, id):
-        response = self.fetch(id)
-        return self.domain(json.loads(response.text))
+        return self.domain(self.fetch(id))
 
 
 class QuerySet(PaginatedQuerySetMixin, SortableQuerySetMixin,
