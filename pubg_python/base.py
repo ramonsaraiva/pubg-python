@@ -1,33 +1,22 @@
 import json
 
+import furl
+import requests
+
 from . import exceptions
 from .decorators import requires_shard
 from .domain import (
-    Domain,
     Match,
     Shard,
 )
-from .mixins import (
-    FilterableQuerySetMixin,
-    PaginatedQuerySetMixin,
-    RequestMixin,
-    SortableQuerySetMixin,
-)
+from .querysets import QuerySet
 
 
-class PUBG(RequestMixin):
-
-    API_OK = 200
-    API_ERRORS_MAPPING = {
-        401: exceptions.UnauthorizedError,
-        404: exceptions.NotFoundError,
-        415: exceptions.InvalidContentTypeError,
-        429: exceptions.RateLimitError,
-    }
+class PUBG:
 
     def __init__(self, api_key, shard=None):
-        super().__init__(api_key)
         self.shard = shard
+        self.client = Client(api_key)
 
     @property
     def shard(self):
@@ -41,7 +30,7 @@ class PUBG(RequestMixin):
 
     @property
     def shard_url(self):
-        url = self.url.copy()
+        url = self.client.url.copy()
         url.path = 'shards/{}'.format(self.shard.value)
         return url
 
@@ -49,7 +38,28 @@ class PUBG(RequestMixin):
     def matches(self, id=None):
         url = self.shard_url
         url.path.segments.append('matches')
-        return MatchQuerySet(self, url)
+        return QuerySet(Match, self.client, url)
+
+
+class Client:
+
+    BASE_URL = 'https://api.playbattlegrounds.com/'
+
+    def __init__(self, api_key):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'Authorization': api_key,
+            'Accept': 'application/vnd.api+json'
+        })
+        self.url = furl.furl(self.BASE_URL)
+
+    API_OK = 200
+    API_ERRORS_MAPPING = {
+        401: exceptions.UnauthorizedError,
+        404: exceptions.NotFoundError,
+        415: exceptions.InvalidContentTypeError,
+        429: exceptions.RateLimitError,
+    }
 
     def request(self, endpoint):
         response = self.session.get(endpoint)
@@ -60,91 +70,3 @@ class PUBG(RequestMixin):
             raise exception()
 
         return json.loads(response.text)
-
-
-class BaseQuerySet:
-    domain = Domain
-
-    def __init__(self, client, endpoint):
-        self.client = client
-        self.endpoint = endpoint
-        self._data = None
-
-    def __iter__(self):
-        data = self.fetch()
-        return MultiResponse(
-            self, self.domain, data).__iter__()
-
-    def __getitem__(self, key):
-        data = self.fetch()
-        return MultiResponse(
-            self, self.domain, data).__getitem__(key)
-
-    def fetch(self, id=None):
-        if self._data is not None:
-            return self._data
-
-        if id is not None:
-            self.endpoint.path.segments.append(id)
-        self._data = self.client.request(self.endpoint)
-        return self._data
-
-    def get(self, id):
-        return self.domain(self.fetch(id))
-
-
-class QuerySet(PaginatedQuerySetMixin, SortableQuerySetMixin,
-               FilterableQuerySetMixin, BaseQuerySet):
-    pass
-
-
-class MatchQuerySet(QuerySet):
-    domain = Match
-
-
-class MultiResponse:
-
-    def __init__(self, client, domain, data):
-        self.client = client
-        self.domain = domain
-        self.data = data
-
-    def __iter__(self):
-        return (self.domain(data) for data in self.data['data'])
-
-    def __getitem__(self, index):
-        return self.domain(self.data['data'][index])
-
-    @property
-    def links(self):
-        if 'links' not in self['data']:
-            return None
-        return self['data']['links']
-
-    @property
-    def next_url(self):
-        links = self.links
-        if links and 'next' in self.links:
-            return links['next']
-        return None
-
-    @property
-    def last_url(self):
-        links = self.links
-        if links and 'prev' in self.links:
-            return links['prev']
-        return None
-
-    def next(self):
-        next_url = self.next_url
-        if next_url is None:
-            return None
-        self.data = self.client.request(next_url)
-        return self
-
-    def prev(self):
-        prev_url = self.prev_url
-        if prev_url is None:
-            return None
-        self.data = self.client.request(prev_url)
-        return self

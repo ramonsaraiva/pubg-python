@@ -1,28 +1,34 @@
-import requests
-
 from enum import Enum
-
-import furl
 
 from .decorators import invalidates_cache
 from .domain import Filter
 from .exceptions import InvalidFilterError
 
 
-class RequestMixin:
-
-    BASE_URL = 'https://api.playbattlegrounds.com/'
-
-    def __init__(self, api_key):
-        self.session = requests.Session()
-        self.session.headers.update({
-            'Authorization': api_key,
-            'Accept': 'application/vnd.api+json'
-        })
-        self.url = furl.furl(self.BASE_URL)
-
-
 class PaginatedQuerySetMixin:
+
+    @property
+    def links(self):
+        if not self.has_data:
+            return None
+
+        if 'links' not in self._data:
+            return None
+        return self._data['links']
+
+    @property
+    def next_url(self):
+        links = self.links
+        if links and 'next' in self.links:
+            return links['next']
+        return None
+
+    @property
+    def prev_url(self):
+        links = self.links
+        if links and 'prev' in self.links:
+            return links['prev']
+        return None
 
     @invalidates_cache
     def limit(self, value):
@@ -32,6 +38,28 @@ class PaginatedQuerySetMixin:
     @invalidates_cache
     def offset(self, value):
         self.endpoint.args['page[offset]'] = value
+        return self
+
+    def next(self):
+        if not self.has_data:
+            return self
+
+        next_url = self.next_url
+        if next_url:
+            self.endpoint = next_url
+        else:
+            self._data['data'] = []
+        return self
+
+    def prev(self):
+        if not self.has_data:
+            return self
+
+        prev_url = self.prev_url
+        if prev_url:
+            self.endpoint = prev_url
+        else:
+            self._data['data'] = []
         return self
 
 

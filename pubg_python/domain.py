@@ -38,7 +38,7 @@ class Domain:
         return '<{0} {1}>'.format(self.__class__.__name__, self.id)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     def from_json(self):
         self.id = self._data.get('id')
@@ -63,10 +63,10 @@ class Match(Domain):
         self.assets = self.parse_assets()
 
     def parse_rosters(self):
-        return [Roster(data) for data in self._data.get('rosters')]
+        return [Roster(data) for data in self._data.get('rosters', [])]
 
     def parse_assets(self):
-        return [Asset(data) for data in self._data.get('assets')]
+        return [Asset(data) for data in self._data.get('assets', [])]
 
 
 class Roster(Domain):
@@ -81,7 +81,8 @@ class Roster(Domain):
         self.participants = self.parse_participants()
 
     def parse_participants(self):
-        return [Participant(data) for data in self._data.get('participants')]
+        return [
+            Participant(data) for data in self._data.get('participants', [])]
 
 
 class Participant(Domain):

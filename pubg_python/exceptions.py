@@ -11,6 +11,7 @@ class InvalidFilterError(Exception):
 
 
 class APIError(Exception):
+
     def __init__(self):
         super().__init__('Something went wrong with your request')
 
