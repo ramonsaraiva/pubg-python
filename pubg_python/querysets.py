@@ -1,9 +1,13 @@
-from .decorators import fetchy
+from .decorators import (
+    fetchy,
+    invalidates_cache,
+)
 from .mixins import (
     FilterableQuerySetMixin,
     PaginatedQuerySetMixin,
     SortableQuerySetMixin,
 )
+
 
 class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
                PaginatedQuerySetMixin):
@@ -11,7 +15,7 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
     def __init__(self, domain, client, endpoint):
         self.domain = domain
         self.client = client
-        self.endpoint = endpoint
+        self.endpoint = endpoint.copy()
         self._data = None
 
     @property
@@ -29,10 +33,14 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
             return [self.domain(data) for data in dataset]
         return self.domain(dataset)
 
+    @invalidates_cache
+    def get(self, id):
+        self.endpoint.path.segments.append(id)
+        self.fetch()
+        del self.endpoint.path.segments[-1]  # dirty?
+        return self.domain(self._data)
+
     def fetch(self):
         if self._data:
-            return self._data
+            return
         self._data = self.client.request(self.endpoint)
-
-    def get(self, id):
-        return self.domain(self._data['data'])
