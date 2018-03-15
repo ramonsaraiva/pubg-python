@@ -47,6 +47,7 @@ class PaginatedQuerySetMixin:
         next_url = self.next_url
         if next_url:
             self.endpoint = next_url
+            self._data = None
         else:
             self._data['data'] = []
         return self
@@ -58,6 +59,7 @@ class PaginatedQuerySetMixin:
         prev_url = self.prev_url
         if prev_url:
             self.endpoint = prev_url
+            self._data = None
         else:
             self._data['data'] = []
         return self
