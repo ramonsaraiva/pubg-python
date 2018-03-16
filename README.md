@@ -1,12 +1,12 @@
 # pubg-python
 
-A python wrapper for the PUBG developer API
+A python wrapper for the PUBG Developer API
 
 [PUBG Developer API Official Documentation](https://developer.playbattlegrounds.com/docs/en/introduction.html)
 
 *This is a MVP and the package is currently under development, please feel free to contribute*
 
-*Initial version still needs to be uploaded to PyPI*
+**Initial version will be uploaded to PyPI when Bluehole provides an API key for proper testing of the codebase**
 
 ## Usage
 
