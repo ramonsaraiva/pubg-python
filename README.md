@@ -76,23 +76,31 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False)
 
 ### Filtering
 
-Applying a `gameMode` filter:
-A list of filters can be found [here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+A list of filters can be found [here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches)
 
 ```python
-from pubg_python import Filter, GameMode
+from pubg_python import GameMode
 
-squad_matches = api.matches().filter(Filter.GAME_MODE, GameMode.SQUAD)
-solo_matches = api.matches().filter(Filter.GAME_MODE, GameMode.SOLO)
-after_2018 = api.matches().filter(Filter.CREATED_AT_START, '2018-01-01T00:00:00Z')
+squad_matches = api.matches().filter(game_mode=GameMode.SQUAD)
+solo_matches = api.matches().filter(game_mode=GameMode.SOLO)
+after_2018_before_2019 = api.matches().filter(
+    created_at_start='2018-01-01T00:00:00Z',
+    created_at_end='2019-01-01T00:00:00Z'
+)
 ```
 
 You don't need to use the `Enum`s if you don't want to:
 
 ```python
-squad_matches = api.matches().filter('gameMode', 'squad')
-solo_matches = api.matches().filter('gameMode', 'solo')
-after_2018 = api.matches().filter('createdAt-start', '2018-01-01T00:00:00Z')
+squad_matches = api.matches().filter(game_mode='squad')
+solo_matches = api.matches().filter(game_mode='solo')
+```
+
+And you can also chain filters:
+
+```python
+squad_queryset = api.matches().filter(game_mode='squad')
+squad_after_2018 = squad_queryset.filter(created_at_start='2018-01-01T00:00:00Z')
 ```
 
 ### Pagination
