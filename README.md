@@ -6,7 +6,9 @@ A python wrapper for the PUBG Developer API
 
 *This is a MVP and the package is currently under development, please feel free to contribute*
 
-**Initial version will be uploaded to PyPI when Bluehole provides an API key for proper testing of the codebase**
+## PyPI release
+
+PUBG developer API is scheduled to go live in early April, `pubg-python` initial version will be uploaded to PyPI once that happens.
 
 ## Usage
 
