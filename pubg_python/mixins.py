@@ -76,13 +76,18 @@ class SortableQuerySetMixin:
 
 class FilterableQuerySetMixin:
 
-    @invalidates_cache
-    def filter(self, filter_key, filter_value):
-        if not isinstance(filter_key, Filter):
-            raise InvalidFilterError("Invalid Filter")
-        if isinstance(filter_value, Enum):
-            filter_value = filter_value.value
+    FILTER_MAPPING = {
+        'created_at_start': 'createdAt-start',
+        'created_at_end': 'createdAt-end',
+        'players_ids': 'playerIds',
+        'game_mode': 'gameMode',
+    }
 
-        self.endpoint.args['filter[{}]'.format(
-            filter_key.value)] = filter_value
+    @invalidates_cache
+    def filter(self, **kwargs):
+        for kw in kwargs:
+            if kw not in self.FILTER_MAPPING:
+                raise InvalidFilterError('Invalid filter')
+            self.endpoint.args[
+                'filter[{}]'.format(self.FILTER_MAPPING[kw])] = kwargs[kw]
         return self
