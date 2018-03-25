@@ -1,0 +1,5 @@
+-r base.txt
+
+pytest==3.5.0
+codecov==2.0.15
+flake8==3.5.0
