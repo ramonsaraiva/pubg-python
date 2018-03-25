@@ -15,3 +15,6 @@ _mailinglist
 .coverage
 *,cover
 test-reports
+htmlcov
+*coverage*
+*.pytest*
