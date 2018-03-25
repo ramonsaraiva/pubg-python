@@ -1,7 +1,4 @@
-from enum import Enum
-
 from .decorators import invalidates_cache
-from .domain import Filter
 from .exceptions import InvalidFilterError
 
 
