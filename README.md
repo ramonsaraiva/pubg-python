@@ -24,20 +24,13 @@ api = PUBG('<api-key>', Shard.PC_NA)
 
 A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
-## Retrieving a list of matches
 
-Retrieving a list of matches is as simple as this:
-
-```python
-matches = api.matches()
-```
-
-## Retrieving a single match
+## Retrieving a match
 
 Retrieving a single match is also a piece of cake:
 
 ```python
-match = api.matches().get(12345)
+match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 ```
 
 ## Playing around with the match data
@@ -46,7 +39,7 @@ A simple example of how you can manipulate the data:
 The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
 ```python
-match = api.matches().get(12345)
+match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 
 print(match.duration)
 print(match.game_mode)
