@@ -28,10 +28,7 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
 
     @fetchy
     def __getitem__(self, key):
-        dataset = self._data['data'][key]
-        if isinstance(dataset, list):
-            return [Domain.instance({'data': data}) for data in dataset]
-        return Domain.instance(dataset)
+        return Domain.instance({'data': self._data['data'][key]})
 
     @invalidates_cache
     def get(self, id):
