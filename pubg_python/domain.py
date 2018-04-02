@@ -91,7 +91,8 @@ class Meta:
     def retrieve(self, data):
         if not self.included:
             return data
-        return next(filter(lambda x: x['id'] == id, self.included), data)
+        return next(
+            filter(lambda x: x['id'] == data['id'], self.included), data)
 
 
 class Match(Domain):
@@ -130,7 +131,7 @@ class Asset(Domain):
 
     def from_json(self):
         super().from_json()
-        self.url = self.attributes.get('url')
+        self.url = self.attributes.get('URL')
         self.created_at = self.attributes.get('createdAt')
         self.description = self.attributes.get('description')
         self.name = self.attributes.get('name')
