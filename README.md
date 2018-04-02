@@ -24,7 +24,9 @@ api = PUBG('<api-key>', Shard.PC_NA)
 
 A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
-## Retrieving a player and its matches
+## Players
+
+### Retrieving a single player
 
 ```python
 player = api.players().get('account.3654e255b77b409e87b10dcb086ab00d')
@@ -33,7 +35,21 @@ for match in player.matches:
     match_data = api.matches().get(match.id)
 ```
 
-## Retrieving a match
+### Retrieving a list of players filtering by names
+
+```python
+players = api.players().filter(player_names=['Name1', 'Name2'])
+```
+
+### Retrieving a list of players filtering by ids
+
+```python
+players = api.players().filter(player_ids=['276f5bcb-a831-4e8c-a610-d2073692069e'])
+```
+
+## Matches
+
+### Retrieving a single match
 
 Retrieving a single match is also a piece of cake:
 
@@ -41,7 +57,7 @@ Retrieving a single match is also a piece of cake:
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 ```
 
-## Playing around with the match data
+### Playing around with the match data
 
 A simple example of how you can manipulate the data:
 The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
