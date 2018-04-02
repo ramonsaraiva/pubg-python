@@ -15,4 +15,13 @@ setup(
         'requests>=2.18.4',
         'furl>=1.0.1',
     ],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Utilities',
+    ],
 )
