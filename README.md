@@ -24,6 +24,14 @@ api = PUBG('<api-key>', Shard.PC_NA)
 
 A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
+## Retrieving a player and its matches
+
+```python
+player = api.players().get('account.3654e255b77b409e87b10dcb086ab00d')
+
+for match in player.matches:
+    match_data = api.matches().get(match.id)
+```
 
 ## Retrieving a match
 

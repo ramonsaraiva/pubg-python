@@ -32,10 +32,18 @@ class PUBG:
         return url
 
     @requires_shard
-    def matches(self, id=None):
+    def endpoint(self, name):
         url = self.shard_url
-        url.path.segments.append('matches')
+        url.path.segments.append(name)
         return QuerySet(self.client, url)
+
+    def matches(self):
+        # TODO: can probably be moved to __call__
+        return self.endpoint('matches')
+
+    def players(self):
+        # TODO: can probably be moved to __call__
+        return self.endpoint('players')
 
 
 class Client:

@@ -76,7 +76,8 @@ class FilterableQuerySetMixin:
     FILTER_MAPPING = {
         'created_at_start': 'createdAt-start',
         'created_at_end': 'createdAt-end',
-        'players_ids': 'playerIds',
+        'player_ids': 'playerIds',
+        'player_names': 'playerNames',
         'game_mode': 'gameMode',
     }
 

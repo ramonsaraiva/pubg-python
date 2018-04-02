@@ -51,8 +51,8 @@ class Domain:
     def from_json(self):
         self.id = self._data.get('id')
         self.type = self._data.get('type')
-        self.attributes = self._data.get('attributes')
-        self.relationships = self._data.get('relationships')
+        self.attributes = self._data.get('attributes', {})
+        self.relationships = self._data.get('relationships', {})
 
     def process_relationships(self):
         if not self.relationships:
@@ -65,9 +65,7 @@ class Domain:
             setattr(self, name, [])
             rel = getattr(self, name)
             for data in relationship['data']:
-                item = self._meta.retrieve(data['id'])
-                if not item:
-                    continue
+                item = self._meta.retrieve(data)
                 rel.append(Domain.instance({'data': item}, meta=self._meta))
 
 
@@ -90,8 +88,10 @@ class Meta:
     def included(self):
         return self._included
 
-    def retrieve(self, id):
-        return next(filter(lambda x: x['id'] == id, self._included), None)
+    def retrieve(self, data):
+        if not self.included:
+            return data
+        return next(filter(lambda x: x['id'] == id, self.included), data)
 
 
 class Match(Domain):
@@ -130,7 +130,20 @@ class Asset(Domain):
 
     def from_json(self):
         super().from_json()
-        self.url = self._data.get('url')
-        self.created_at = self._data.get('createdAt')
-        self.description = self._data.get('description')
+        self.url = self.attributes.get('url')
+        self.created_at = self.attributes.get('createdAt')
+        self.description = self.attributes.get('description')
         self.name = self.attributes.get('name')
+
+
+class Player(Domain):
+
+    def from_json(self):
+        super().from_json()
+        self.created_at = self.attributes.get('createdAt')
+        self.name = self.attributes.get('name')
+        self.patch_version = self.attributes.get('patchVersion')
+        self.shard_id = self.attributes.get('shardId')
+        self.stats = self.attributes.get('stats')
+        self.title_id = self.attributes.get('titleId')
+        self.updated_at = self.attributes.get('updated_at')
