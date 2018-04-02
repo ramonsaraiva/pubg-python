@@ -30,9 +30,13 @@ class GameMode(Enum):
 
 class Domain:
 
-    def __init__(self, data):
-        self._data = data
+    def __init__(self, data, meta=None):
+        self._raw_data = data
+        self._meta = meta or Meta(self._raw_data)
+        self._data = self._raw_data['data']
         self.from_json()
+
+        self.process_relationships()
 
     def __repr__(self):
         return '<{0} {1}>'.format(self.__class__.__name__, self.id)
@@ -40,69 +44,93 @@ class Domain:
     def __str__(self):
         return str(self.id)
 
+    @classmethod
+    def instance(cls, data, meta=None):
+        return globals()[data['data']['type'].title()](data, meta)
+
     def from_json(self):
         self.id = self._data.get('id')
+        self.type = self._data.get('type')
+        self.attributes = self._data.get('attributes')
+        self.relationships = self._data.get('relationships')
+
+    def process_relationships(self):
+        if not self.relationships:
+            return
+
+        for name, relationship in self.relationships.items():
+            if not relationship['data']:
+                continue
+
+            setattr(self, name, [])
+            rel = getattr(self, name)
+            for data in relationship['data']:
+                item = self._meta.retrieve(data['id'])
+                if not item:
+                    continue
+                rel.append(Domain.instance({'data': item}, meta=self._meta))
+
+
+class Meta:
+
+    def __init__(self, data):
+        self._meta = data.get('meta')
+        self._links = data.get('links')
+        self._included = data.get('included')
+
+    @property
+    def meta(self):
+        return self._meta
+
+    @property
+    def links(self):
+        return self._links
+
+    @property
+    def included(self):
+        return self._included
+
+    def retrieve(self, id):
+        return next(filter(lambda x: x['id'] == id, self._included), None)
 
 
 class Match(Domain):
 
     def from_json(self):
         super().from_json()
-        self.created_at = self._data.get('createdAt')
-        self.duration = self._data.get('duration')
-        self.rounds = self._data.get('rounds')
-        self.spectators = self._data.get('spectators')
-        self.stats = self._data.get('stats')
-        self.game_mode = self._data.get('gameMode')
-        self.patch_version = self._data.get('patchVersion')
-        self.title_id = self._data.get('titleId')
-        self.shard_id = self._data.get('shardId')
-        self.tags = self._data.get('tags')
-
-        self.rosters = self.parse_rosters()
-        self.assets = self.parse_assets()
-
-    def parse_rosters(self):
-        return [Roster(data) for data in self._data.get('rosters', [])]
-
-    def parse_assets(self):
-        return [Asset(data) for data in self._data.get('assets', [])]
+        self.created_at = self.attributes.get('createdAt')
+        self.duration = self.attributes.get('duration')
+        self.stats = self.attributes.get('stats')
+        self.game_mode = self.attributes.get('gameMode')
+        self.patch_version = self.attributes.get('patchVersion')
+        self.title_id = self.attributes.get('titleId')
+        self.shard_id = self.attributes.get('shardId')
+        self.tags = self.attributes.get('tags')
 
 
 class Roster(Domain):
 
     def from_json(self):
         super().from_json()
-        self.team = self._data.get('team')
-        self.stats = self._data.get('stats')
-        self.won = self._data.get('won')
-        self.shard_id = self._data.get('shardId')
-
-        self.participants = self.parse_participants()
-
-    def parse_participants(self):
-        return [
-            Participant(data) for data in self._data.get('participants', [])]
+        self.shard_id = self.attributes.get('shardId')
+        self.stats = self.attributes.get('stats')
+        self.won = self.attributes.get('won')
 
 
 class Participant(Domain):
 
     def from_json(self):
         super().from_json()
-        self.stats = self._data.get('stats')
-        self.actor = self._data.get('actor')
-        self.shard_id = self._data.get('shardId')
+        self.actor = self.attributes.get('actor')
+        self.shard_id = self.attributes.get('shardId')
+        self.stats = self.attributes.get('stats')
 
 
 class Asset(Domain):
 
     def from_json(self):
         super().from_json()
-        self.title_id = self._data.get('titleId')
-        self.shard_id = self._data.get('shardId')
-        self.name = self._data.get('name')
-        self.description = self._data.get('description')
-        self.created_at = self._data.get('createdAt')
-        self.filename = self._data.get('filename')
-        self.content_type = self._data.get('contentType')
         self.url = self._data.get('url')
+        self.created_at = self._data.get('createdAt')
+        self.description = self._data.get('description')
+        self.name = self.attributes.get('name')

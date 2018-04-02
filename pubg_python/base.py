@@ -38,7 +38,7 @@ class PUBG:
     def matches(self, id=None):
         url = self.shard_url
         url.path.segments.append('matches')
-        return QuerySet(Match, self.client, url)
+        return QuerySet(self.client, url)
 
 
 class Client:
