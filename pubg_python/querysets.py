@@ -24,13 +24,13 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
 
     @fetchy
     def __iter__(self):
-        return (Domain.instance(data) for data in self._data['data'])
+        return (Domain.instance({'data': data}) for data in self._data['data'])
 
     @fetchy
     def __getitem__(self, key):
         dataset = self._data['data'][key]
         if isinstance(dataset, list):
-            return [Domain.instance(data) for data in dataset]
+            return [Domain.instance({'data': data}) for data in dataset]
         return Domain.instance(dataset)
 
     @invalidates_cache
