@@ -5,10 +5,7 @@ import requests
 
 from . import exceptions
 from .decorators import requires_shard
-from .domain import (
-    Match,
-    Shard,
-)
+from .domain import Shard
 from .querysets import QuerySet
 
 
