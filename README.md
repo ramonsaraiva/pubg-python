@@ -4,11 +4,20 @@ A python wrapper for the PUBG Developer API
 
 [PUBG Developer API Official Documentation](https://developer.playbattlegrounds.com/docs/en/introduction.html)
 
-*This is a MVP and the package is currently under development, please feel free to contribute*
+## Installation
 
-## PyPI release
+To install the wrapper, simply use `pip`
 
-PUBG developer API is scheduled to go live in early April, `pubg-python` initial version will be uploaded to PyPI once that happens.
+```
+pip install pubg-python
+```
+
+or `pipenv`
+
+
+```
+pipenv install pubg-python
+```
 
 ## Usage
 
