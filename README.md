@@ -66,23 +66,64 @@ Retrieving a single match is also a piece of cake:
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 ```
 
-### Playing around with the match data
+## Playing around with data
 
-A simple example of how you can manipulate the data:
+An example of how you can manipulate the data:
 The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
 ```python
-match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
+players = api.players().filter(players_names['epickitten'])
+player = players[0]
 
-print(match.duration)
-print(match.game_mode)
+player.matches
+>> [<Match bd6aae34-be05-4094-981c-083285c7e861>, <Match 276f5bcb-a831-4e8c-a610-d2073692069e>, ..]
 
-for roster in match.rosters:
-    print(roster.participants)
-    print(roster.won)
+match = api.matches().get(player.matches[0].id)
 
-    for participant in roster.participants:
-        print(participant.actor)
+match.game_mode
+>> 'solo'
+
+match.duration
+>> 1899
+
+match.rosters
+>> [<Roster d542eaee-cd02-4f4e-ad7f-ed5ea71a17cf>, <Roster e9f0962a-ebd4-4d86-b134-95783b713800>, ..]
+
+roster = match.rosters[0]
+
+roster.participants
+>> [<Participant 7cc76d1b-a80e-4997-8eb8-d4b3c1ed4f44>]
+
+participant = roster.participans[0]
+
+participant.name
+>> 'urdaddyYO'
+
+participant.damage_dealt
+>> 291.08
+
+participant.kills
+>> 2
+
+participant.ride_distance
+>> 3204.53467
+
+participant.walk_distance
+>> 2262.81714
+
+participant.time_survived
+>> 1367
+
+participant.player_id
+>> account.edb9910f1e9c4f3b9addb87d9329b57c
+
+player = api.players().get(participant.player_id)
+
+player
+>> account.edb9910f1e9c4f3b9addb87d9329b57c
+
+player.matches
+>> [<Match b3dcd7e8-2270-4fdd-8389-af77acf2d6c2>, <Match 2ebb1a9c-ab5e-4264-971f-df77a00918a9>, ..]
 ```
 
 ### Limits and Offsets
