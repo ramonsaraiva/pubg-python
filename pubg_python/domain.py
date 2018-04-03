@@ -76,23 +76,11 @@ class Meta:
         self._links = data.get('links')
         self._included = data.get('included')
 
-    @property
-    def meta(self):
-        return self._meta
-
-    @property
-    def links(self):
-        return self._links
-
-    @property
-    def included(self):
-        return self._included
-
     def retrieve(self, data):
-        if not self.included:
+        if not self._included:
             return data
         return next(
-            filter(lambda x: x['id'] == data['id'], self.included), data)
+            filter(lambda x: x['id'] == data['id'], self._included), data)
 
 
 class Match(Domain):
