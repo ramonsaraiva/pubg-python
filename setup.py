@@ -4,7 +4,7 @@ from setuptools import (
 
 setup(
     name='pubg-python',
-    version='0.2.0',
+    version='0.2.1',
     description='A python wrapper for the PUBG developer API',
     url='https://github.com/ramonsaraiva/pubg-python',
     author='Ramon Saraiva',
@@ -15,6 +15,9 @@ setup(
         'requests>=2.18.4',
         'furl>=1.0.1',
     ],
+    extras_require={
+        ":python_version<='3.4'": ['enum34>=1.1.6'],
+    },
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
