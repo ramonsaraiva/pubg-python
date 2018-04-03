@@ -23,11 +23,6 @@ class Filter(Enum):
     GAME_MODE = 'gameMode'
 
 
-class GameMode(Enum):
-    SOLO = 'solo'
-    SQUAD = 'squad'
-
-
 class Domain:
 
     def __init__(self, data, meta=None):

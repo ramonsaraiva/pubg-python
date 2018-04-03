@@ -148,10 +148,8 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False)
 A list of filters can be found [here](https://documentation.playbattlegrounds.com/en/matches.html#/Matches/get_matches)
 
 ```python
-from pubg_python import GameMode
-
-squad_matches = api.matches().filter(game_mode=GameMode.SQUAD)
-solo_matches = api.matches().filter(game_mode=GameMode.SOLO)
+squad_matches = api.matches().filter(game_mode='squad')
+solo_matches = api.matches().filter(game_mode='solo')
 after_2018_before_2019 = api.matches().filter(
     created_at_start='2018-01-01T00:00:00Z',
     created_at_end='2019-01-01T00:00:00Z'
