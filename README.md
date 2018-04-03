@@ -2,7 +2,7 @@
 
 A python wrapper for the PUBG Developer API
 
-[PUBG Developer API Official Documentation](https://developer.playbattlegrounds.com/docs/en/introduction.html)
+[PUBG Developer API Official Documentation](https://documentation.playbattlegrounds.com/en/introduction.html)
 
 ## Installation
 
@@ -31,7 +31,7 @@ from pubg_python import PUBG, Shard
 api = PUBG('<api-key>', Shard.PC_NA)
 ```
 
-A list of shards can be found [here](https://developer.playbattlegrounds.com/docs/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+A list of shards can be found [here](https://documentation.playbattlegrounds.com/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
 ## Players
 
@@ -145,7 +145,7 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False)
 
 ### Filtering
 
-A list of filters can be found [here](https://developer.playbattlegrounds.com/docs/en/matches.html#/Matches/get_matches)
+A list of filters can be found [here](https://documentation.playbattlegrounds.com/en/matches.html#/Matches/get_matches)
 
 ```python
 from pubg_python import GameMode
