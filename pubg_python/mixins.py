@@ -81,11 +81,24 @@ class FilterableQuerySetMixin:
         'game_mode': 'gameMode',
     }
 
+    FILTER_MULTIPLES = (
+        'player_ids',
+        'player_names',
+    )
+
     @invalidates_cache
     def filter(self, **kwargs):
         for kw in kwargs:
             if kw not in self.FILTER_MAPPING:
                 raise InvalidFilterError('Invalid filter')
+
+            if kw in self.FILTER_MULTIPLES:
+                if not isinstance(kwargs[kw], list):
+                    raise InvalidFilterError('Invalid filter value')
+                value = ','.join(kwargs[kw])
+            else:
+                value = kwargs[kw]
+
             self.endpoint.args[
-                'filter[{}]'.format(self.FILTER_MAPPING[kw])] = kwargs[kw]
+                'filter[{}]'.format(self.FILTER_MAPPING[kw])] = value
         return self
