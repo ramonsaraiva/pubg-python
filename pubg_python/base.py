@@ -5,7 +5,7 @@ import requests
 
 from . import exceptions
 from .decorators import requires_shard
-from .domain import Shard
+from .domain.base import Shard
 from .querysets import QuerySet
 
 

@@ -2,7 +2,7 @@ from .decorators import (
     fetchy,
     invalidates_cache,
 )
-from .domain import Domain
+from .domain.base import Domain
 from .mixins import (
     FilterableQuerySetMixin,
     PaginatedQuerySetMixin,

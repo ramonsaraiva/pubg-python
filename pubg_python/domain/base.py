@@ -28,7 +28,7 @@ class Domain:
     def __init__(self, data, meta=None):
         self._raw_data = data
         self._meta = meta or Meta(self._raw_data)
-        self._data = self._raw_data['data']
+        self._data = self._raw_data.pop('data')
         self.from_json()
 
         self.process_relationships()
@@ -39,15 +39,15 @@ class Domain:
     def __str__(self):
         return str(self.id)
 
-    @classmethod
-    def instance(cls, data, meta=None):
+    @staticmethod
+    def instance(data, meta=None):
         return globals()[data['data']['type'].title()](data, meta)
 
     def from_json(self):
         self.id = self._data.get('id')
         self.type = self._data.get('type')
-        self.attributes = self._data.get('attributes', {})
-        self.relationships = self._data.get('relationships', {})
+        self.attributes = self._data.pop('attributes', {})
+        self.relationships = self._data.pop('relationships', {})
 
     def process_relationships(self):
         if not self.relationships:
@@ -67,9 +67,9 @@ class Domain:
 class Meta:
 
     def __init__(self, data):
-        self._meta = data.get('meta')
-        self._links = data.get('links')
-        self._included = data.get('included')
+        self._meta = data.pop('meta', {})
+        self._links = data.pop('links', {})
+        self._included = data.pop('included', {})
 
     def retrieve(self, data):
         if not self._included:
