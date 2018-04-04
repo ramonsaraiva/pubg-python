@@ -100,7 +100,7 @@ An example of how you can manipulate the data:
 The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
 
 ```python
-players = api.players().filter(players_names['epickitten'])
+players = api.players().filter(player_names['epickitten'])
 player = players[0]
 
 player.matches
