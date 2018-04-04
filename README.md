@@ -66,6 +66,26 @@ Retrieving a single match is also a piece of cake:
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 ```
 
+### Telemetry
+
+Processing a match Telemetry data:
+
+```python
+match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
+asset = match.assets[0]
+telemetry = api.telemetry(asset.url)
+
+print(len(telemetry.events))
+>> 16871
+``` 
+
+* Events
+  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-events.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/events.py)
+* Objects
+  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-objects.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/objects.py)
+
 ## Playing around with data
 
 An example of how you can manipulate the data:
