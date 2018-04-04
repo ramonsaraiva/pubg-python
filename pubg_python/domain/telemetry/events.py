@@ -188,7 +188,8 @@ class LogMatchEvent(Event):
     def from_dict(self):
         super().from_dict()
         self.characters = [
-            objects.Character(data) for data in self._data.get('characters', [])
+            objects.Character(data)
+            for data in self._data.get('characters', [])
         ]
 
 
