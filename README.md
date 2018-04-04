@@ -35,6 +35,10 @@ A list of shards can be found [here](https://documentation.playbattlegrounds.com
 
 ## Players
 
+* Players
+  * [Official docs](https://documentation.playbattlegrounds.com/en/players.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
 ### Retrieving a single player
 
 ```python
@@ -58,6 +62,10 @@ players = api.players().filter(player_ids=['276f5bcb-a831-4e8c-a610-d2073692069e
 
 ## Matches
 
+* Matches
+  * [Official docs](https://documentation.playbattlegrounds.com/en/matches.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
 ### Retrieving a single match
 
 Retrieving a single match is also a piece of cake:
@@ -66,7 +74,14 @@ Retrieving a single match is also a piece of cake:
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
 ```
 
-### Telemetry
+## Telemetry
+
+* Telemetry events
+  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-events.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/events.py)
+* Event objects
+  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-objects.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/objects.py)
 
 Processing a match Telemetry data:
 
@@ -78,13 +93,6 @@ telemetry = api.telemetry(asset.url)
 print(len(telemetry.events))
 >> 16871
 ``` 
-
-* Events
-  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-events.html)
-  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/events.py)
-* Objects
-  * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-objects.html)
-  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/objects.py)
 
 ## Playing around with data
 
