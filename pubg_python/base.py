@@ -1,8 +1,3 @@
-import json
-
-import furl
-import requests
-
 from . import exceptions
 from .clients import (
     APIClient,
