@@ -95,7 +95,7 @@ for match in matches:
   * [Official docs](https://documentation.playbattlegrounds.com/en/telemetry-objects.html)
   * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/telemetry/objects.py)
 
-Processing a match Telemetry data:
+### Processing a match Telemetry data
 
 ```python
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
