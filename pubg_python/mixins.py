@@ -78,12 +78,14 @@ class FilterableQuerySetMixin:
         'created_at_end': 'createdAt-end',
         'player_ids': 'playerIds',
         'player_names': 'playerNames',
+        'match_ids': 'matchIds',
         'game_mode': 'gameMode',
     }
 
     FILTER_MULTIPLES = (
         'player_ids',
         'player_names',
+        'match_ids'
     )
 
     @invalidates_cache
