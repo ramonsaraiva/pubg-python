@@ -38,7 +38,7 @@ class APIClient(Client):
 
     def __init__(self, api_key):
         super().__init__()
-        self.session.headers.update({'Authorization': api_key})
+        self.session.headers.update({'Authorization': 'Bearer ' + api_key})
         self.url.set(path=self.BASE_URL)
 
 
