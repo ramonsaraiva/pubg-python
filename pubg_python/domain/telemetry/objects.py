@@ -1,3 +1,4 @@
+from .data import TelemetryData
 from .resources import (
     ITEM_MAP,
     VEHICLE_MAP,
@@ -7,7 +8,7 @@ from .resources import (
 class Object:
 
     def __init__(self, data):
-        self._data = data if isinstance(data, dict) else {}
+        self._data = data if isinstance(data, TelemetryData) else {}
         self.from_dict()
 
     def from_dict(self):

@@ -3,9 +3,7 @@ from . import objects
 
 class Event:
 
-    def __init__(self, data, device=None):
-        # TODO: different retrieval based on device
-        self.device = device
+    def __init__(self, data):
         self._data = data
         self.from_dict()
 
@@ -24,7 +22,6 @@ class LogPlayerLogin(Event):
     def from_dict(self):
         super().from_dict()
         self.result = self._data.get('Result')
-        self.error_message = self._data.get('')
         self.account_id = self._data.get('accountId')
 
 

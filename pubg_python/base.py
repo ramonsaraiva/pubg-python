@@ -46,4 +46,4 @@ class PUBG:
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
-        return Telemetry(data)
+        return Telemetry(data, url)
