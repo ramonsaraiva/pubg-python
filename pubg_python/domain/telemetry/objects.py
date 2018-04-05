@@ -8,6 +8,7 @@ class Object:
 
     def __init__(self, data):
         self._data = data if isinstance(data, dict) else {}
+        self.from_dict()
 
     def from_dict(self):
         pass
