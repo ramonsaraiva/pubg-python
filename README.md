@@ -106,6 +106,19 @@ print(len(telemetry.events))
 >> 16871
 ``` 
 
+### Filtering specific events in a telemetry object
+
+Sometimes you're interested in a set of very specific events, so there is a helper function to filter those for you:
+
+```python
+match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
+asset = match.assets[0]
+telemetry = api.telemetry(asset.url)
+
+player_kill_events = telemetry.events_from_type('LogPlayerKill')
+player_position_events = telemetry.events_from_type('LogPlayerPosition')
+```
+
 ## Playing around with data
 
 An example of how you can manipulate the data:
