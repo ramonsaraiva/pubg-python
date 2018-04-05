@@ -68,10 +68,22 @@ players = api.players().filter(player_ids=['276f5bcb-a831-4e8c-a610-d2073692069e
 
 ### Retrieving a single match
 
-Retrieving a single match is also a piece of cake:
-
 ```python
 match = api.matches().get('276f5bcb-a831-4e8c-a610-d2073692069e')
+```
+
+### Retrieving a list of matches filtering by ids
+
+**Still unavailable in the API**
+
+```python
+match_ids = [
+    '276f5bcb-a831-4e8c-a610-d2073692069e',
+    'fasf9082-21de-dkle-13ke-qlamd13nab3a',
+]
+matches = api.matches().filter(match_ids=match_ids)
+for match in matches:
+    print(match)
 ```
 
 ## Telemetry
