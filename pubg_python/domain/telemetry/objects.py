@@ -1,3 +1,8 @@
+from .resources import (
+    ITEM_MAP,
+    VEHICLE_MAP,
+)
+
 
 class Object:
 
@@ -37,6 +42,13 @@ class Item(Object):
         self.attached_items = [
             _id for _id in self._data.get('attachedItems', [])]
 
+    def __str__(self):
+        return self.name
+
+    @property
+    def name(self):
+        return ITEM_MAP.get(self.item_id, 'Undefined')
+
 
 class ItemPackage(Object):
 
@@ -68,6 +80,13 @@ class Vehicle(Object):
         self.vehicle_id = self._data.get('vehicleId')
         self.health_percent = self._data.get('healthPercent')
         self.fuel_percent = self._data.get('fuelPercent')
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def name(self):
+        return VEHICLE_MAP.get(self.vehicle_id, 'Undefined')
 
 
 class GameState(Object):
