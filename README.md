@@ -55,6 +55,7 @@ for match in player.matches:
 
 ```python
 players = api.players().filter(player_names=['Name1', 'Name2'])
+
 for player in players:
     player_id = player.id
 ```
@@ -63,6 +64,7 @@ for player in players:
 
 ```python
 players = api.players().filter(player_ids=['account.3654e255b77b409e87b10dcb086ab00d'])
+
 for player in players:
     player_name = player.name
 ```
