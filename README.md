@@ -55,6 +55,8 @@ for match in player.matches:
 
 ```python
 players = api.players().filter(player_names=['Name1', 'Name2'])
+for player in players:
+    player_id = player.id
 ```
 
 ### Retrieving a list of players filtering by ids
