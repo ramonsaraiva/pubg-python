@@ -29,8 +29,8 @@ class Location(Object):
     def from_dict(self):
         super().from_dict()
         self.x = self._data.get('x')
-        self.x = self._data.get('y')
-        self.x = self._data.get('z')
+        self.y = self._data.get('y')
+        self.z = self._data.get('z')
 
 
 class Item(Object):
