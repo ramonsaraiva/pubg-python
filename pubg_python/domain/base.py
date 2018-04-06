@@ -29,7 +29,7 @@ class Domain:
         self._raw_data = data
         self._meta = meta or Meta(self._raw_data)
         self._data = self._raw_data.pop('data')
-        self.from_json()
+        self.from_dict()
 
         self.process_relationships()
 
@@ -43,7 +43,7 @@ class Domain:
     def instance(data, meta=None):
         return globals()[data['data']['type'].title()](data, meta)
 
-    def from_json(self):
+    def from_dict(self):
         self.id = self._data.get('id')
         self.type = self._data.get('type')
         self.attributes = self._data.pop('attributes', {})
@@ -80,8 +80,8 @@ class Meta:
 
 class Match(Domain):
 
-    def from_json(self):
-        super().from_json()
+    def from_dict(self):
+        super().from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.duration = self.attributes.get('duration')
         self.stats = self.attributes.get('stats')
@@ -94,8 +94,8 @@ class Match(Domain):
 
 class Roster(Domain):
 
-    def from_json(self):
-        super().from_json()
+    def from_dict(self):
+        super().from_dict()
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.won = self.attributes.get('won')
@@ -103,8 +103,8 @@ class Roster(Domain):
 
 class Participant(Domain):
 
-    def from_json(self):
-        super().from_json()
+    def from_dict(self):
+        super().from_dict()
         self.actor = self.attributes.get('actor')
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
@@ -142,8 +142,8 @@ class Participant(Domain):
 
 class Asset(Domain):
 
-    def from_json(self):
-        super().from_json()
+    def from_dict(self):
+        super().from_dict()
         self.url = self.attributes.get('URL')
         self.created_at = self.attributes.get('createdAt')
         self.description = self.attributes.get('description')
@@ -152,8 +152,8 @@ class Asset(Domain):
 
 class Player(Domain):
 
-    def from_json(self):
-        super().from_json()
+    def from_dict(self):
+        super().from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.name = self.attributes.get('name')
         self.patch_version = self.attributes.get('patchVersion')
