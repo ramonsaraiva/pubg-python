@@ -62,7 +62,9 @@ for player in players:
 ### Retrieving a list of players filtering by ids
 
 ```python
-players = api.players().filter(player_ids=['276f5bcb-a831-4e8c-a610-d2073692069e'])
+players = api.players().filter(player_ids=['account.3654e255b77b409e87b10dcb086ab00d'])
+for player in players:
+    player_name = player.name
 ```
 
 ## Matches
