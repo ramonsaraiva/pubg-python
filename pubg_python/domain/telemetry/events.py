@@ -8,7 +8,8 @@ class Event:
         self.from_dict()
 
     def from_dict(self):
-        self.timestamp = self._data['_T']
+        self.event = self._data['_T']
+        self.timestamp = self._data['_D']
         self.version = self._data['_V']
         self.common = objects.Common(self._data.get('common', {}))
 
