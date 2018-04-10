@@ -161,4 +161,4 @@ class Player(Domain):
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
-        self.updated_at = self.attributes.get('updated_at')
+        self.updated_at = self.attributes.get('updatedAt')
