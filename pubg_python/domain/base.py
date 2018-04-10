@@ -90,6 +90,7 @@ class Match(Domain):
         self.title_id = self.attributes.get('titleId')
         self.shard_id = self.attributes.get('shardId')
         self.tags = self.attributes.get('tags')
+        self.map = self.attributes.get('mapName')
 
 
 class Roster(Domain):
