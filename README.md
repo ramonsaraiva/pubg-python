@@ -34,7 +34,7 @@ from pubg_python import PUBG, Shard
 api = PUBG('<api-key>', Shard.PC_NA)
 ```
 
-A list of shards can be found [here](https://documentation.playbattlegrounds.com/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+A list of shards can be found [here](https://documentation.playbattlegrounds.com/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
 
 ## Players
 
@@ -113,7 +113,7 @@ telemetry = api.telemetry(asset.url)
 
 print(len(telemetry.events))
 >> 16871
-``` 
+```
 
 ### Filtering specific events in a telemetry object
 
@@ -131,7 +131,7 @@ player_position_events = telemetry.events_from_type('LogPlayerPosition')
 ## Playing around with data
 
 An example of how you can manipulate the data:
-The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain.py)
+The domain is all specified [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
 
 ```python
 players = api.players().filter(player_names=['epickitten'])
