@@ -1,3 +1,5 @@
+import copy
+
 from enum import Enum
 
 
@@ -26,7 +28,7 @@ class Filter(Enum):
 class Domain:
 
     def __init__(self, data, meta=None):
-        self._raw_data = data
+        self._raw_data = copy.deepcopy(data)
         self._meta = meta or Meta(self._raw_data)
         self._data = self._raw_data.pop('data')
         self.from_dict()
