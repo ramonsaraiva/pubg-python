@@ -122,11 +122,10 @@ class Participant(Domain):
         self.headshot_kills = self.stats.get('headshotKills')
         self.heals = self.stats.get('heals')
         self.kill_place = self.stats.get('killPlace')
+        self.kill_points = self.stats.get('killPoints')
         self.kill_points_delta = self.stats.get('killPointsDelta')
         self.kill_streaks = self.stats.get('killStreaks')
         self.kills = self.stats.get('kills')
-        self.last_kill_points = self.stats.get('lastKillPoints')
-        self.last_win_points = self.stats.get('lastWinPoints')
         self.longest_kill = self.stats.get('longestKill')
         self.most_damage = self.stats.get('mostDamage')
         self.name = self.stats.get('name')
@@ -140,6 +139,7 @@ class Participant(Domain):
         self.walk_distance = self.stats.get('walkDistance')
         self.weapons_acquired = self.stats.get('weaponsAcquired')
         self.win_place = self.stats.get('winPlace')
+        self.win_points = self.stats.get('winPoints')
         self.win_points_delta = self.stats.get('winPointsDelta')
 
 
