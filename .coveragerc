@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = pubg_python
+
+[html]
+directory = test-reports/coverage.html
+
+[xml]
+output = test-reports/coverage.xml
