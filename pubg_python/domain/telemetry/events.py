@@ -1,7 +1,7 @@
 from . import objects
 
 
-class Event:
+class Event(object):
 
     def __init__(self, data):
         self._data = data
@@ -21,7 +21,7 @@ class Event:
 class LogPlayerLogin(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerLogin, self).from_dict()
         self.result = self._data.get('Result')
         self.account_id = self._data.get('accountId')
 
@@ -35,14 +35,14 @@ class LogPlayerLogout(Event):
 class LogPlayerCreate(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerCreate, self).from_dict()
         self.character = objects.Character(self._data.get('character', {}))
 
 
 class LogPlayerPosition(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerPosition, self).from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.elapsed_time = self._data.get('elapsedTime')
         self.num_alive_players = self._data.get('numAlivePlayers')
@@ -51,7 +51,7 @@ class LogPlayerPosition(Event):
 class LogPlayerAttack(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerAttack, self).from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
         self.attacker_type = self._data.get('attackerType')
@@ -62,7 +62,7 @@ class LogPlayerAttack(Event):
 class LogPlayerTakeDamage(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerTakeDamage, self).from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
         self.victim = objects.Character(self._data.get('victm', {}))
@@ -75,7 +75,7 @@ class LogPlayerTakeDamage(Event):
 class LogPlayerKill(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogPlayerKill, self).from_dict()
         self.attack_id = self._data.get('attackId')
         self.killer = objects.Character(self._data.get('killer', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
@@ -87,7 +87,7 @@ class LogPlayerKill(Event):
 class LogItem(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogItem, self).from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
 
@@ -115,7 +115,7 @@ class LogItemUse(LogItem):
 class LogItemBundle(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogItemBundle, self).from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.parent_item = objects.Item(self._data.get('parentItem', {}))
         self.child_item = objects.Item(self._data.get('childItem', {}))
@@ -132,7 +132,7 @@ class LogItemDetach(LogItemBundle):
 class LogVehicle(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogVehicle, self).from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
 
@@ -148,7 +148,7 @@ class LogVehicleLeave(LogVehicle):
 class LogVehicleDestroy(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogVehicleDestroy, self).from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
         self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
@@ -160,7 +160,7 @@ class LogVehicleDestroy(Event):
 class LogCarePackageEvent(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogCarePackageEvent, self).from_dict()
         self.item_package = objects.ItemPackage(
             self._data.get('itemPackage', {}))
 
@@ -176,7 +176,7 @@ class LogCarePackageLand(LogCarePackageEvent):
 class LogMatchDefinition(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogMatchDefinition, self).from_dict()
         self.match_id = self._data.get('matchId')
         self.ping_quality = self._data.get('pingQuality')
 
@@ -184,7 +184,7 @@ class LogMatchDefinition(Event):
 class LogMatchEvent(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogMatchEvent, self).from_dict()
         self.characters = [
             objects.Character(data)
             for data in self._data.get('characters', [])
@@ -202,5 +202,5 @@ class LogMatchEnd(LogMatchEvent):
 class LogGameStatePeriodic(Event):
 
     def from_dict(self):
-        super().from_dict()
+        super(LogGameStatePeriodic, self).from_dict()
         self.game_state = objects.GameState(self._data.get('gameState', {}))

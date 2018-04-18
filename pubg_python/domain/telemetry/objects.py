@@ -5,7 +5,7 @@ from .resources import (
 )
 
 
-class Object:
+class Object(object):
 
     def __init__(self, data):
         self._data = data if isinstance(data, TelemetryData) else {}
@@ -18,7 +18,7 @@ class Object:
 class Common(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(Common, self).from_dict()
         self.match_id = self._data.get('matchId')
         self.map_name = self._data.get('mapName')
         self.is_game = self._data.get('isGame')
@@ -27,7 +27,7 @@ class Common(Object):
 class Location(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(Location, self).from_dict()
         self.x = self._data.get('x')
         self.y = self._data.get('y')
         self.z = self._data.get('z')
@@ -36,7 +36,7 @@ class Location(Object):
 class Item(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(Item, self).from_dict()
         self.item_id = self._data.get('itemId')
         self.stack_count = self._data.get('stackCount')
         self.category = self._data.get('category')
@@ -55,7 +55,7 @@ class Item(Object):
 class ItemPackage(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(ItemPackage, self).from_dict()
         self.item_package_id = self._data.get('itemPackageId')
         self.location = Location(self._data.get('location', {}))
         self.items = [
@@ -65,7 +65,7 @@ class ItemPackage(Object):
 class Character(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(Character, self).from_dict()
         self.name = self._data.get('name')
         self.team_id = self._data.get('teamId')
         self.health = self._data.get('health')
@@ -77,7 +77,7 @@ class Character(Object):
 class Vehicle(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(Vehicle, self).from_dict()
         self.vehicle_type = self._data.get('vehicleType')
         self.vehicle_id = self._data.get('vehicleId')
         self.health_percent = self._data.get('healthPercent')
@@ -94,7 +94,7 @@ class Vehicle(Object):
 class GameState(Object):
 
     def from_dict(self):
-        super().from_dict()
+        super(GameState, self).from_dict()
         self.elapsed_time = self._data.get('elapsedTime')
         self.num_alive_teams = self._data.get('numAliveTeams')
         self.num_join_players = self._data.get('numJoinPlayers')

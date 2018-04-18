@@ -36,7 +36,7 @@ class PCTelemetryData(TelemetryData):
 class XBOXTelemetryData(TelemetryData):
 
     def __keytransform__(self, key):
-        return super().__keytransform__(key).title()
+        return super(XBOXTelemetryData, self).__keytransform__(key).title()
 
 
 SHARD_DATA_MAP = {

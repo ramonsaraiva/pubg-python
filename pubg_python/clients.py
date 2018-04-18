@@ -6,7 +6,7 @@ import requests
 from . import exceptions
 
 
-class Client:
+class Client(object):
 
     API_OK = 200
     API_ERRORS_MAPPING = {
@@ -37,7 +37,7 @@ class APIClient(Client):
     BASE_URL = 'https://api.playbattlegrounds.com/'
 
     def __init__(self, api_key):
-        super().__init__()
+        super(APIClient, self).__init__()
         self.session.headers.update({'Authorization': 'Bearer ' + api_key})
         self.url.set(path=self.BASE_URL)
 

@@ -25,7 +25,7 @@ class Filter(Enum):
     GAME_MODE = 'gameMode'
 
 
-class Domain:
+class Domain(object):
 
     def __init__(self, data, meta=None):
         self._raw_data = copy.deepcopy(data)
@@ -66,7 +66,7 @@ class Domain:
                 rel.append(Domain.instance({'data': item}, meta=self._meta))
 
 
-class Meta:
+class Meta(object):
 
     def __init__(self, data):
         self._meta = data.pop('meta', {})
@@ -83,7 +83,7 @@ class Meta:
 class Match(Domain):
 
     def from_dict(self):
-        super().from_dict()
+        super(Match, self).from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.duration = self.attributes.get('duration')
         self.stats = self.attributes.get('stats')
@@ -98,7 +98,7 @@ class Match(Domain):
 class Roster(Domain):
 
     def from_dict(self):
-        super().from_dict()
+        super(Roster, self).from_dict()
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.won = self.attributes.get('won')
@@ -107,7 +107,7 @@ class Roster(Domain):
 class Participant(Domain):
 
     def from_dict(self):
-        super().from_dict()
+        super(Participant, self).from_dict()
         self.actor = self.attributes.get('actor')
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
@@ -146,7 +146,7 @@ class Participant(Domain):
 class Asset(Domain):
 
     def from_dict(self):
-        super().from_dict()
+        super(Asset, self).from_dict()
         self.url = self.attributes.get('URL')
         self.created_at = self.attributes.get('createdAt')
         self.description = self.attributes.get('description')
@@ -156,7 +156,7 @@ class Asset(Domain):
 class Player(Domain):
 
     def from_dict(self):
-        super().from_dict()
+        super(Player, self).from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.name = self.attributes.get('name')
         self.patch_version = self.attributes.get('patchVersion')
