@@ -1,8 +1,9 @@
+from builtins import object
 from .decorators import invalidates_cache
 from .exceptions import InvalidFilterError
 
 
-class PaginatedQuerySetMixin:
+class PaginatedQuerySetMixin(object):
 
     @property
     def links(self):
@@ -37,7 +38,7 @@ class PaginatedQuerySetMixin:
         self.endpoint.args['page[offset]'] = value
         return self
 
-    def next(self):
+    def __next__(self):
         if not self.has_data:
             return self
 
@@ -62,7 +63,7 @@ class PaginatedQuerySetMixin:
         return self
 
 
-class SortableQuerySetMixin:
+class SortableQuerySetMixin(object):
 
     @invalidates_cache
     def sort(self, sort_key, ascending=True):
@@ -71,7 +72,7 @@ class SortableQuerySetMixin:
         return self
 
 
-class FilterableQuerySetMixin:
+class FilterableQuerySetMixin(object):
 
     FILTER_MAPPING = {
         'created_at_start': 'createdAt-start',

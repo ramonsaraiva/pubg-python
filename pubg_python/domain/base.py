@@ -1,3 +1,6 @@
+from builtins import next
+from builtins import str
+from builtins import object
 import copy
 
 from enum import Enum
@@ -55,7 +58,7 @@ class Domain(object):
         if not self.relationships:
             return
 
-        for name, relationship in self.relationships.items():
+        for name, relationship in list(self.relationships.items()):
             if not relationship['data']:
                 continue
 
@@ -77,7 +80,7 @@ class Meta(object):
         if not self._included:
             return data
         return next(
-            filter(lambda x: x['id'] == data['id'], self._included), data)
+            [x for x in self._included if x['id'] == data['id']], data)
 
 
 class Match(Domain):

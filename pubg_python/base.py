@@ -1,3 +1,4 @@
+from builtins import object
 from . import exceptions
 from .clients import (
     APIClient,
@@ -9,7 +10,7 @@ from .domain.telemetry.base import Telemetry
 from .querysets import QuerySet
 
 
-class PUBG:
+class PUBG(object):
 
     def __init__(self, api_key, shard=None):
         self.shard = shard
