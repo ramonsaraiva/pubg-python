@@ -44,6 +44,9 @@ class PUBG:
     def players(self):
         return self.endpoint('players')
 
+    def samples(self):
+        return self.endpoint('samples')
+
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
         return Telemetry(data, url)

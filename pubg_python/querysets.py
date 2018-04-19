@@ -31,8 +31,10 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
         return Domain.instance({'data': self._data['data'][key]})
 
     @invalidates_cache
-    def get(self, id):
-        self.endpoint.path.segments.append(id)
+    def get(self, id=None):
+        # get can be a fetchy filter in the future
+        if id:
+            self.endpoint.path.segments.append(id)
         self.fetch()
         del self.endpoint.path.segments[-1]  # dirty?
         return Domain.instance(self._data)

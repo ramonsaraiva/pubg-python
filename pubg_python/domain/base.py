@@ -81,6 +81,15 @@ class Meta:
             filter(lambda x: x['id'] == data['id'], self._included), data)
 
 
+class Sample(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.created_at = self.attributes.get('createdAt')
+        self.shard_id = self.attributes.get('shardId')
+        self.title_id = self.attributes.get('titleId')
+
+
 class Match(Domain):
 
     def from_dict(self):
