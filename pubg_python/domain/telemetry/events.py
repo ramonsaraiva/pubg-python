@@ -136,6 +136,7 @@ class LogVehicle(Event):
         self.character = objects.Character(self._data.get('character', {}))
         self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
 
+
 class LogVehicleRide(LogVehicle):
     pass
 
