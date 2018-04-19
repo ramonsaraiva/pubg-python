@@ -190,6 +190,8 @@ player.matches
 
 ### Limits and Offsets
 
+**Currently disabled from the official API**
+
 Offsetting 5 matches and limitting by 10
 
 ```python
@@ -197,6 +199,8 @@ matches = api.matches().limit(10).offset(5)
 ```
 
 ### Sorting
+
+**Currently disabled from the official API**
 
 `sort` defaults to ascending, you can use `ascending=False` for a descending sort
 
@@ -207,29 +211,16 @@ matches = api.matches().limit(10).sort('createdAt', ascending=False)
 
 ### Filtering
 
-A list of filters can be found [here](https://documentation.playbattlegrounds.com/en/matches.html#/Matches/get_matches)
+Some endpoints allow you to apply filters, for example, filtering players by names:
 
 ```python
-squad_matches = api.matches().filter(game_mode='squad')
-solo_matches = api.matches().filter(game_mode='solo')
-after_2018_before_2019 = api.matches().filter(
-    created_at_start='2018-01-01T00:00:00Z',
-    created_at_end='2019-01-01T00:00:00Z'
-)
+players = api.players().filter(player_names=['Name1', 'Name2'])
 ```
 
-You don't need to use the `Enum`s if you don't want to:
+Or filtering players by ids:
 
 ```python
-squad_matches = api.matches().filter(game_mode='squad')
-solo_matches = api.matches().filter(game_mode='solo')
-```
-
-And you can also chain filters:
-
-```python
-squad_queryset = api.matches().filter(game_mode='squad')
-squad_after_2018 = squad_queryset.filter(created_at_start='2018-01-01T00:00:00Z')
+players = api.players().filter(player_ids=['account.3654e255b77b409e87b10dcb086ab00d'])
 ```
 
 ### Pagination
@@ -240,16 +231,4 @@ Use `next()` for the next page and `prev()` for the previous one:
 matches = api.matches()
 next_matches = matches.next()
 previous_matches = matches.prev()
-```
-
-### I want them all!
-
-Be aware of rate limits:
-
-```python
-matches = api.matches()
-while matches:
-    for match in matches:
-        print(match)
-    matches = matches.next()
 ```
