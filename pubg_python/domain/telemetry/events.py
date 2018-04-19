@@ -134,8 +134,7 @@ class LogVehicle(Event):
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
-        self.item = objects.Item(self._data.get('item', {}))
-
+        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
 
 class LogVehicleRide(LogVehicle):
     pass
