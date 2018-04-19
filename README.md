@@ -36,6 +36,30 @@ api = PUBG('<api-key>', Shard.PC_NA)
 
 A list of shards can be found [here](https://documentation.playbattlegrounds.com/en/making-requests.html#regions) and the wrapper constants [here](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
 
+
+## Samples
+
+* Samples
+  * [Official docs](https://documentation.playbattlegrounds.com/en/samples.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
+## A sample of matches can be retrieved as a starting point
+
+```python
+sample = api.samples().get()
+for match in sample.matches:
+    print(match.id)
+```
+
+# Samples can also be filtered by a creation date
+
+```python
+sample = api.samples().filter(created_at_start='2018-01-01T00:00:00Z').get()
+for match in sample.matches:
+    print(match.id)
+```
+
+
 ## Players
 
 * Players
