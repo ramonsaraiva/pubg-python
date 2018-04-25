@@ -54,7 +54,7 @@ class LogPlayerAttack(Event):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.attacker_type = self._data.get('attackerType')
+        self.attack_type = self._data.get('attackType')
         self.weapon = objects.Item(self._data.get('weapon', {}))
         self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
 
