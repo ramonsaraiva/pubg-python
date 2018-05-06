@@ -65,7 +65,7 @@ class LogPlayerTakeDamage(Event):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.victim = objects.Character(self._data.get('victm', {}))
+        self.victim = objects.Character(self._data.get('victim', {}))
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_reason = self._data.get('damageReason')
         self.damage = self._data.get('damage')
