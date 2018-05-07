@@ -270,3 +270,7 @@ matches = api.matches()
 next_matches = matches.next()
 previous_matches = matches.prev()
 ```
+
+## Changelog
+
+[CHANGELOG.md](https://github.com/ramonsaraiva/pubg-python/blob/master/CHANGELOG.md)
