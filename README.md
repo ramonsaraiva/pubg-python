@@ -152,6 +152,20 @@ player_kill_events = telemetry.events_from_type('LogPlayerKill')
 player_position_events = telemetry.events_from_type('LogPlayerPosition')
 ```
 
+### Loading a local Telemetry file
+
+If you want to load a previously downloaded telemetry file, there is a helper
+method to create a Telemetry object from it:
+
+```python
+from pubg_python import Telemetry
+
+telemetry = Telemetry.from_json('telemetry.json', shard='pc')
+```
+
+`shard` defaults to `pc` but you need to specify if you're loading a `xbox` telemetry file.
+
+
 ## Playing around with data
 
 An example of how you can manipulate the data:
