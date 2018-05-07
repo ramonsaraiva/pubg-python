@@ -1,11 +1,13 @@
+import json
+
 from .data import SHARD_DATA_MAP
 from .events import Event
 
 
 class Telemetry:
 
-    def __init__(self, data, url):
-        self.shard = 'xbox' if 'xbox-' in url else 'pc'
+    def __init__(self, data, url, shard=None):
+        self.shard = shard or ('xbox' if 'xbox-' in url else 'pc')
         self.events = [
             Event.instance(event_data)
             for event_data in self.generate_events_data(data)
@@ -18,3 +20,9 @@ class Telemetry:
 
     def events_from_type(self, _type):
         return [ev for ev in self.events if type(ev).__name__ == _type]
+
+    @classmethod
+    def from_json(cls, path, shard='pc'):
+        with open(path, 'r') as telemetry_file:
+            data = json.load(telemetry_file)
+        return cls(data, path, shard)
