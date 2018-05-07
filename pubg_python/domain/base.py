@@ -13,6 +13,7 @@ class Shard(Enum):
     PC_SA = 'pc-sa'  # South and Central America
     PC_SEA = 'pc-sea'  # South East Asia
     PC_JP = 'pc-jp'  # Japan
+    PC_RU = 'pc-ru'  # Russia
     XBOX_AS = 'xbox-as'  # Asia
     XBOX_EU = 'xbox-eu'  # Europe
     XBOX_NA = 'xbox-na'  # North America
