@@ -104,6 +104,7 @@ class Match(Domain):
         self.shard_id = self.attributes.get('shardId')
         self.tags = self.attributes.get('tags')
         self.map = self.attributes.get('mapName')
+        self.is_custom = self.attributes.get('isCustomMatch')
 
 
 class Roster(Domain):
