@@ -204,3 +204,37 @@ class LogGameStatePeriodic(Event):
     def from_dict(self):
         super().from_dict()
         self.game_state = objects.GameState(self._data.get('gameState', {}))
+
+
+class LogSwimStart(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+
+
+
+class LogSwimEnd(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+
+
+
+class LogArmorDestroy(Event):
+    """docstring for LogArmorDestroy"""
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_causer_name = self._data.get('damageCauserName')
+        self.distance = self._data.get('distance')
+        self.item = objects.Item(self._data.get('item', {}))
+        self.victim = objects.Character(self._data.get('victim', {}))
+        self.damage_reason = self._data.get('damageReason')
+
+        
+
