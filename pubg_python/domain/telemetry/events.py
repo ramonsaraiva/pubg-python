@@ -213,13 +213,11 @@ class LogSwimStart(Event):
         self.character = objects.Character(self._data.get('character', {}))
 
 
-
 class LogSwimEnd(Event):
 
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
-
 
 
 class LogArmorDestroy(Event):
@@ -235,6 +233,3 @@ class LogArmorDestroy(Event):
         self.item = objects.Item(self._data.get('item', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
         self.damage_reason = self._data.get('damageReason')
-
-        
-
