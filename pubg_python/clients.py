@@ -5,6 +5,7 @@ import requests
 
 from . import exceptions
 
+DEFAULT_TIMEOUT = 30
 
 class Client:
 
@@ -22,7 +23,7 @@ class Client:
         self.url = furl.furl()
 
     def request(self, endpoint):
-        response = self.session.get(endpoint)
+        response = self.session.get(endpoint, timeout=DEFAULT_TIMEOUT)
 
         if response.status_code != self.API_OK:
             exception = self.API_ERRORS_MAPPING.get(
