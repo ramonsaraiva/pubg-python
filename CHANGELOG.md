@@ -1,3 +1,7 @@
+## 0.3.1 / 2018-06-09
+
+* Add timeout to requests - @vgustov
+
 ## 0.3.0 / 2018-06-07
 
 * Add is_custom to Match - @vgustov
