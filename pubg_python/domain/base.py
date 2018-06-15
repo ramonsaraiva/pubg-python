@@ -176,3 +176,11 @@ class Player(Domain):
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
         self.updated_at = self.attributes.get('updatedAt')
+
+class Season(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.season_id = self.id
+        self.current_season = self.attributes.get('isCurrentSeason')
+        self.off_season = self.attributes.get('isOffseason')

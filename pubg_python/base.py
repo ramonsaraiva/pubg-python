@@ -44,6 +44,9 @@ class PUBG:
     def players(self):
         return self.endpoint('players')
 
+    def seasons(self):
+        return self.endpoint('seasons')
+
     def samples(self):
         return self.endpoint('samples')
 
