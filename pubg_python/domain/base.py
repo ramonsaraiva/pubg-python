@@ -54,7 +54,7 @@ class Domain:
         self.relationships = self._data.pop('relationships', {})
 
     def process_relationships(self):
-        if not self.relationships:
+        if not self.relationships or self.type == 'playerSeason':
             return
 
         for name, relationship in self.relationships.items():
@@ -184,3 +184,9 @@ class Season(Domain):
         self.season_id = self.id
         self.current_season = self.attributes.get('isCurrentSeason')
         self.off_season = self.attributes.get('isOffseason')
+
+class Playerseason(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.stats = self.attributes.get('gameModeStats')
