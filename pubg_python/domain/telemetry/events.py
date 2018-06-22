@@ -233,3 +233,6 @@ class LogArmorDestroy(Event):
         self.item = objects.Item(self._data.get('item', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
         self.damage_reason = self._data.get('damageReason')
+
+class LogWheelDestroy(Event):
+    pass
