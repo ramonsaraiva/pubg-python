@@ -232,3 +232,30 @@ class LogArmorDestroy(Event):
         self.item = objects.Item(self._data.get('item', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
         self.damage_reason = self._data.get('damageReason')
+
+class LogWheelDestroy(Event):
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_causer_name = self._data.get('damageCauserName')
+
+class LogPlayerMakeGroggy(Event):
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.victim = objects.Character(self._data.get('victim', {}))
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_causer_name = self._data.get('damageCauserName')
+        self.distance = self._data.get('distance')
+        self.is_attacker_in_vehicle = self._data.get('isAttackerInVehicle')
+        self.dbno_id = self._data.get('dBNOId')
+
+class LogPlayerRevive(Event):
+    def from_dict(self):
+        super().from_dict()
+        self.reviver = objects.Character(self._data.get('reviver', {}))
+        self.victim = objects.Character(self._data.get('victim', {}))
