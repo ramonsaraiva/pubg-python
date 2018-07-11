@@ -7,6 +7,7 @@ from . import exceptions
 
 DEFAULT_TIMEOUT = 30
 
+
 class Client:
 
     API_OK = 200
