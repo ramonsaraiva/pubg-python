@@ -1,3 +1,9 @@
+## 0.3.3 / 2018-07-11
+
+* Remove _V key (pubg changelog v.1.5.0) - @wookienz
+
+* Add implementation of new telemetry events - @Tetraquark
+
 ## 0.3.1 / 2018-06-09
 
 * Add timeout to requests - @vgustov
