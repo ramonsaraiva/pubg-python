@@ -199,8 +199,16 @@ class LogMatchStart(LogMatchEvent):
 
     def from_dict(self):
         super().from_dict()
+        # blueZoneCustomOptions data is a stringified array of objects
+        # /en/telemetry-objects.html#bluezonecustomoptions
+        self.blue_zone_custom_options = objects.BlueZoneCustomOptions(
+            self._data.get('blueZoneCustomOptions'))
+        self.camera_view_behaviour = self._data.get('cameraViewBehaviour')
         self.is_custom_game = self._data.get('isCustomGame')
         self.is_event_mode = self._data.get('isEventMode')
+        self.map_name = self._data.get('mapName')
+        self.team_size = self._data.get('teamSize')
+        self.weather_id = self._data.get('weatherId')
 
 
 class LogMatchEnd(LogMatchEvent):
@@ -230,19 +238,18 @@ class LogSwimEnd(Event):
 
 
 class LogArmorDestroy(Event):
-    """docstring for LogArmorDestroy"""
 
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
-        self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_causer_name = self._data.get('damageCauserName')
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_reason = self._data.get('damageReason')
         self.distance = self._data.get('distance')
         self.item = objects.Item(self._data.get('item', {}))
+        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
-        self.damage_reason = self._data.get('damageReason')
 
 
 class LogWheelDestroy(Event):

@@ -1,3 +1,5 @@
+import json
+
 from .data import TelemetryData
 from .resources import (
     ITEM_MAP,
@@ -5,22 +7,35 @@ from .resources import (
 )
 
 
-class Object:
+class BaseObject:
+
+    def deserialize(data):
+        raise NotImplementedError
 
     def __init__(self, data):
-        self._data = data if isinstance(data, TelemetryData) else {}
+        data = self.deserialize(data)
         self.from_dict()
 
     def from_dict(self):
         pass
 
 
+class Object(BaseObject):
+
+    def deserialize(data):
+        return data if isinstance(data, TelemetryData) else {}
+
+
+class StringifiedObject:
+
+    def deserialize(data):
+        return json.loads(data)
+
+
 class Common(Object):
 
     def from_dict(self):
         super().from_dict()
-        self.match_id = self._data.get('matchId')
-        self.map_name = self._data.get('mapName')
         self.is_game = self._data.get('isGame')
 
 
@@ -108,3 +123,9 @@ class GameState(Object):
             'poisonGasWarningRadius')
         self.red_zone_position = self._data.get('redZonePosition')
         self.red_zone_radius = self._data.get('redZoneRadius')
+
+
+class BlueZoneCustomOptions(StringifiedObject):
+
+    def from_dict(self):
+        pass
