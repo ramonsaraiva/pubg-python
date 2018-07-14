@@ -21,7 +21,6 @@ class LogPlayerLogin(Event):
 
     def from_dict(self):
         super().from_dict()
-        self.result = self._data.get('Result')
         self.account_id = self._data.get('accountId')
 
 
@@ -137,11 +136,18 @@ class LogVehicle(Event):
 
 
 class LogVehicleRide(LogVehicle):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.seat_index = self._data.get('seatIndex')
 
 
 class LogVehicleLeave(LogVehicle):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.ride_distance = self._data.get('rideDistance')
+        self.seat_index = self._data.get('seatIndex')
 
 
 class LogVehicleDestroy(Event):
@@ -176,7 +182,6 @@ class LogMatchDefinition(Event):
 
     def from_dict(self):
         super().from_dict()
-        self.match_id = self._data.get('matchId')
         self.ping_quality = self._data.get('pingQuality')
 
 
@@ -191,7 +196,19 @@ class LogMatchEvent(Event):
 
 
 class LogMatchStart(LogMatchEvent):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        # blueZoneCustomOptions data is a stringified array of objects
+        # /en/telemetry-objects.html#bluezonecustomoptions
+        self.blue_zone_custom_options = objects.BlueZoneCustomOptions(
+            self._data.get('blueZoneCustomOptions'))
+        self.camera_view_behaviour = self._data.get('cameraViewBehaviour')
+        self.is_custom_game = self._data.get('isCustomGame')
+        self.is_event_mode = self._data.get('isEventMode')
+        self.map_name = self._data.get('mapName')
+        self.team_size = self._data.get('teamSize')
+        self.weather_id = self._data.get('weatherId')
 
 
 class LogMatchEnd(LogMatchEvent):
@@ -217,24 +234,26 @@ class LogSwimEnd(Event):
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
+        self.swim_distance = self._data.get('swimDistance')
 
 
 class LogArmorDestroy(Event):
-    """docstring for LogArmorDestroy"""
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
-        self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_causer_name = self._data.get('damageCauserName')
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_reason = self._data.get('damageReason')
         self.distance = self._data.get('distance')
         self.item = objects.Item(self._data.get('item', {}))
+        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
-        self.damage_reason = self._data.get('damageReason')
 
 
 class LogWheelDestroy(Event):
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -245,6 +264,7 @@ class LogWheelDestroy(Event):
 
 
 class LogPlayerMakeGroggy(Event):
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -258,6 +278,7 @@ class LogPlayerMakeGroggy(Event):
 
 
 class LogPlayerRevive(Event):
+
     def from_dict(self):
         super().from_dict()
         self.reviver = objects.Character(self._data.get('reviver', {}))

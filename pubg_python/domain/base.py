@@ -97,14 +97,14 @@ class Match(Domain):
         super().from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.duration = self.attributes.get('duration')
-        self.stats = self.attributes.get('stats')
         self.game_mode = self.attributes.get('gameMode')
+        self.is_custom_match = self.attributes.get('isCustomMatch')
+        self.map_name = self.attributes.get('mapName')
         self.patch_version = self.attributes.get('patchVersion')
-        self.title_id = self.attributes.get('titleId')
         self.shard_id = self.attributes.get('shardId')
+        self.stats = self.attributes.get('stats')
         self.tags = self.attributes.get('tags')
-        self.map = self.attributes.get('mapName')
-        self.is_custom = self.attributes.get('isCustomMatch')
+        self.title_id = self.attributes.get('titleId')
 
 
 class Roster(Domain):
@@ -145,6 +145,7 @@ class Participant(Domain):
         self.revives = self.stats.get('revives')
         self.ride_distance = self.stats.get('rideDistance')
         self.road_kills = self.stats.get('roadKills')
+        self.swim_distance = self.stats.get('swimDistance')
         self.team_kills = self.stats.get('teamKills')
         self.time_survived = self.stats.get('timeSurvived')
         self.vehicle_destroys = self.stats.get('vehicleDestroys')
@@ -159,20 +160,18 @@ class Asset(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.url = self.attributes.get('URL')
         self.created_at = self.attributes.get('createdAt')
         self.description = self.attributes.get('description')
         self.name = self.attributes.get('name')
+        self.url = self.attributes.get('URL')
 
 
 class Player(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.created_at = self.attributes.get('createdAt')
         self.name = self.attributes.get('name')
         self.patch_version = self.attributes.get('patchVersion')
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
-        self.updated_at = self.attributes.get('updatedAt')
