@@ -21,7 +21,6 @@ class LogPlayerLogin(Event):
 
     def from_dict(self):
         super().from_dict()
-        self.result = self._data.get('Result')
         self.account_id = self._data.get('accountId')
 
 
@@ -176,7 +175,6 @@ class LogMatchDefinition(Event):
 
     def from_dict(self):
         super().from_dict()
-        self.match_id = self._data.get('matchId')
         self.ping_quality = self._data.get('pingQuality')
 
 
