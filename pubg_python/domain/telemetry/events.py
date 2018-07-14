@@ -136,11 +136,18 @@ class LogVehicle(Event):
 
 
 class LogVehicleRide(LogVehicle):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.seat_index = self._data.get('seatIndex')
 
 
 class LogVehicleLeave(LogVehicle):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.ride_distance = self._data.get('rideDistance')
+        self.seat_index = self._data.get('seatIndex')
 
 
 class LogVehicleDestroy(Event):
@@ -224,6 +231,7 @@ class LogSwimEnd(Event):
 
 class LogArmorDestroy(Event):
     """docstring for LogArmorDestroy"""
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -238,6 +246,7 @@ class LogArmorDestroy(Event):
 
 
 class LogWheelDestroy(Event):
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -248,6 +257,7 @@ class LogWheelDestroy(Event):
 
 
 class LogPlayerMakeGroggy(Event):
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -261,6 +271,7 @@ class LogPlayerMakeGroggy(Event):
 
 
 class LogPlayerRevive(Event):
+
     def from_dict(self):
         super().from_dict()
         self.reviver = objects.Character(self._data.get('reviver', {}))

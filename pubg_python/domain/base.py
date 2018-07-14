@@ -145,6 +145,7 @@ class Participant(Domain):
         self.revives = self.stats.get('revives')
         self.ride_distance = self.stats.get('rideDistance')
         self.road_kills = self.stats.get('roadKills')
+        self.swim_distance = self.stats.get('swimDistance')
         self.team_kills = self.stats.get('teamKills')
         self.time_survived = self.stats.get('timeSurvived')
         self.vehicle_destroys = self.stats.get('vehicleDestroys')
