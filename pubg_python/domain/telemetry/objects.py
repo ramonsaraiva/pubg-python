@@ -9,11 +9,11 @@ from .resources import (
 
 class BaseObject:
 
-    def deserialize(data):
+    def deserialize(self, data):
         raise NotImplementedError
 
     def __init__(self, data):
-        data = self.deserialize(data)
+        self._data = self.deserialize(data)
         self.from_dict()
 
     def from_dict(self):
@@ -22,13 +22,13 @@ class BaseObject:
 
 class Object(BaseObject):
 
-    def deserialize(data):
+    def deserialize(self, data):
         return data if isinstance(data, TelemetryData) else {}
 
 
-class StringifiedObject:
+class StringifiedObject(BaseObject):
 
-    def deserialize(data):
+    def deserialize(self, data):
         return json.loads(data)
 
 
@@ -125,7 +125,29 @@ class GameState(Object):
         self.red_zone_radius = self._data.get('redZoneRadius')
 
 
-class BlueZoneCustomOptions(StringifiedObject):
+class BlueZone(Object):
 
     def from_dict(self):
-        pass
+        self.circle_algorithm = self._data.get('circleAlgorithm')
+        self.land_ratio = self._data.get('landRatio')
+        self.phase_num = self._data.get('phaseNum')
+        self.poison_gas_dps = self._data.get('poisonGasDamagePerSecond')
+        self.radius_rate = self._data.get('radiusRate')
+        self.release_duration = self._data.get('releaseDuration')
+        self.spread_ratio = self._data.get('spreadRatio')
+        self.warning_duration = self._data.get('warningDuration')
+
+
+class BlueZoneCustomOptions(StringifiedObject):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._bz = []
+        for bz_data in self._data:
+            self._bz.append(BlueZone(bz_data))
+
+    def __getitem__(self, index):
+        return self._bz[index]
+
+    def __len__(self):
+        return len(self._bz)
