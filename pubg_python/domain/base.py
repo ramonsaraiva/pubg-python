@@ -169,10 +169,8 @@ class Player(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.created_at = self.attributes.get('createdAt')
         self.name = self.attributes.get('name')
         self.patch_version = self.attributes.get('patchVersion')
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
-        self.updated_at = self.attributes.get('updatedAt')
