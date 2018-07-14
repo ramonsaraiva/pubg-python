@@ -189,7 +189,11 @@ class LogMatchEvent(Event):
 
 
 class LogMatchStart(LogMatchEvent):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.is_custom_game = self._data.get('isCustomGame')
+        self.is_event_mode = self._data.get('isEventMode')
 
 
 class LogMatchEnd(LogMatchEvent):
@@ -215,6 +219,7 @@ class LogSwimEnd(Event):
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
+        self.swim_distance = self._data.get('swimDistance')
 
 
 class LogArmorDestroy(Event):
