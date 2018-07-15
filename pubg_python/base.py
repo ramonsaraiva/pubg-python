@@ -57,7 +57,7 @@ class PUBG:
 
     @endpoint
     def tournaments(self):
-        return self.endpoint('tournaments')
+        pass
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
