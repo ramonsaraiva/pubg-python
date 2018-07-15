@@ -1,3 +1,7 @@
+## 0.4.0 / 2018-07-15
+
+* Add tournaments endpoint
+
 ## 0.3.4 / 2018-07-14
 
 * Add blue zone custom options telemetry object

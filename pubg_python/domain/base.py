@@ -48,6 +48,7 @@ class Domain:
         return globals()[data['data']['type'].title()](data, meta)
 
     def from_dict(self):
+        self.description = self._data.get('description')
         self.id = self._data.get('id')
         self.type = self._data.get('type')
         self.attributes = self._data.pop('attributes', {})
@@ -175,3 +176,7 @@ class Player(Domain):
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
+
+
+class Tournament(Domain):
+    pass

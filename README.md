@@ -165,6 +165,26 @@ telemetry = Telemetry.from_json('telemetry.json', shard='pc')
 
 `shard` defaults to `pc` but you need to specify if you're loading a `xbox` telemetry file.
 
+## Matches
+
+* Matches
+  * [Official docs](https://documentation.playbattlegrounds.com/en/tournaments-endpoint.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
+
+### Retrieving a single tournament
+
+```python
+tournament = api.tournaments().get('na-ppc')
+```
+
+### Retrieving a list of tournaments
+
+```python
+tournaments = api.tournaments()
+for tournament in tournaments:
+    print(tournament)
+```
 
 ## Playing around with data
 
