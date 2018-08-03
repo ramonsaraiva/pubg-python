@@ -1,3 +1,5 @@
+import json
+
 from .data import TelemetryData
 from .resources import (
     ITEM_MAP,
@@ -5,22 +7,35 @@ from .resources import (
 )
 
 
-class Object:
+class BaseObject:
+
+    def deserialize(self, data):
+        raise NotImplementedError
 
     def __init__(self, data):
-        self._data = data if isinstance(data, TelemetryData) else {}
+        self._data = self.deserialize(data)
         self.from_dict()
 
     def from_dict(self):
         pass
 
 
+class Object(BaseObject):
+
+    def deserialize(self, data):
+        return data if isinstance(data, TelemetryData) else {}
+
+
+class StringifiedObject(BaseObject):
+
+    def deserialize(self, data):
+        return json.loads(data)
+
+
 class Common(Object):
 
     def from_dict(self):
         super().from_dict()
-        self.match_id = self._data.get('matchId')
-        self.map_name = self._data.get('mapName')
         self.is_game = self._data.get('isGame')
 
 
@@ -108,3 +123,31 @@ class GameState(Object):
             'poisonGasWarningRadius')
         self.red_zone_position = self._data.get('redZonePosition')
         self.red_zone_radius = self._data.get('redZoneRadius')
+
+
+class BlueZone(Object):
+
+    def from_dict(self):
+        self.circle_algorithm = self._data.get('circleAlgorithm')
+        self.land_ratio = self._data.get('landRatio')
+        self.phase_num = self._data.get('phaseNum')
+        self.poison_gas_dps = self._data.get('poisonGasDamagePerSecond')
+        self.radius_rate = self._data.get('radiusRate')
+        self.release_duration = self._data.get('releaseDuration')
+        self.spread_ratio = self._data.get('spreadRatio')
+        self.warning_duration = self._data.get('warningDuration')
+
+
+class BlueZoneCustomOptions(StringifiedObject):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._bz = []
+        for bz_data in self._data:
+            self._bz.append(BlueZone(bz_data))
+
+    def __getitem__(self, index):
+        return self._bz[index]
+
+    def __len__(self):
+        return len(self._bz)

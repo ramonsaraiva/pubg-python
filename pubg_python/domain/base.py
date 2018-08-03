@@ -14,6 +14,7 @@ class Shard(Enum):
     PC_SEA = 'pc-sea'  # South East Asia
     PC_JP = 'pc-jp'  # Japan
     PC_RU = 'pc-ru'  # Russia
+    PC_TOURNAMENT = 'pc-tournament'  # PC Tournaments Shard
     XBOX_AS = 'xbox-as'  # Asia
     XBOX_EU = 'xbox-eu'  # Europe
     XBOX_NA = 'xbox-na'  # North America
@@ -48,6 +49,7 @@ class Domain:
         return globals()[data['data']['type'].title()](data, meta)
 
     def from_dict(self):
+        self.description = self._data.get('description')
         self.id = self._data.get('id')
         self.type = self._data.get('type')
         self.attributes = self._data.pop('attributes', {})
@@ -97,14 +99,14 @@ class Match(Domain):
         super().from_dict()
         self.created_at = self.attributes.get('createdAt')
         self.duration = self.attributes.get('duration')
-        self.stats = self.attributes.get('stats')
         self.game_mode = self.attributes.get('gameMode')
+        self.is_custom_match = self.attributes.get('isCustomMatch')
+        self.map_name = self.attributes.get('mapName')
         self.patch_version = self.attributes.get('patchVersion')
-        self.title_id = self.attributes.get('titleId')
         self.shard_id = self.attributes.get('shardId')
+        self.stats = self.attributes.get('stats')
         self.tags = self.attributes.get('tags')
-        self.map = self.attributes.get('mapName')
-        self.is_custom = self.attributes.get('isCustomMatch')
+        self.title_id = self.attributes.get('titleId')
 
 
 class Roster(Domain):
@@ -145,6 +147,7 @@ class Participant(Domain):
         self.revives = self.stats.get('revives')
         self.ride_distance = self.stats.get('rideDistance')
         self.road_kills = self.stats.get('roadKills')
+        self.swim_distance = self.stats.get('swimDistance')
         self.team_kills = self.stats.get('teamKills')
         self.time_survived = self.stats.get('timeSurvived')
         self.vehicle_destroys = self.stats.get('vehicleDestroys')
@@ -159,17 +162,16 @@ class Asset(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.url = self.attributes.get('URL')
         self.created_at = self.attributes.get('createdAt')
         self.description = self.attributes.get('description')
         self.name = self.attributes.get('name')
+        self.url = self.attributes.get('URL')
 
 
 class Player(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.created_at = self.attributes.get('createdAt')
         self.name = self.attributes.get('name')
         self.patch_version = self.attributes.get('patchVersion')
         self.shard_id = self.attributes.get('shardId')
@@ -190,3 +192,6 @@ class Playerseason(Domain):
     def from_dict(self):
         super().from_dict()
         self.stats = self.attributes.get('gameModeStats')
+
+class Tournament(Domain):
+    pass

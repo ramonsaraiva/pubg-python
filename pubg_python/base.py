@@ -3,10 +3,22 @@ from .clients import (
     APIClient,
     TelemetryClient,
 )
-from .decorators import requires_shard
 from .domain.base import Shard
 from .domain.telemetry.base import Telemetry
 from .querysets import QuerySet
+
+
+def shardful_endpoint(f):
+    def wrapper(self, *args, **kwargs):
+        return QuerySet(self.api_client, self.shard_url.join(f.__name__))
+    return wrapper
+
+
+def endpoint(f):
+    def wrapper(self, *args, **kwargs):
+        return QuerySet(
+            self.api_client, self.api_client.url.copy().join(f.__name__))
+    return wrapper
 
 
 class PUBG:
@@ -28,27 +40,28 @@ class PUBG:
 
     @property
     def shard_url(self):
-        url = self.api_client.url.copy()
-        url.path = 'shards/{}'.format(self.shard.value)
-        return url
+        return self.api_client.url.copy().join(
+            'shards/{}/'.format(self.shard.value))
 
-    @requires_shard
-    def endpoint(self, name):
-        url = self.shard_url
-        url.path.segments.append(name)
-        return QuerySet(self.api_client, url)
-
+    @shardful_endpoint
     def matches(self):
-        return self.endpoint('matches')
+        pass
 
+    @shardful_endpoint
     def players(self):
-        return self.endpoint('players')
+        pass
 
+    @shardful_endpoint
     def seasons(self):
-        return self.endpoint('seasons')
+        pass
 
+    @shardful_endpoint
     def samples(self):
-        return self.endpoint('samples')
+        pass
+
+    @endpoint
+    def tournaments(self):
+        pass
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
