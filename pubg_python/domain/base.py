@@ -14,7 +14,7 @@ class Shard(Enum):
     PC_SEA = 'pc-sea'  # South East Asia
     PC_JP = 'pc-jp'  # Japan
     PC_RU = 'pc-ru'  # Russia
-    PC_TOURNAMENT = 'pc-tournament' # PC Tournaments Shard
+    PC_TOURNAMENT = 'pc-tournament'  # PC Tournaments Shard
     XBOX_AS = 'xbox-as'  # Asia
     XBOX_EU = 'xbox-eu'  # Europe
     XBOX_NA = 'xbox-na'  # North America
