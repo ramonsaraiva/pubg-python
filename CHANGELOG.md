@@ -1,3 +1,7 @@
+## 0.4.1 / 2018-09-18
+
+* Add `long_description` to `setup.py` so PyPI is aware of it
+
 ## 0.4.0 / 2018-07-15
 
 * Add tournaments endpoint
