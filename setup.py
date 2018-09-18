@@ -1,11 +1,20 @@
+import os
 from setuptools import (
     find_packages,
     setup)
 
+
+def read(fname):
+    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+        return f.read()
+
+
 setup(
     name='pubg-python',
-    version='0.4.0',
+    version='0.4.1',
     description='A python wrapper for the PUBG developer API',
+    long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     url='https://github.com/ramonsaraiva/pubg-python',
     author='Ramon Saraiva',
     author_email='ramonsaraiva@gmail.com',
