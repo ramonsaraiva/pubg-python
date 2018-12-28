@@ -45,6 +45,13 @@ class LogPlayerPosition(Event):
         self.elapsed_time = self._data.get('elapsedTime')
         self.num_alive_players = self._data.get('numAlivePlayers')
 
+class LogWeaponFireCount(Event):
+
+    def from_dict(self):
+        self.character = objects.Character(self._data.get('character', {}))
+        self.weapon_id = self._data.get('weaponId')
+        self.fire_count = self._data.get('fireCount')
+
 
 class LogPlayerAttack(Event):
 
@@ -80,6 +87,12 @@ class LogPlayerKill(Event):
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_reason = self._data.get('damageReason')
         self.distance = self._data.get('distance')
+
+
+class LogParachuteLanding(Event):
+
+        def from_dict(self):
+            super().from_dict()
 
 
 class LogItem(Event):
@@ -125,6 +138,38 @@ class LogItemAttach(LogItemBundle):
 
 class LogItemDetach(LogItemBundle):
     pass
+
+
+class LogItemPickupFromLootBox(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
+        self.team_id = self._data.get('ownerTeamId')
+
+
+class LogHeal(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
+        self.heal_amount = self._data.get('healAmount')
+
+class LogObjectDestroy(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.object_type = self._data.get('objectType')
+
+
+class LogVaultStart(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
 
 
 class LogVehicle(Event):
@@ -283,3 +328,10 @@ class LogPlayerRevive(Event):
         super().from_dict()
         self.reviver = objects.Character(self._data.get('reviver', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
+
+
+class LogRedZoneEnded(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.drivers = self._data.get('drivers', [])
