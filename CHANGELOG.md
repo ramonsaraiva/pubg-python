@@ -1,3 +1,7 @@
+## 0.5.0 / 2019-01-02
+
+* Add new telemetry events - @dzen
+
 ## 0.4.1 / 2018-09-18
 
 * Add `long_description` to `setup.py` so PyPI is aware of it
