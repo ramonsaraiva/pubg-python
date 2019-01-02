@@ -45,6 +45,7 @@ class LogPlayerPosition(Event):
         self.elapsed_time = self._data.get('elapsedTime')
         self.num_alive_players = self._data.get('numAlivePlayers')
 
+
 class LogWeaponFireCount(Event):
 
     def from_dict(self):
