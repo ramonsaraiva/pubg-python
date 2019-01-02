@@ -140,12 +140,14 @@ class LogItemDetach(LogItemBundle):
     pass
 
 
-class LogItemPickupFromLootBox(Event):
+class LogItemPickupFromCarePackage(LogItemPickup):
+    pass
+
+
+class LogItemPickupFromLootBox(LogItemPickup):
 
     def from_dict(self):
         super().from_dict()
-        self.character = objects.Character(self._data.get('character', {}))
-        self.item = objects.Item(self._data.get('item', {}))
         self.team_id = self._data.get('ownerTeamId')
 
 
@@ -156,6 +158,7 @@ class LogHeal(Event):
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
         self.heal_amount = self._data.get('healAmount')
+
 
 class LogObjectDestroy(Event):
 
