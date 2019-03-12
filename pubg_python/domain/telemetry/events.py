@@ -92,8 +92,10 @@ class LogPlayerKill(Event):
 
 class LogParachuteLanding(Event):
 
-        def from_dict(self):
-            super().from_dict()
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.distance = self._data.get('distance')
 
 
 class LogItem(Event):
