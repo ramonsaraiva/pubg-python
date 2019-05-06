@@ -19,6 +19,11 @@ class Shard(Enum):
     XBOX_EU = 'xbox-eu'  # Europe
     XBOX_NA = 'xbox-na'  # North America
     XBOX_OC = 'xbox-oc'  # Oceania
+    KAKAO = 'kakao'  # Kakao
+    PSN = 'psn'
+    STEAM = 'steam'
+    TOURNAMENT = 'tournament'  # Tournaments
+    XBOX = 'xbox'  # Xbox
 
 
 class Filter(Enum):
