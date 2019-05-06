@@ -1,3 +1,8 @@
+## 0.6.0 / 2019-05-06
+
+* Update parachute landing telemetry event - @jandaluz1
+* Add region independent shards - @divomen
+
 ## 0.5.0 / 2019-01-02
 
 * Add new telemetry events - @dzen
