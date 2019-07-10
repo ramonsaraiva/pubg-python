@@ -1,3 +1,7 @@
+## 0.6.1 / 2019-07-10
+
+ * Add LogItemPickupFromCarepackage - @jandaluz1
+
 ## 0.6.0 / 2019-05-06
 
 * Update parachute landing telemetry event - @jandaluz1
