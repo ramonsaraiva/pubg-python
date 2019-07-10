@@ -143,8 +143,12 @@ class LogItemDetach(LogItemBundle):
     pass
 
 
-class LogItemPickupFromCarePackage(LogItemPickup):
-    pass
+class LogItemPickupFromCarepackage(LogItemPickup):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 
 class LogItemPickupFromLootBox(LogItemPickup):
