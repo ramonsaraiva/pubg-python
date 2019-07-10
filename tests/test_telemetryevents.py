@@ -38,7 +38,7 @@ class ParachuteLandingTests(TestCase):
         self.assertEqual(actual.event, "LogParachuteLanding")
         self.assertIsInstance(actual.common, Common)
 
-
+        
 class ItemPickupFromCarepackageTest(TestCase):
 
     def setUp(self):
