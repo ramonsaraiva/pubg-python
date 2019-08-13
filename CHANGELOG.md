@@ -1,6 +1,10 @@
+## 0.6.2 / 2019-08-13
+
+* Add damage_causer_name in LogPlayerKill event - @junhan-z
+
 ## 0.6.1 / 2019-07-10
 
- * Add LogItemPickupFromCarepackage - @jandaluz1
+* Add LogItemPickupFromCarepackage - @jandaluz1
 
 ## 0.6.0 / 2019-05-06
 
