@@ -2,35 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: n42org/tox
+        - image: ramonsaraiva/pubg-python:0.1
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements/test.txt" }}
-          - v1-dependencies-
-
-      - run:
-          name: install dependencies
-          command: |
-            pip install virtualenv
-            virtualenv -p python3.6 ./venv
-            . venv/bin/activate
-            pip install -r requirements/test.txt
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements/test.txt" }}
-
       - run:
           name: run tests
-          command: |
-            . venv/bin/activate
-            tox
+          command: tox
+
       - store_artifacts:
           path: test-reports
           destination: test-reports
