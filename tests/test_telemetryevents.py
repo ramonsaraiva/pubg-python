@@ -1,5 +1,8 @@
 from unittest import TestCase
-from pubg_python.domain.telemetry.events import LogParachuteLanding, LogItemPickupFromCarepackage
+from pubg_python.domain.telemetry.events import (
+    LogItemPickupFromCarepackage,
+    LogParachuteLanding,
+)
 from pubg_python.domain.telemetry.objects import Character, Common, Item
 
 
@@ -38,7 +41,7 @@ class ParachuteLandingTests(TestCase):
         self.assertEqual(actual.event, "LogParachuteLanding")
         self.assertIsInstance(actual.common, Common)
 
-        
+
 class ItemPickupFromCarepackageTest(TestCase):
 
     def setUp(self):
