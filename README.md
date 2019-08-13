@@ -1,6 +1,6 @@
 # pubg-python
 
-![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)
+![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)
 ![CircleCI](https://img.shields.io/circleci/project/github/ramonsaraiva/pubg-python/master.svg)
 
 A python wrapper for the PUBG Developer API
