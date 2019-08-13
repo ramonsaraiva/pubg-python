@@ -87,6 +87,7 @@ class LogPlayerKill(Event):
         self.victim = objects.Character(self._data.get('victim', {}))
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_reason = self._data.get('damageReason')
+        self.damage_causer_name = self._data.get('damageCauserName')
         self.distance = self._data.get('distance')
 
 
