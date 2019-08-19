@@ -89,6 +89,7 @@ class LogPlayerKill(Event):
         self.damage_reason = self._data.get('damageReason')
         self.damage_causer_name = self._data.get('damageCauserName')
         self.distance = self._data.get('distance')
+        self.dbno_id = self._data.get('dBNOId')
 
 
 class LogParachuteLanding(Event):
@@ -108,23 +109,42 @@ class LogItem(Event):
 
 
 class LogItemPickup(LogItem):
-    pass
 
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 class LogItemDrop(LogItem):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 
 class LogItemEquip(LogItem):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 
 class LogItemUnequip(LogItem):
-    pass
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 
 class LogItemUse(LogItem):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
 
 
 class LogItemBundle(Event):
@@ -137,11 +157,21 @@ class LogItemBundle(Event):
 
 
 class LogItemAttach(LogItemBundle):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.parent_item = objects.Item(self._data.get('parentItem', {}))
+        self.child_item = objects.Item(self._data.get('childItem', {}))
 
 
 class LogItemDetach(LogItemBundle):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.parent_item = objects.Item(self._data.get('parentItem', {}))
+        self.child_item = objects.Item(self._data.get('childItem', {}))
 
 
 class LogItemPickupFromCarepackage(LogItemPickup):
@@ -227,11 +257,19 @@ class LogCarePackageEvent(Event):
 
 
 class LogCarePackageSpawn(LogCarePackageEvent):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.item_package = objects.ItemPackage(
+            self._data.get('itemPackage', {}))
 
 
 class LogCarePackageLand(LogCarePackageEvent):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.item_package = objects.ItemPackage(
+            self._data.get('itemPackage', {}))
 
 
 class LogMatchDefinition(Event):
@@ -268,7 +306,13 @@ class LogMatchStart(LogMatchEvent):
 
 
 class LogMatchEnd(LogMatchEvent):
-    pass
+    
+    def from_dict(self):
+        super().from_dict()
+        self.characters = [
+            objects.Character(data)
+            for data in self._data.get('characters', [])
+        ]
 
 
 class LogGameStatePeriodic(Event):
