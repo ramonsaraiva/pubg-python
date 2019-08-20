@@ -87,6 +87,9 @@ class Character(Object):
         self.location = Location(self._data.get('location', {}))
         self.ranking = self._data.get('ranking')
         self.account_id = self._data.get('accountId')
+        self.is_in_blue_zone = self._data.get('isInBlueZone')
+        self.is_in_red_zone = self._data.get('isInRedZone')
+        self.zone = self._data.get('zone', [])
 
 
 class Vehicle(Object):
@@ -151,3 +154,24 @@ class BlueZoneCustomOptions(StringifiedObject):
 
     def __len__(self):
         return len(self._bz)
+
+class Stats(Object):
+
+    def from_dict(self):
+        super().from_dict()
+        self.kill_count = self._data.get('killCount')
+        self.distance_on_foot = self._data.get('distanceOnFoot')
+        self.distance_on_swim = self._data.get('distanceOnSwim')
+        self.distance_on_vehicle = self._data.get('distanceOnVehicle')
+        self.distance_on_parachute = self._data.get('distanceOnParachute')
+        self.distance_on_freefall = self._data.get('distanceOnFreefall')
+
+class GameResult(Object):
+
+    def from_dict(self):
+        super().from_dict()
+        self.rank = self._data.get('rank')
+        self.game_result = self._data.get('gameResult')
+        self.team_id = self._data.get('teamId')
+        self.stats = Stats(self._data.get('stats', {}))
+        self.account_id = self._data.get('accountId')
