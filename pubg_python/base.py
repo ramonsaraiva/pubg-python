@@ -55,6 +55,10 @@ class PUBG:
     def samples(self):
         pass
 
+    @shardful_endpoint
+    def seasons(self):
+        pass
+
     @endpoint
     def tournaments(self):
         pass
