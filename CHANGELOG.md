@@ -1,3 +1,7 @@
+## 0.6.3 / 2019-08-28
+
+* Update/add telemetry events - @zmagajna
+
 ## 0.6.2 / 2019-08-13
 
 * Add damage_causer_name in LogPlayerKill event - @junhan-z
