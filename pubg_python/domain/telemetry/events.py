@@ -297,7 +297,7 @@ class LogSwim(Event):
 
 
 class LogSwimStart(LogSwim):
-    pass        
+    pass
 
 
 class LogSwimEnd(LogSwim):
@@ -320,7 +320,7 @@ class LogArmorDestroy(Event):
         self.damage_causer_name = self._data.get('damageCauserName')
         self.item = objects.Item(self._data.get('item', {}))
         self.distance = self._data.get('distance')
-        
+
         # NOTE: Looking at the documentation is this still in the API?
         self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
 
