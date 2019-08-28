@@ -155,6 +155,7 @@ class BlueZoneCustomOptions(StringifiedObject):
     def __len__(self):
         return len(self._bz)
 
+
 class Stats(Object):
 
     def from_dict(self):
@@ -165,6 +166,7 @@ class Stats(Object):
         self.distance_on_vehicle = self._data.get('distanceOnVehicle')
         self.distance_on_parachute = self._data.get('distanceOnParachute')
         self.distance_on_freefall = self._data.get('distanceOnFreefall')
+
 
 class GameResult(Object):
 
