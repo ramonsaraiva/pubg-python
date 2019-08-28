@@ -91,10 +91,13 @@ class LogPlayerKill(Event):
         self.dbno_id = self._data.get('dBNOId')
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_causer_name = self._data.get('damageCauserName')
-        self.damage_causer_additional_info = self._data.get('damageCauserAdditionalInfo', [])
+        self.damage_causer_additional_info = self._data.get(
+            'damageCauserAdditionalInfo', [])
         self.damage_reason = self._data.get('damageReason')
         self.distance = self._data.get('distance')
-        self.victim_game_result = objects.GameResult(self._data.get('victimGameResult', {}))
+        self.victim_game_result = objects.GameResult(
+            self._data.get('victimGameResult', {}))
+
 
 class LogParachuteLanding(Event):
 
@@ -115,11 +118,14 @@ class LogItem(Event):
 class LogItemPickup(LogItem):
     pass
 
+
 class LogItemDrop(LogItem):
     pass
 
+
 class LogItemEquip(LogItem):
     pass
+
 
 class LogItemUnequip(LogItem):
     pass
@@ -127,6 +133,7 @@ class LogItemUnequip(LogItem):
 
 class LogItemUse(LogItem):
     pass
+
 
 class LogItemBundle(Event):
 
@@ -140,8 +147,10 @@ class LogItemBundle(Event):
 class LogItemAttach(LogItemBundle):
     pass
 
+
 class LogItemDetach(LogItemBundle):
     pass
+
 
 class LogItemPickupFromCarepackage(LogItemPickup):
 
@@ -171,7 +180,8 @@ class LogObjectDestroy(Event):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.object_type = self._data.get('objectType')
-        self.object_location = objects.Location(self._data.get('objectLocation', {}))
+        self.object_location = objects.Location(
+            self._data.get('objectLocation', {}))
 
 
 class LogVaultStart(Event):
@@ -228,8 +238,10 @@ class LogCarePackageEvent(Event):
 class LogCarePackageSpawn(LogCarePackageEvent):
     pass
 
+
 class LogCarePackageLand(LogCarePackageEvent):
     pass
+
 
 class LogMatchDefinition(Event):
 
@@ -265,8 +277,10 @@ class LogMatchStart(LogMatchEvent):
         self.team_size = self._data.get('teamSize')
         self.weather_id = self._data.get('weatherId')
 
+
 class LogMatchEnd(LogMatchEvent):
     pass
+
 
 class LogGameStatePeriodic(Event):
 
@@ -274,14 +288,17 @@ class LogGameStatePeriodic(Event):
         super().from_dict()
         self.game_state = objects.GameState(self._data.get('gameState', {}))
 
+
 class LogSwim(Event):
 
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
 
+
 class LogSwimStart(LogSwim):
-    pass        
+    pass
+
 
 class LogSwimEnd(LogSwim):
 
@@ -303,7 +320,7 @@ class LogArmorDestroy(Event):
         self.damage_causer_name = self._data.get('damageCauserName')
         self.item = objects.Item(self._data.get('item', {}))
         self.distance = self._data.get('distance')
-        
+
         # NOTE: Looking at the documentation is this still in the API?
         self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
 
@@ -329,7 +346,8 @@ class LogPlayerMakeGroggy(Event):
         self.damage_reason = self._data.get('damageReason')
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_causer_name = self._data.get('damageCauserName')
-        self.damage_causer_additional_info = self._data.get('damageCauserAdditionalInfo', [])
+        self.damage_causer_additional_info = self._data.get(
+            'damageCauserAdditionalInfo', [])
         self.distance = self._data.get('distance')
         self.is_attacker_in_vehicle = self._data.get('isAttackerInVehicle')
         self.dbno_id = self._data.get('dBNOId')

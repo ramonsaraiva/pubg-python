@@ -1,3 +1,6 @@
 -r base.txt
 
-tox==2.9.1
+pytest
+pytest-cov
+codecov
+flake8
