@@ -1,6 +1,7 @@
 # pubg-python
 
 ![pypi](https://img.shields.io/pypi/pyversions/pubg-python)
+![wheel](https://img.shields.io/pypi/wheel/pubg-python)
 
 A python wrapper for the PUBG Developer API
 
