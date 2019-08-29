@@ -1,3 +1,7 @@
+## 0.7.0 / 2019-08-29
+
+* Beta version and classifiers update
+
 ## 0.6.3 / 2019-08-28
 
 * Update/add telemetry events - @zmagajna
