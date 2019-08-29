@@ -13,7 +13,6 @@ def shardful_endpoint(f):
         return QuerySet(self.api_client, self.shard_url.join(f.__name__))
     return wrapper
 
-
 def endpoint(f):
     def wrapper(self, *args, **kwargs):
         return QuerySet(
