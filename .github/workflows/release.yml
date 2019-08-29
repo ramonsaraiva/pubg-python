@@ -4,7 +4,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: action/checkout@v1
+    - uses: actions/checkout@v1
 
     - name: Install dependencies
       run: |
