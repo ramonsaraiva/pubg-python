@@ -1,7 +1,5 @@
 # pubg-python
 
-[![Actions Status](https://github.com/ramonsaraiva/pubg-python/workflows/build/badge.svg)](https://github.com/ramonsaraiva/pubg-python/actions)
-
 A python wrapper for the PUBG Developer API
 
 [PUBG Developer API Official Documentation](https://documentation.playbattlegrounds.com/en/introduction.html)
