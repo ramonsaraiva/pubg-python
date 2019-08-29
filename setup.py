@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name='pubg-python',
-    version='0.6.3',
+    version='0.7.0',
     description='A python wrapper for the PUBG developer API',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
@@ -28,12 +28,14 @@ setup(
         ":python_version<='3.4'": ['enum34>=1.1.6'],
     },
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Utilities',
     ],
 )
