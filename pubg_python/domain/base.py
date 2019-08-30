@@ -186,3 +186,18 @@ class Player(Domain):
 
 class Tournament(Domain):
     pass
+
+
+class Season(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.is_current_season = self.attributes.get('isCurrentSeason')
+        self.is_off_season = self.attributes.get('isOffSeason')
+
+
+class Playerseason(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.game_mode_stats = self.attributes.get('gameModeStats')

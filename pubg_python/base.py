@@ -5,7 +5,10 @@ from .clients import (
 )
 from .domain.base import Shard
 from .domain.telemetry.base import Telemetry
-from .querysets import QuerySet
+from .querysets import (
+    QuerySet,
+    SeasonsQuerySet,
+)
 
 
 def shardful_endpoint(f):
@@ -58,6 +61,9 @@ class PUBG:
     @endpoint
     def tournaments(self):
         pass
+
+    def seasons(self):
+        return SeasonsQuerySet(self.api_client, self.shard_url.join('seasons'))
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
