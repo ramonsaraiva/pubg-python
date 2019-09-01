@@ -1,3 +1,7 @@
+## 0.8.0 / 2019-09-01
+
+* Add seasons support - @ramonsaraiva / @edvoinea
+
 ## 0.7.0 / 2019-08-29
 
 * Beta version and classifiers update

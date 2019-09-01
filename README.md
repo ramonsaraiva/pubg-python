@@ -186,6 +186,33 @@ for tournament in tournaments:
     print(tournament)
 ```
 
+## Seasons
+
+* Seasons
+  * [Official docs](https://documentation.pubg.com/en/seasons-endpoint.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
+### Retrieving the list of seasons
+
+```python
+seasons = api.seasons()
+```
+
+### Retrieving seasons information for a list of players
+
+```python
+players_seasons = api.seasons(
+    season_id='division.bro.official.2018-09', game_mode='solo'
+).filter(player_ids=['epickitten'])
+```
+
+### Retrieving season data for a specific player
+
+```python
+season_data = api.seasons(
+    'division.bro.official.2018-09' , player_id='epickitten').get()
+```
+
 ## Playing around with data
 
 An example of how you can manipulate the data:

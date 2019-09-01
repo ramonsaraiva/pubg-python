@@ -10,6 +10,10 @@ class InvalidFilterError(Exception):
     pass
 
 
+class RequiredFilterError(Exception):
+    pass
+
+
 class APIError(Exception):
 
     def __init__(self, message='Something went wrong with your request'):
