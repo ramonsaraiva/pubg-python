@@ -68,11 +68,18 @@ class Domain:
             if not relationship['data']:
                 continue
 
-            setattr(self, name, [])
-            rel = getattr(self, name)
-            for data in relationship['data']:
-                item = self._meta.retrieve(data)
-                rel.append(Domain.instance({'data': item}, meta=self._meta))
+            if isinstance(relationship, list):
+                setattr(self, name, [])
+                rel = getattr(self, name)
+                for data in relationship['data']:
+                    import pdb; pdb.set_trace()
+                    item = self._meta.retrieve(data)
+                    rel.append(Domain.instance({'data': item}, meta=self._meta))
+
+            elif isinstance(relationship, dict):
+                relationship_instance = Domain.instance(
+                    relationship, meta=self._meta)
+                setattr(self, name, relationship_instance)
 
 
 class Meta:
@@ -200,4 +207,53 @@ class Playerseason(Domain):
 
     def from_dict(self):
         super().from_dict()
-        self.game_mode_stats = self.attributes.get('gameModeStats')
+        game_mode_stats = self.attributes.get('gameModeStats')
+        self.solo = Stats({'data': game_mode_stats.get('solo')})
+        self.solo_fpp = Stats({'data': game_mode_stats.get('solo-fpp')})
+        self.duo = Stats({'data': game_mode_stats.get('duo')})
+        self.duo_fpp = Stats({'data': game_mode_stats.get('duo-fpp')})
+        self.squad = Stats({'data': game_mode_stats.get('squad')})
+        self.squad_fpp = Stats({'data': game_mode_stats.get('squad-fpp')})
+
+
+class Stats(Domain):
+    # TODO: i don't think stats is really a domain
+    # but just a collection of statuses
+
+    def from_dict(self):
+        super().from_dict()
+        self.assists = self.attributes.get('assists')
+        self.boosts = self.attributes.get('boosts')
+        self.dbnos = self.attributes.get('dbnos')
+        self.daily_kills = self.attributes.get('dailyKills')
+        self.damage_dealt = self.attributes.get('damageDealt')
+        self.days = self.attributes.get('days')
+        self.daily_wins = self.attributes.get('dailyWins')
+        self.headshot_kills = self.attributes.get('headshotKills')
+        self.heals = self.attributes.get('heals')
+        self.kill_points = self.attributes.get('killPoints')
+        self.kills = self.attributes.get('kills')
+        self.longest_kill = self.attributes.get('longestKill')
+        self.longest_time_survived = self.attributes.get('longestTimeSurvived')
+        self.losses = self.attributes.get('losses')
+        self.max_kill_streaks = self.attributes.get('maxKillStreaks')
+        self.most_survival_time = self.attributes.get('mostSurvivalTime')
+        self.rank_points = self.attributes.get('rankPoints')
+        self.rank_points_title = self.attributes.get('rankPointsTitle')
+        self.revives = self.attributes.get('revives')
+        self.ride_distance = self.attributes.get('rideDistance')
+        self.road_kills = self.attributes.get('roadKills')
+        self.round_most_kills = self.attributes.get('roundMostKills')
+        self.rounds_played = self.attributes.get('roundsPlayed')
+        self.suicides = self.attributes.get('suicides')
+        self.swim_distance = self.attributes.get('swimDistance')
+        self.team_kills = self.attributes.get('teamKills')
+        self.time_survived = self.attributes.get('timeSurvived')
+        self.top10s = self.attributes.get('top10s')
+        self.vehicle_destroys = self.attributes.get('vehicleDestroys')
+        self.walk_distance = self.attributes.get('walkDistance')
+        self.weapons_acquired = self.attributes.get('weaponsAcquired')
+        self.weekly_kills = self.attributes.get('weeklyKills')
+        self.weekly_wins = self.attributes.get('weeklyWins')
+        self.win_points = self.attributes.get('winPoints')
+        self.wins = self.attributes.get('wins')
