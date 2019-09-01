@@ -2,7 +2,6 @@ from .decorators import (
     fetchy,
     invalidates_cache,
 )
-from .exceptions import RequiredFilterError
 from .domain.base import Domain
 from .mixins import (
     FilterableQuerySetMixin,
@@ -44,28 +43,3 @@ class QuerySet(FilterableQuerySetMixin, SortableQuerySetMixin,
         if self._data:
             return
         self._data = self.client.request(self.endpoint)
-
-
-class SeasonsQuerySet(QuerySet):
-    # TODO: redesign the way clients/querysets/data works
-    # because the API has new endpoints with a different design
-    # than the initial versions
-
-    @invalidates_cache
-    def get(self, id=None, game_mode=None):
-        if id:
-            if not game_mode:
-                raise RequiredFilterError(
-                    'gameMode is needed when querying a specific season.')
-
-            additional_segments = [id, 'gameMode', game_mode, 'players']
-            for segment in additional_segments:
-                self.endpoint.path.segments.append(segment)
-            return self
-
-        self.fetch()
-        aaa = [
-            {'data': data}
-            for data in self._data['data']
-        ]
-        import pdb; pdb.set_trace()
