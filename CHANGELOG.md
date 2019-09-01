@@ -1,3 +1,11 @@
+## 0.8.2 / 2019-09-01
+
+* Fix attributes for season stats (solo, solo_fpp, duo, duo_fpp, squad, squad_fpp)
+
+## 0.8.1 / 2019-09-01
+
+* Fix dict/list relationship lookup
+
 ## 0.8.0 / 2019-09-01
 
 * Add seasons support - @ramonsaraiva / @edvoinea
