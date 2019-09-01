@@ -206,11 +206,26 @@ players_seasons = api.seasons(
 ).filter(player_ids=['epickitten'])
 ```
 
+It's also possible to retrieve lifetime stats, instead of a season_id:
+
+```python
+players_seasons = api.seasons(
+    season_id='lifetime', game_mode='solo'
+).filter(player_ids=['epickitten'])
+```
+
 ### Retrieving season data for a specific player
 
 ```python
 season_data = api.seasons(
     'division.bro.official.2018-09' , player_id='epickitten').get()
+```
+
+It's also possible to retrieve lifetime stats, instead of a season_id:
+
+```python
+season_data = api.seasons(
+    'lifetime' , player_id='epickitten').get()
 ```
 
 ## Playing around with data
