@@ -38,7 +38,7 @@ class Domain:
     def __init__(self, data, meta=None):
         self._raw_data = copy.deepcopy(data)
         self._meta = meta or Meta(self._raw_data)
-        self._data = self._raw_data.pop('data')
+        self._data = self._raw_data.pop('data', {})
         self.from_dict()
 
         self.process_relationships()
@@ -72,9 +72,9 @@ class Domain:
                 setattr(self, name, [])
                 rel = getattr(self, name)
                 for data in relationship['data']:
-                    import pdb; pdb.set_trace()
                     item = self._meta.retrieve(data)
-                    rel.append(Domain.instance({'data': item}, meta=self._meta))
+                    rel.append(
+                        Domain.instance({'data': item}, meta=self._meta))
 
             elif isinstance(relationship, dict):
                 relationship_instance = Domain.instance(
@@ -208,12 +208,12 @@ class Playerseason(Domain):
     def from_dict(self):
         super().from_dict()
         game_mode_stats = self.attributes.get('gameModeStats')
-        self.solo = Stats({'data': game_mode_stats.get('solo')})
-        self.solo_fpp = Stats({'data': game_mode_stats.get('solo-fpp')})
-        self.duo = Stats({'data': game_mode_stats.get('duo')})
-        self.duo_fpp = Stats({'data': game_mode_stats.get('duo-fpp')})
-        self.squad = Stats({'data': game_mode_stats.get('squad')})
-        self.squad_fpp = Stats({'data': game_mode_stats.get('squad-fpp')})
+        self.solo = Stats({'data': game_mode_stats.get('solo', {})})
+        self.solo_fpp = Stats({'data': game_mode_stats.get('solo-fpp', {})})
+        self.duo = Stats({'data': game_mode_stats.get('duo', {})})
+        self.duo_fpp = Stats({'data': game_mode_stats.get('duo-fpp', {})})
+        self.squad = Stats({'data': game_mode_stats.get('squad', {})})
+        self.squad_fpp = Stats({'data': game_mode_stats.get('squad-fpp', {})})
 
 
 class Stats(Domain):

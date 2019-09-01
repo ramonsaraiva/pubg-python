@@ -74,10 +74,10 @@ class PUBG:
 
         if game_mode is not None:
            return QuerySet(self.api_client, self.shard_url.join(
-                'seasons/{}/gameMode/{}/players'.format(season_id, game_mode)))
+               'seasons/{}/gameMode/{}/players'.format(season_id, game_mode)))
         if player_id is not None:
             return QuerySet(self.api_client, self.shard_url.join(
-                'players/{}/seasons/{}'.format(player_id, season_id)))
+               'players/{}/seasons/{}'.format(player_id, season_id)))
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
