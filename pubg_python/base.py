@@ -5,10 +5,8 @@ from .clients import (
 )
 from .domain.base import Shard
 from .domain.telemetry.base import Telemetry
-from .querysets import (
-    QuerySet,
-    SeasonsQuerySet,
-)
+from .exceptions import RequiredFilterError
+from .querysets import QuerySet
 
 
 def shardful_endpoint(f):
@@ -62,8 +60,24 @@ class PUBG:
     def tournaments(self):
         pass
 
-    def seasons(self):
-        return SeasonsQuerySet(self.api_client, self.shard_url.join('seasons'))
+    def seasons(self, season_id=None, **kwargs):
+        # TODO: probably redesign this?
+        if season_id is None:
+            return QuerySet(self.api_client, self.shard_url.join('seasons'))
+
+        game_mode = kwargs.pop('game_mode', None)
+        player_id = kwargs.pop('player_id', None)
+
+        if game_mode is None and player_id is None:
+            raise RequiredFilterError(
+                'game_mode or player_id is required for fetching seasons.')
+
+        if game_mode is not None:
+           return QuerySet(self.api_client, self.shard_url.join(
+                'seasons/{}/gameMode/{}/players'.format(season_id, game_mode)))
+        if player_id is not None:
+            return QuerySet(self.api_client, self.shard_url.join(
+                'players/{}/seasons/{}'.format(player_id, season_id)))
 
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
