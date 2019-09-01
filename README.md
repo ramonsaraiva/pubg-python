@@ -165,9 +165,9 @@ telemetry = Telemetry.from_json('telemetry.json', shard='pc')
 
 `shard` defaults to `pc` but you need to specify if you're loading a `xbox` telemetry file.
 
-## Matches
+## Tournaments
 
-* Matches
+* Tournaments
   * [Official docs](https://documentation.playbattlegrounds.com/en/tournaments-endpoint.html)
   * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
 
