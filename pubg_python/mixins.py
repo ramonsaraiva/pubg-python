@@ -37,6 +37,11 @@ class PaginatedQuerySetMixin:
         self.endpoint.args['page[offset]'] = value
         return self
 
+    @invalidates_cache
+    def page(self, value):
+        self.endpoint.args['page[number]'] = value
+        return self
+
     def next(self):
         if not self.has_data:
             return self
