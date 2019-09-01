@@ -189,6 +189,7 @@ class Player(Domain):
         self.shard_id = self.attributes.get('shardId')
         self.stats = self.attributes.get('stats')
         self.title_id = self.attributes.get('titleId')
+        self.rank = self.attributes.get('rank')
 
 
 class Tournament(Domain):
@@ -257,3 +258,11 @@ class Stats(Domain):
         self.weekly_wins = self._data.get('weeklyWins')
         self.win_points = self._data.get('winPoints')
         self.wins = self._data.get('wins')
+
+
+class Leaderboard(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.shard_id = self.attributes.get('shardId')
+        self.game_mode = self.attributes.get('gameMode')
