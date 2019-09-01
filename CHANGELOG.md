@@ -1,3 +1,7 @@
+## 0.9.0 / 2019-09-01
+
+* Add leaderboards support
+
 ## 0.8.2 / 2019-09-01
 
 * Fix attributes for season stats (solo, solo_fpp, duo, duo_fpp, squad, squad_fpp)
