@@ -228,6 +228,27 @@ season_data = api.seasons(
     'lifetime' , player_id='epickitten').get()
 ```
 
+## Leaderboards
+
+* Leaderboards
+  * [Official docs](https://documentation.pubg.com/en/leaderboards-endpoint.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
+### Retrieving a leaderboard
+
+```python
+# Leaderboards stats are only available for PC players
+api.shard = Shard.STEAM
+solo_leaderboard = api.leaderboards(game_mode='solo').page(0).get()
+solo_fpp_leaderboard = api.leaderboards(game_mode='solo-fpp').page(0).get()
+duo_leaderboard = api.leaderboards(game_mode='duo').page(0).get()
+duo_fpp_leaderboard = api.leaderboards(game_mode='duo-fpp').page(0).get()
+squad_leaderboard = api.leaderboards(game_mode='squad').page(0).get()
+squad_fpp_leaderboard = api.leaderboards(game_mode='squad-fpp').page(0).get()
+```
+
+`page` is always required, even when querying the first leaderboard page.
+
 ## Playing around with data
 
 An example of how you can manipulate the data:
