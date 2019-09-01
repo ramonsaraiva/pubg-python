@@ -73,7 +73,7 @@ class PUBG:
                 'game_mode or player_id is required for fetching seasons.')
 
         if game_mode is not None:
-           return QuerySet(self.api_client, self.shard_url.join(
+            return QuerySet(self.api_client, self.shard_url.join(
                'seasons/{}/gameMode/{}/players'.format(season_id, game_mode)))
         if player_id is not None:
             return QuerySet(self.api_client, self.shard_url.join(
