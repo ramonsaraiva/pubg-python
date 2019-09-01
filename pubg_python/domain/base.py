@@ -68,7 +68,7 @@ class Domain:
             if not relationship['data']:
                 continue
 
-            if isinstance(relationship, list):
+            if isinstance(relationship['data'], list):
                 setattr(self, name, [])
                 rel = getattr(self, name)
                 for data in relationship['data']:
@@ -76,7 +76,7 @@ class Domain:
                     rel.append(
                         Domain.instance({'data': item}, meta=self._meta))
 
-            elif isinstance(relationship, dict):
+            elif isinstance(relationship['data'], dict):
                 relationship_instance = Domain.instance(
                     relationship, meta=self._meta)
                 setattr(self, name, relationship_instance)
