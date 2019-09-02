@@ -207,6 +207,10 @@ class LogVehicleRide(LogVehicle):
     def from_dict(self):
         super().from_dict()
         self.seat_index = self._data.get('seatIndex')
+        self.fellow_passengers = [
+            objects.Character(data)
+            for data in self._data.get('fellowPassengers', [])
+        ]
 
 
 class LogVehicleLeave(LogVehicle):
@@ -216,6 +220,10 @@ class LogVehicleLeave(LogVehicle):
         self.ride_distance = self._data.get('rideDistance')
         self.seat_index = self._data.get('seatIndex')
         self.max_speed = self._data.get('maxSpeed')
+        self.fellow_passengers = [
+            objects.Character(data)
+            for data in self._data.get('fellowPassengers', [])
+        ]
 
 
 class LogVehicleDestroy(Event):
