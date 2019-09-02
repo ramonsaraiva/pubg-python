@@ -23,7 +23,8 @@ class BaseObject:
 class Object(BaseObject):
 
     def deserialize(self, data):
-        return data if isinstance(data, TelemetryData) else {}
+        # TODO: process nested objects as telemetry data
+        return data if isinstance(data, (TelemetryData, dict)) else {}
 
 
 class StringifiedObject(BaseObject):
