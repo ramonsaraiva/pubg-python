@@ -19,6 +19,7 @@ class Shard(Enum):
     XBOX_EU = 'xbox-eu'  # Europe
     XBOX_NA = 'xbox-na'  # North America
     XBOX_OC = 'xbox-oc'  # Oceania
+    XBOX_SA = 'xbox-sa'  # South America
     KAKAO = 'kakao'  # Kakao
     PSN = 'psn'
     STEAM = 'steam'
