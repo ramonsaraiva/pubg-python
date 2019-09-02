@@ -1,3 +1,7 @@
+## 0.10.1 / 2019-09-02
+
+* Fix deserialization for nested items
+
 ## 0.10.0 / 2019-09-02
 
 * Sync domain classes/telemetry data with latest API changes (synced with V14.1.0)
