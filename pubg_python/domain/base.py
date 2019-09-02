@@ -119,6 +119,7 @@ class Match(Domain):
         self.stats = self.attributes.get('stats')
         self.tags = self.attributes.get('tags')
         self.title_id = self.attributes.get('titleId')
+        self.season_state = self.attributes.get('seasonState')
 
 
 class Roster(Domain):
@@ -148,8 +149,6 @@ class Participant(Domain):
         self.headshot_kills = self.stats.get('headshotKills')
         self.heals = self.stats.get('heals')
         self.kill_place = self.stats.get('killPlace')
-        self.kill_points = self.stats.get('killPoints')
-        self.kill_points_delta = self.stats.get('killPointsDelta')
         self.kill_streaks = self.stats.get('killStreaks')
         self.kills = self.stats.get('kills')
         self.longest_kill = self.stats.get('longestKill')
@@ -166,8 +165,7 @@ class Participant(Domain):
         self.walk_distance = self.stats.get('walkDistance')
         self.weapons_acquired = self.stats.get('weaponsAcquired')
         self.win_place = self.stats.get('winPlace')
-        self.win_points = self.stats.get('winPoints')
-        self.win_points_delta = self.stats.get('winPointsDelta')
+        self.rank_points = self.stats.get('rankPoints')
 
 
 class Asset(Domain):
@@ -232,7 +230,6 @@ class Stats(Domain):
         self.daily_wins = self._data.get('dailyWins')
         self.headshot_kills = self._data.get('headshotKills')
         self.heals = self._data.get('heals')
-        self.kill_points = self._data.get('killPoints')
         self.kills = self._data.get('kills')
         self.longest_kill = self._data.get('longestKill')
         self.longest_time_survived = self._data.get('longestTimeSurvived')
@@ -256,8 +253,8 @@ class Stats(Domain):
         self.weapons_acquired = self._data.get('weaponsAcquired')
         self.weekly_kills = self._data.get('weeklyKills')
         self.weekly_wins = self._data.get('weeklyWins')
-        self.win_points = self._data.get('winPoints')
         self.wins = self._data.get('wins')
+        self.best_rank_point = self._data.get('bestRankPoint')
 
 
 class Leaderboard(Domain):
