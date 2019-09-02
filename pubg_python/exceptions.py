@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class InvalidShardError(Exception):
     pass
 
@@ -44,5 +47,10 @@ class InvalidContentTypeError(APIError):
 
 class RateLimitError(APIError):
 
-    def __init__(self):
-        super().__init__('Too many requests')
+    def __init__(self, *args, **kwargs):
+        self.response_headers = kwargs.pop('response_headers', None)
+        self.rl_limit = int(self.response_headers.get('X-Ratelimit-Limit'))
+        self.rl_reset = datetime.fromtimestamp(
+                int(self.response_headers.get('X-Ratelimit-Reset')))
+        super().__init__('Too many requests. Limit: {} Reset: {}'.format(
+           self.rl_limit, self.rl_reset))

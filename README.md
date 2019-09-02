@@ -309,6 +309,28 @@ player.matches
 >> [<Match b3dcd7e8-2270-4fdd-8389-af77acf2d6c2>, <Match 2ebb1a9c-ab5e-4264-971f-df77a00918a9>, ..]
 ```
 
+### Ratelimits
+
+Each application has a limited amount of requests allowed per minute.
+The ratelimit is managed through HTTP headers (`X-Ratelimit-Limit`, `X-Ratelimit-Reset`, etc..).
+In order to facilitate heavy tasks, it is possible to retrieve those values from the `RateLimitError`. The values available in the exception instance are `rl_limit` (integer) and `rl_reset` (datetime).
+
+An example snippet that would use this information in favor of processing something big:
+
+```python
+api = PUBG('my-super-secret-key', Shard.STEAM)
+
+while True:
+    try:
+        print('Processing samples...')
+        api.samples().get()
+    except RateLimitError as error:
+        sleep_seconds = (error.rl_reset - datetime.now()).total_seconds()
+        if sleep_seconds > 0:
+            print('Reached my limit! sleeping for {}'.format(sleep_seconds))
+            time.sleep(sleep_seconds)
+```
+
 ### Limits and Offsets
 
 **Currently disabled from the official API**

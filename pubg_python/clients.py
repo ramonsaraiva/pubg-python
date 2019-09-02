@@ -29,7 +29,7 @@ class Client:
         if response.status_code != self.API_OK:
             exception = self.API_ERRORS_MAPPING.get(
                 response.status_code, exceptions.APIError)
-            raise exception()
+            raise exception(response_headers=response.headers)
 
         return json.loads(response.text)
 
