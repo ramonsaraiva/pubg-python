@@ -199,6 +199,7 @@ class Season(Domain):
         super().from_dict()
         self.is_current_season = self.attributes.get('isCurrentSeason')
         self.is_off_season = self.attributes.get('isOffSeason')
+        self.best_rank_point = self.attributes.get('bestRankPoint')
 
 
 class Playerseason(Domain):
@@ -253,7 +254,6 @@ class Stats(Domain):
         self.weekly_kills = self._data.get('weeklyKills')
         self.weekly_wins = self._data.get('weeklyWins')
         self.wins = self._data.get('wins')
-        self.best_rank_point = self._data.get('bestRankPoint')
 
 
 class Leaderboard(Domain):
