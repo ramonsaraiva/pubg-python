@@ -1,3 +1,7 @@
+## 0.11.0 / 2019-09-02
+
+* Add ratelimit context to RateLimitError instance (rl_limit, rl_reset)
+
 ## 0.10.1 / 2019-09-02
 
 * Fix deserialization for nested items
