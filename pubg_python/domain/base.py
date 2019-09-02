@@ -153,7 +153,6 @@ class Participant(Domain):
         self.kill_streaks = self.stats.get('killStreaks')
         self.kills = self.stats.get('kills')
         self.longest_kill = self.stats.get('longestKill')
-        self.most_damage = self.stats.get('mostDamage')
         self.name = self.stats.get('name')
         self.player_id = self.stats.get('playerId')
         self.revives = self.stats.get('revives')
