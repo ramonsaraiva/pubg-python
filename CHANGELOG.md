@@ -1,3 +1,7 @@
+## 0.10.0 / 2019-09-02
+
+* Sync domain classes/telemetry data with latest API changes (synced with V14.1.0)
+
 ## 0.9.0 / 2019-09-01
 
 * Add leaderboards support
