@@ -87,6 +87,9 @@ class LogPlayerKill(Event):
         self.attack_id = self._data.get('attackId')
         self.killer = objects.Character(self._data.get('killer', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
+        self.victim_weapon = self._data.get('victimWeapon')
+        self.victim_weapon_additional_info = self._data.get(
+            'victimWeaponAdditionalInfo')
         self.assistant = objects.Character(self._data.get('assistant', {}))
         self.dbno_id = self._data.get('dBNOId')
         self.damage_type_category = self._data.get('damageTypeCategory')
@@ -204,6 +207,10 @@ class LogVehicleRide(LogVehicle):
     def from_dict(self):
         super().from_dict()
         self.seat_index = self._data.get('seatIndex')
+        self.fellow_passengers = [
+            objects.Character(data)
+            for data in self._data.get('fellowPassengers', [])
+        ]
 
 
 class LogVehicleLeave(LogVehicle):
@@ -213,6 +220,10 @@ class LogVehicleLeave(LogVehicle):
         self.ride_distance = self._data.get('rideDistance')
         self.seat_index = self._data.get('seatIndex')
         self.max_speed = self._data.get('maxSpeed')
+        self.fellow_passengers = [
+            objects.Character(data)
+            for data in self._data.get('fellowPassengers', [])
+        ]
 
 
 class LogVehicleDestroy(Event):
@@ -343,6 +354,9 @@ class LogPlayerMakeGroggy(Event):
         self.attack_id = self._data.get('attackId')
         self.attacker = objects.Character(self._data.get('attacker', {}))
         self.victim = objects.Character(self._data.get('victim', {}))
+        self.victim_weapon = self._data.get('victimWeapon')
+        self.victim_weapon_additional_info = self._data.get(
+            'victimWeaponAdditionalInfo')
         self.damage_reason = self._data.get('damageReason')
         self.damage_type_category = self._data.get('damageTypeCategory')
         self.damage_causer_name = self._data.get('damageCauserName')
