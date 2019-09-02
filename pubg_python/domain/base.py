@@ -166,7 +166,6 @@ class Participant(Domain):
         self.walk_distance = self.stats.get('walkDistance')
         self.weapons_acquired = self.stats.get('weaponsAcquired')
         self.win_place = self.stats.get('winPlace')
-        self.rank_points = self.stats.get('rankPoints')
 
 
 class Asset(Domain):
