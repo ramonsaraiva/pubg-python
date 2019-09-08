@@ -19,7 +19,8 @@ class RequiredFilterError(Exception):
 
 class APIError(Exception):
 
-    def __init__(self, message='Something went wrong with your request', *args, **kwargs):
+    def __init__(self, message='Something went wrong with your request',
+                 *args, **kwargs):
         super().__init__(message)
 
 
@@ -54,3 +55,4 @@ class RateLimitError(APIError):
                 int(self.response_headers.get('X-Ratelimit-Reset')))
         super().__init__('Too many requests. Limit: {} Reset: {}'.format(
            self.rl_limit, self.rl_reset))
+
