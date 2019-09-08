@@ -19,7 +19,7 @@ class RequiredFilterError(Exception):
 
 class APIError(Exception):
 
-    def __init__(self, message='Something went wrong with your request'):
+    def __init__(self, message='Something went wrong with your request', *args, **kwargs):
         super().__init__(message)
 
 
@@ -29,19 +29,19 @@ class ResponseError(APIError):
 
 class UnauthorizedError(APIError):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__('API key invalid or missing')
 
 
 class NotFoundError(APIError):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__('The specified resource was not found')
 
 
 class InvalidContentTypeError(APIError):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__('Unsupported media type')
 
 
