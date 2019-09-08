@@ -55,4 +55,3 @@ class RateLimitError(APIError):
                 int(self.response_headers.get('X-Ratelimit-Reset')))
         super().__init__('Too many requests. Limit: {} Reset: {}'.format(
            self.rl_limit, self.rl_reset))
-
