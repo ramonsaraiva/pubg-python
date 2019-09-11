@@ -1,3 +1,11 @@
+## 0.11.2 / 2019-09-10
+
+* User proper BASE_URL - @glmn
+
+## 0.11.1 / 2019-09-07
+
+* Fix exception kwargs - @glmn
+
 ## 0.11.0 / 2019-09-02
 
 * Add ratelimit context to RateLimitError instance (rl_limit, rl_reset)
