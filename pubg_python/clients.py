@@ -36,7 +36,7 @@ class Client:
 
 class APIClient(Client):
 
-    BASE_URL = 'https://api.playbattlegrounds.com/'
+    BASE_URL = 'https://api.pubg.com/'
 
     def __init__(self, api_key):
         super().__init__()
