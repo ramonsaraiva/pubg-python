@@ -1,8 +1,8 @@
 import json
 import pytest
 import requests_mock
-from pubg_python.base import *
-from pubg_python.domain.base import *
+from pubg_python.base import PUBG, Shard, APIClient
+from pubg_python.domain.base import Match, Roster, Participant, Asset
 
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
@@ -22,9 +22,11 @@ def test_match_get(mock, match_response):
     url = '{}shards/steam/matches/{}'.format(BASE_URL, match_id)
     mock.get(url, json=match_response)
     match = api.matches().get(match_id)
+    asset = match.assets[0]
     roster = match.rosters[0]
     participant = roster.participants[0]
     assert isinstance(match, Match)
     assert match.id == match_id
+    assert isinstance(asset, Asset)
     assert isinstance(roster, Roster)
     assert isinstance(participant, Participant)
