@@ -7,3 +7,6 @@ directory = test-reports/coverage.html
 
 [xml]
 output = test-reports/coverage.xml
+
+[report]
+exclude_lines = pass
