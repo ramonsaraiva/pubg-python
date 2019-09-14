@@ -8,7 +8,6 @@ api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
 TELEMETRY_URL = 'http://telemetry.pubg'
 TELEMETRY_JSON = json.load(open('tests/telemetry_response.json'))
-TELEMETRY_EVENTS_COUNT = 37671
 
 @pytest.fixture()
 def mock():
@@ -19,12 +18,10 @@ def test_telemetry_instance(mock):
     mock.get(TELEMETRY_URL, json=TELEMETRY_JSON)
     telemetry = api.telemetry(TELEMETRY_URL)
     assert isinstance(telemetry, Telemetry)
-    assert len(telemetry.events) == TELEMETRY_EVENTS_COUNT
         
 def test_telemetry_from_json():
     telemetry = Telemetry.from_json('tests/telemetry_response.json')
     assert isinstance(telemetry, Telemetry)
-    assert len(telemetry.events) == TELEMETRY_EVENTS_COUNT
 
 def test_events_from_type(mock):
     mock.get(TELEMETRY_URL, json=TELEMETRY_JSON)
