@@ -332,9 +332,6 @@ class LogArmorDestroy(Event):
         self.item = objects.Item(self._data.get('item', {}))
         self.distance = self._data.get('distance')
 
-        # NOTE: Looking at the documentation is this still in the API?
-        self.vehicle = objects.Vehicle(self._data.get('vehicle', {}))
-
 
 class LogWheelDestroy(Event):
 
