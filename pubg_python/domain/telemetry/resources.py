@@ -196,7 +196,7 @@ VEHICLE_MAP = {
     "DummyTransportAircraft_C": "C-130",
     "ParachutePlayer_C": "Parachute",
     "ParachutePlayer_Warmode_C": "Parachute",
-    "PG117_A_01_C": "PG-117", 
+    "PG117_A_01_C": "PG-117",
     "Uaz_A_01_C": "UAZ (open top)",
     "Uaz_Armored_C": "UAZ (armored)",
     "Uaz_B_01_C": "UAZ (soft top)",
@@ -370,5 +370,5 @@ MAP_NAME = {
     "Erangel_Main": "Erangel",
     "Baltic_Main": "Erangel (Remastered)",
     "Range_Main": "Camp Jackal",
-    "Savage_Main": "Sanhok" 
+    "Savage_Main": "Sanhok"
 }
