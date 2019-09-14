@@ -372,3 +372,15 @@ MAP_NAME = {
     "Range_Main": "Camp Jackal",
     "Savage_Main": "Sanhok"
 }
+
+WEATHER_MAP = [
+    "Clear",
+    "Clear_02",
+    "Dark",
+    "Night",
+    "Overcast",
+    "Snow",
+    "Sunrise",
+    "Sunset",
+    "Weather_Range_Sunset"
+]
