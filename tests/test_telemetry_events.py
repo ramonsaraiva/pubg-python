@@ -179,8 +179,7 @@ def test_log_object_destroy():
     assert isinstance(data, LogObjectDestroy)
     assert isinstance(data.character, Character)
     assert isinstance(data.object_location, Location)
-    #!TODO
-    #assert data.object_type in ???
+    assert data.object_type in DESTRUCTIBLE_OBJ
 
 def test_log_vault_start():
     events = telemetry.events_from_type('LogVaultStart')
