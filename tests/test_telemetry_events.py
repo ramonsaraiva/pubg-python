@@ -339,7 +339,13 @@ def test_log_match_start():
     assert isinstance(data.is_event_mode, bool)
     assert isinstance(data.team_size, int)
     if len(data.blue_zone_custom_options) == 0:
-        stringified = '[{"phaseNum":0,"startDelay":120,"warningDuration":300,"releaseDuration":300,"poisonGasDamagePerSecond":0.40000000596046448,"radiusRate":0.34999999403953552,"spreadRatio":0.5,"landRatio":0.55000001192092896,"circleAlgorithm":0}]'
+        stringified = """
+            [{"phaseNum":0,"startDelay":120,"warningDuration":300,
+              "releaseDuration":300,
+              "poisonGasDamagePerSecond":0.40000000596046448,
+              "radiusRate":0.34999999403953552,"spreadRatio":0.5,
+              "landRatio":0.55000001192092896,"circleAlgorithm":0}]
+        """.replace('\n', ' ')
         data.blue_zone_custom_options = BlueZoneCustomOptions(stringified)
     blue_zone = data.blue_zone_custom_options[0]
     isinstance(blue_zone, BlueZone)
