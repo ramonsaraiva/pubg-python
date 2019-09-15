@@ -1,6 +1,3 @@
-from . import exceptions
-
-
 def invalidates_cache(f):
     def wrapper(self, *args, **kwargs):
         if self._data:
