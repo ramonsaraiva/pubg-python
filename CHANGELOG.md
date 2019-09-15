@@ -1,3 +1,7 @@
+## 0.11.4 / 2019-09-16
+
+* Add unit tests - @glmn
+
 ## 0.11.3 / 2019-09-10
 
 * Fix release workflow - @glmn
