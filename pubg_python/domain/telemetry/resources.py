@@ -429,3 +429,10 @@ SEASON_STATE = [
     'prepare',
     'progress'
 ]
+
+DESTRUCTIBLE_OBJ = [
+    'Door',
+    'Fence',
+    'Window',
+    'Jerrycan'
+]
