@@ -9,20 +9,24 @@ api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
 ENDPOINT_PATH = 'shards/steam/players'
 
+
 @pytest.fixture()
 def mock():
     with requests_mock.Mocker() as mock:
         yield mock
+
 
 @pytest.fixture()
 def players_response():
     with open('tests/players_response.json') as json_file:
         yield json.load(json_file)
 
+
 @pytest.fixture()
 def player_response():
     with open('tests/player_response.json') as json_file:
         yield json.load(json_file)
+
 
 def test_player_get(mock, player_response):
     player_id = 'account.d1c920088e124f2393455e05c11a8775'
@@ -31,6 +35,7 @@ def test_player_get(mock, player_response):
     player = api.players().get(player_id)
     assert isinstance(player, Player)
     assert player.id == player_id
+
 
 def test_player_filter_names(mock, players_response):
     player_names = ['chocoTaco', 'glmn']
@@ -46,9 +51,10 @@ def test_player_filter_names(mock, players_response):
         assert type(player.name) == str
         assert isinstance(match, Match)
 
+
 def test_player_filter_ids(mock, players_response):
     player_ids = ['account.15cbf322a9bc45e88b0cd9f12ef4188e',
-        'account.d1c920088e124f2393455e05c11a8775']
+                  'account.d1c920088e124f2393455e05c11a8775']
     url = furl(BASE_URL).join(ENDPOINT_PATH).add(
         {'filter[playerIds]': ','.join(player_ids)}).url
     mock.get(url, json=players_response)

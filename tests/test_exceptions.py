@@ -1,10 +1,19 @@
 import pytest
 import requests_mock
-from pubg_python.base import *
-from pubg_python.exceptions import *
-
+from pubg_python.base import PUBG, Shard, APIClient
+from pubg_python.exceptions import (
+    APIError,
+    InvalidShardError,
+    InvalidFilterError,
+    RequiredFilterError,
+    UnauthorizedError,
+    NotFoundError,
+    InvalidContentTypeError,
+    RateLimitError
+)
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
+
 
 @pytest.fixture()
 def mock():
@@ -18,6 +27,7 @@ def test_invalid_shard_error():
     except InvalidShardError:
         assert True
 
+
 def test_invalid_filter_error():
     try:
         api.players().filter(player_kills=100)
@@ -25,11 +35,13 @@ def test_invalid_filter_error():
     except InvalidFilterError:
         assert True
 
+
 def test_required_filter_error():
     try:
-        season = api.seasons(season_id='season_id')
+        api.seasons(season_id='season_id')
     except RequiredFilterError:
         assert True
+
 
 def test_api_error():
     try:
@@ -37,6 +49,7 @@ def test_api_error():
         assert False
     except APIError:
         assert True
+
 
 def test_client_unauthorized_error(mock):
     url = '{}shards/steam/matches/{}'.format(BASE_URL, 'match_id')
@@ -47,6 +60,7 @@ def test_client_unauthorized_error(mock):
     except UnauthorizedError:
         assert True
 
+
 def test_client_notfound_error(mock):
     url = '{}shards/steam/matches/{}'.format(BASE_URL, 'match_id')
     mock.get(url, status_code=404)
@@ -56,6 +70,7 @@ def test_client_notfound_error(mock):
     except NotFoundError:
         assert True
 
+
 def test_client_invalid_content_type_error(mock):
     url = '{}shards/steam/matches/{}'.format(BASE_URL, 'match_id')
     mock.get(url, status_code=415)
@@ -64,6 +79,7 @@ def test_client_invalid_content_type_error(mock):
         assert False
     except InvalidContentTypeError:
         assert True
+
 
 def test_client_ratelimit_error(mock):
     url = '{}shards/steam/matches/{}'.format(BASE_URL, 'match_id')

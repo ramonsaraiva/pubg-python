@@ -3,20 +3,23 @@ import pytest
 import requests_mock
 from pubg_python.base import PUBG, Shard, APIClient
 from pubg_python.domain.base import Match, Roster, Participant, Asset
-from pubg_python.domain.telemetry.resources import *
+from pubg_python.domain.telemetry.resources import GAME_MODE, SEASON_STATE
 
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
+
 
 @pytest.fixture()
 def mock():
     with requests_mock.Mocker() as mock:
         yield mock
 
+
 @pytest.fixture()
 def match_response():
     with open('tests/match_response.json') as json_file:
         yield json.load(json_file)
+
 
 def test_match_get(mock, match_response):
     match_id = 'f80126f4-9520-4c66-9198-57820d04bf00'

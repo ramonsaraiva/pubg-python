@@ -10,10 +10,12 @@ api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
 ENDPOINT_PATH = 'shards/steam/leaderboards'
 
+
 @pytest.fixture()
 def mock():
     with requests_mock.Mocker() as mock:
         yield mock
+
 
 @pytest.fixture()
 def leaderboard_response():
