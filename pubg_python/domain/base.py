@@ -199,7 +199,6 @@ class Season(Domain):
         super().from_dict()
         self.is_current_season = self.attributes.get('isCurrentSeason')
         self.is_off_season = self.attributes.get('isOffSeason')
-        self.best_rank_point = self.attributes.get('bestRankPoint')
 
 
 class Playerseason(Domain):
