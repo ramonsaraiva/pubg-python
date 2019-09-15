@@ -198,14 +198,14 @@ class Season(Domain):
     def from_dict(self):
         super().from_dict()
         self.is_current_season = self.attributes.get('isCurrentSeason')
-        self.is_off_season = self.attributes.get('isOffSeason')
-        self.best_rank_point = self.attributes.get('bestRankPoint')
+        self.is_off_season = self.attributes.get('isOffseason')
 
 
 class Playerseason(Domain):
 
     def from_dict(self):
         super().from_dict()
+        self.best_rank_point = self.attributes.get('bestRankPoint')
         game_mode_stats = self.attributes.get('gameModeStats')
         self.solo = Stats({'data': game_mode_stats.get('solo', {})})
         self.solo_fpp = Stats({'data': game_mode_stats.get('solo-fpp', {})})
@@ -223,7 +223,7 @@ class Stats(Domain):
         super().from_dict()
         self.assists = self._data.get('assists')
         self.boosts = self._data.get('boosts')
-        self.dbnos = self._data.get('dbnos')
+        self.dbnos = self._data.get('dBNOs')
         self.daily_kills = self._data.get('dailyKills')
         self.damage_dealt = self._data.get('damageDealt')
         self.days = self._data.get('days')
