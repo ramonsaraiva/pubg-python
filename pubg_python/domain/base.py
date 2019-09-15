@@ -198,7 +198,7 @@ class Season(Domain):
     def from_dict(self):
         super().from_dict()
         self.is_current_season = self.attributes.get('isCurrentSeason')
-        self.is_off_season = self.attributes.get('isOffSeason')
+        self.is_off_season = self.attributes.get('isOffseason')
 
 
 class Playerseason(Domain):
