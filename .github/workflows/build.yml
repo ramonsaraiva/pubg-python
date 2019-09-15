@@ -27,6 +27,6 @@ jobs:
       run: pytest --cov-config .coveragerc --cov-report xml --cov-report html --cov pubg_python
 
     - name: Coverage
-      with:
-        codecov-token: ${{ secrets.CODECOV_TOKEN }}
-      run: codecov --token ${{ codecov-token }}
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      run: codecov
