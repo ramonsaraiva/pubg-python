@@ -384,3 +384,48 @@ WEATHER_MAP = [
     "Sunset",
     "Weather_Range_Sunset"
 ]
+
+GAME_MODE = [
+    'duo',
+    'duo-fpp',
+    'solo',
+    'solo-fpp',
+    'squad',
+    'squad-fpp',
+    'conquest-duo',
+    'conquest-duo-fpp',
+    'conquest-solo',
+    'conquest-solo-fpp',
+    'conquest-squad',
+    'conquest-squad-fpp',
+    'esports-duo',
+    'esports-duo-fpp',
+    'esports-solo',
+    'esports-solo-fpp',
+    'esports-squad',
+    'esports-squad-fpp',
+    'normal-duo',
+    'normal-duo-fpp',
+    'normal-solo',
+    'normal-solo-fpp',
+    'normal-squad',
+    'normal-squad-fpp',
+    'war-duo',
+    'war-duo-fpp',
+    'war-solo',
+    'war-solo-fpp',
+    'war-squad',
+    'war-squad-fpp',
+    'zombie-duo',
+    'zombie-duo-fpp',
+    'zombie-solo',
+    'zombie-solo-fpp',
+    'zombie-squad',
+    'zombie-squad-fpp'
+]
+
+SEASON_STATE = [
+    'closed',
+    'prepare',
+    'progress'
+]
