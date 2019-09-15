@@ -223,7 +223,7 @@ class Stats(Domain):
         super().from_dict()
         self.assists = self._data.get('assists')
         self.boosts = self._data.get('boosts')
-        self.dbnos = self._data.get('dbnos')
+        self.dbnos = self._data.get('dBNOs')
         self.daily_kills = self._data.get('dailyKills')
         self.damage_dealt = self._data.get('damageDealt')
         self.days = self._data.get('days')
