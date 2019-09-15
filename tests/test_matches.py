@@ -3,6 +3,7 @@ import pytest
 import requests_mock
 from pubg_python.base import PUBG, Shard, APIClient
 from pubg_python.domain.base import Match, Roster, Participant, Asset
+from pubg_python.domain.telemetry.resources import *
 
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
@@ -25,8 +26,14 @@ def test_match_get(mock, match_response):
     asset = match.assets[0]
     roster = match.rosters[0]
     participant = roster.participants[0]
+    print(match.title_id)
     assert isinstance(match, Match)
-    assert match.id == match_id
     assert isinstance(asset, Asset)
     assert isinstance(roster, Roster)
     assert isinstance(participant, Participant)
+    assert isinstance(match.created_at, str)
+    assert isinstance(match.duration, int)
+    assert match.game_mode in GAME_MODE
+    assert match.shard_id in Shard._value2member_map_
+    assert match.season_state in SEASON_STATE
+    assert match.id == match_id
