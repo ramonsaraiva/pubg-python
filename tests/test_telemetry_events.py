@@ -1,6 +1,3 @@
-import json
-import pytest
-import requests_mock
 from pubg_python.base import Telemetry
 from pubg_python.domain.telemetry.events import *
 from pubg_python.domain.telemetry.objects import *
@@ -345,7 +342,7 @@ def test_log_player_revive():
     assert isinstance(data.reviver, Character)
     assert isinstance(data.victim, Character)
     assert isinstance(data.dbno_id, int)
-    
+
 def test_log_red_zone_ended():
     events = telemetry.events_from_type('LogRedZoneEnded')
     data = events[0]
