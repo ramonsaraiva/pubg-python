@@ -1,0 +1,214 @@
+{
+    "data": [
+      {
+        "type": "playerSeason",
+        "attributes": {
+          "bestRankPoint": 0,
+          "gameModeStats": {
+            "squad-fpp": {
+              "assists": 87,
+              "boosts": 353,
+              "dBNOs": 371,
+              "dailyKills": 1,
+              "dailyWins": 0,
+              "damageDealt": 59051.188,
+              "days": 43,
+              "headshotKills": 75,
+              "heals": 442,
+              "killPoints": 0,
+              "kills": 377,
+              "longestKill": 357.9005,
+              "longestTimeSurvived": 1773.515,
+              "losses": 286,
+              "maxKillStreaks": 4,
+              "mostSurvivalTime": 1773.515,
+              "rankPoints": 3236.572,
+              "rankPointsTitle": "4-4",
+              "revives": 59,
+              "rideDistance": 116840.09,
+              "roadKills": 0,
+              "roundMostKills": 9,
+              "roundsPlayed": 289,
+              "suicides": 2,
+              "swimDistance": 307.49896,
+              "teamKills": 4,
+              "timeSurvived": 137149.88,
+              "top10s": 60,
+              "vehicleDestroys": 1,
+              "walkDistance": 190937.05,
+              "weaponsAcquired": 871,
+              "weeklyKills": 33,
+              "weeklyWins": 0,
+              "winPoints": 0,
+              "wins": 3
+            }
+          }
+        },
+        "relationships": {
+          "season": {
+            "data": {
+              "type": "season",
+              "id": "division.bro.official.pc-2018-04"
+            }
+          },
+          "player": {
+            "data": {
+              "type": "player",
+              "id": "account.d1c920088e124f2393455e05c11a8775"
+            }
+          },
+          "matchesSolo": {
+            "data": []
+          },
+          "matchesSoloFPP": {
+            "data": []
+          },
+          "matchesDuo": {
+            "data": []
+          },
+          "matchesDuoFPP": {
+            "data": []
+          },
+          "matchesSquad": {
+            "data": []
+          },
+          "matchesSquadFPP": {
+            "data": [
+              {
+                "type": "match",
+                "id": "efb4a27f-40ea-4f84-bd01-dcf8e9be4827"
+              },
+              {
+                "type": "match",
+                "id": "2398308a-8086-4820-813c-615e066855e3"
+              },
+              {
+                "type": "match",
+                "id": "be5e23c7-0bee-45a5-83d5-4c97a20c680a"
+              },
+              {
+                "type": "match",
+                "id": "52c82db9-b039-4730-ac63-05e96e5c6fbf"
+              },
+              {
+                "type": "match",
+                "id": "7dd7ff22-d0d8-4067-ae2d-e3783606156c"
+              },
+              {
+                "type": "match",
+                "id": "bd1a628c-1f69-4673-a69e-0b04d4945cfe"
+              },
+              {
+                "type": "match",
+                "id": "68e6a2ea-31c9-4fa6-8481-568174ee3703"
+              },
+              {
+                "type": "match",
+                "id": "b74c507c-1124-4d48-8042-83884289da47"
+              },
+              {
+                "type": "match",
+                "id": "65855718-8260-4ea9-9712-b59844a071b7"
+              },
+              {
+                "type": "match",
+                "id": "9675afb2-b8e4-4391-ae06-51410f0b0d01"
+              },
+              {
+                "type": "match",
+                "id": "61b1139a-c8cd-4609-b5b1-90e1d9bac474"
+              },
+              {
+                "type": "match",
+                "id": "7964ebeb-2f84-4f60-ac3a-2b44fbdc7d0f"
+              },
+              {
+                "type": "match",
+                "id": "9a8eb8f7-d89e-4c73-beaa-e4892b644d8e"
+              },
+              {
+                "type": "match",
+                "id": "7cf592e2-8074-4c89-b759-5ddad0c5479e"
+              },
+              {
+                "type": "match",
+                "id": "99cb9c6c-b686-4cf1-ac53-b48a7018148b"
+              },
+              {
+                "type": "match",
+                "id": "3f3fc7e8-6a79-40c1-ac8e-e992b792b228"
+              },
+              {
+                "type": "match",
+                "id": "5f7e800a-6348-4b4c-8e2c-84647fd9e28f"
+              },
+              {
+                "type": "match",
+                "id": "85e06918-0202-448a-bb85-d4c63f522601"
+              },
+              {
+                "type": "match",
+                "id": "9ce094e2-6979-418c-92df-b92010f1c9ec"
+              },
+              {
+                "type": "match",
+                "id": "d80f8c88-40a0-4926-82ed-eb887b74e047"
+              },
+              {
+                "type": "match",
+                "id": "df518786-53e5-4b70-8e3f-2f8eb5492bc2"
+              },
+              {
+                "type": "match",
+                "id": "df994115-07e9-4ff8-8a39-07aa20944504"
+              },
+              {
+                "type": "match",
+                "id": "89e78e0c-f59b-4996-99c8-fa9a66cfdff3"
+              },
+              {
+                "type": "match",
+                "id": "f136afd5-9080-4083-8d02-e0d3e7c8db6e"
+              },
+              {
+                "type": "match",
+                "id": "1ae3dea3-fc8a-43fd-b3ce-c6b5ebcff98f"
+              },
+              {
+                "type": "match",
+                "id": "c57c898d-6447-426b-9d1e-1db84b77831f"
+              },
+              {
+                "type": "match",
+                "id": "9fa7b726-7104-4309-9d40-fa4c4c19cada"
+              },
+              {
+                "type": "match",
+                "id": "f80126f4-9520-4c66-9198-57820d04bf00"
+              },
+              {
+                "type": "match",
+                "id": "265bb01c-49b8-4aa3-af51-575ee8262ee3"
+              },
+              {
+                "type": "match",
+                "id": "350a5701-cff9-45d3-8252-dd7683a63569"
+              },
+              {
+                "type": "match",
+                "id": "776da05a-f348-4643-957c-0ff25493fbbc"
+              },
+              {
+                "type": "match",
+                "id": "c556aeec-cdb7-4b0f-af49-c7defcde0a68"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.pubg.com/shards/steam/seasons/division.bro.official.pc-2018-04/gameMode/squad-fpp/players?filter[playerIds]=account.d1c920088e124f2393455e05c11a8775"
+    },
+    "meta": {}
+}
