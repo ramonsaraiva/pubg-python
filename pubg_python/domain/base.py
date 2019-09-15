@@ -205,6 +205,7 @@ class Playerseason(Domain):
 
     def from_dict(self):
         super().from_dict()
+        self.best_rank_point = self.attributes.get('bestRankPoint')
         game_mode_stats = self.attributes.get('gameModeStats')
         self.solo = Stats({'data': game_mode_stats.get('solo', {})})
         self.solo_fpp = Stats({'data': game_mode_stats.get('solo-fpp', {})})
