@@ -100,6 +100,7 @@ class Vehicle(Object):
         self.vehicle_type = self._data.get('vehicleType')
         self.vehicle_id = self._data.get('vehicleId')
         self.health_percent = self._data.get('healthPercent')
+        # TODO: update feulPercent when fixed in API
         self.fuel_percent = self._data.get('feulPercent')
 
     def __str__(self):
