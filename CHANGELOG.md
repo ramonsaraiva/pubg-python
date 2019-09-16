@@ -1,3 +1,7 @@
+## 0.11.5 / 2019-09-16
+
+* Sync with API known issues - @glmn
+
 ## 0.11.4 / 2019-09-16
 
 * Add unit tests - @glmn
