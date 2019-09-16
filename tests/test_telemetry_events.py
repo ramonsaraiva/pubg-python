@@ -268,9 +268,13 @@ def test_log_vault_start():
 
 def test_log_vehicle_ride():
     events = telemetry.events_from_type('LogVehicleRide')
-    data = events[223]
+    data = events[256]
     assert isinstance(data, LogVehicleRide)
     assert isinstance(data.character, Character)
+    assert isinstance(data.vehicle, Vehicle)
+    if data.vehicle.health_percent != 100:
+        assert isinstance(data.vehicle.health_percent, float)
+    assert isinstance(data.vehicle.fuel_percent, float)
     assert isinstance(data.vehicle, Vehicle)
     assert isinstance(data.fellow_passengers[0], Character)
     assert isinstance(data.seat_index, int)
