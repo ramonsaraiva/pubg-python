@@ -57,3 +57,9 @@ class OldTelemetryError(APIError):
 
     def __init__(self, *args, **kwargs):
         super().__init__('Telemetry was not found or no longer available')
+
+
+class TelemetryURLError(APIError):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__('Telemetry host differs from official')

@@ -46,4 +46,12 @@ class APIClient(Client):
 
 
 class TelemetryClient(Client):
-    pass
+    
+    TELEMETRY_HOSTS = [
+        'telemetry-cdn.playbattlegrounds.com'
+    ]
+
+    def request(self, endpoint):
+        if furl.furl(endpoint).host not in self.TELEMETRY_HOSTS:
+            raise exceptions.TelemetryURLError
+        return super().request(endpoint)
