@@ -13,6 +13,7 @@ class Client:
     API_OK = 200
     API_ERRORS_MAPPING = {
         401: exceptions.UnauthorizedError,
+        403: exceptions.OldTelemetryError,
         404: exceptions.NotFoundError,
         415: exceptions.InvalidContentTypeError,
         429: exceptions.RateLimitError,
@@ -45,4 +46,12 @@ class APIClient(Client):
 
 
 class TelemetryClient(Client):
-    pass
+
+    TELEMETRY_HOSTS = [
+        'telemetry-cdn.playbattlegrounds.com'
+    ]
+
+    def request(self, endpoint):
+        if furl.furl(endpoint).host not in self.TELEMETRY_HOSTS:
+            raise exceptions.TelemetryURLError
+        return super().request(endpoint)

@@ -9,7 +9,9 @@ from pubg_python.exceptions import (
     UnauthorizedError,
     NotFoundError,
     InvalidContentTypeError,
-    RateLimitError
+    RateLimitError,
+    OldTelemetryError,
+    TelemetryURLError
 )
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
@@ -89,4 +91,24 @@ def test_client_ratelimit_error(mock):
         api.matches().get('match_id')
         assert False
     except RateLimitError:
+        assert True
+
+
+def test_old_telemetry_error(mock):
+    url = 'https://telemetry-cdn.playbattlegrounds.com/missed_path.json'
+    mock.get(url, status_code=403)
+    try:
+        api.telemetry(url)
+        assert False
+    except OldTelemetryError:
+        assert True
+
+
+def test_telemetry_url_error(mock):
+    url = 'https://different-host.com/telemetry.json'
+    mock.get(url, status_code=200)
+    try:
+        api.telemetry(url)
+        assert False
+    except TelemetryURLError:
         assert True

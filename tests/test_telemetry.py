@@ -6,7 +6,7 @@ from pubg_python.domain.telemetry.events import LogMatchDefinition
 
 api = PUBG('apikey', Shard.STEAM)
 BASE_URL = APIClient.BASE_URL
-TELEMETRY_URL = 'http://telemetry.pubg'
+TELEMETRY_URL = 'http://telemetry-cdn.playbattlegrounds.com/telemetry.json'
 TELEMETRY_JSON = json.load(open('tests/telemetry_response.json'))
 
 
