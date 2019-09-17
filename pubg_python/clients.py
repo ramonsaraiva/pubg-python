@@ -46,7 +46,7 @@ class APIClient(Client):
 
 
 class TelemetryClient(Client):
-    
+
     TELEMETRY_HOSTS = [
         'telemetry-cdn.playbattlegrounds.com'
     ]
