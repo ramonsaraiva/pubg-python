@@ -13,6 +13,7 @@ class Client:
     API_OK = 200
     API_ERRORS_MAPPING = {
         401: exceptions.UnauthorizedError,
+        403: exceptions.OldTelemetryError,
         404: exceptions.NotFoundError,
         415: exceptions.InvalidContentTypeError,
         429: exceptions.RateLimitError,

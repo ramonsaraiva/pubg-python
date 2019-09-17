@@ -51,3 +51,9 @@ class RateLimitError(APIError):
                 int(self.response_headers.get('X-Ratelimit-Reset')))
         super().__init__('Too many requests. Limit: {} Reset: {}'.format(
            self.rl_limit, self.rl_reset))
+
+
+class OldTelemetryError(APIError):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__('Telemetry was not found or no longer available')
