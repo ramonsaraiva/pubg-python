@@ -442,9 +442,14 @@ SEASON_STATE = [
     "progress"
 ]
 
-DESTRUCTIBLE_OBJ = [
+OBJECT_TYPE = [
     "Door",
     "Fence",
     "Window",
     "Jerrycan"
+]
+
+OBJECT_TYPE_STATUS = [
+    'Closing',
+    'Opening'
 ]
