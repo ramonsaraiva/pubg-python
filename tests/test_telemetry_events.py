@@ -20,6 +20,7 @@ from pubg_python.domain.telemetry.events import (
     LogItemPickupFromLootBox,
     LogHeal,
     LogObjectDestroy,
+    LogObjectInteraction,
     LogVaultStart,
     LogVehicleRide,
     LogVehicleLeave,
@@ -58,7 +59,8 @@ from pubg_python.domain.telemetry.resources import (
     DAMAGE_REASON,
     MAP_NAME,
     WEATHER_MAP,
-    DESTRUCTIBLE_OBJ
+    OBJECT_TYPE,
+    OBJECT_TYPE_STATUS
 )
 
 telemetry = Telemetry.from_json('tests/telemetry_response.json')
@@ -134,7 +136,7 @@ def test_log_player_take_damage():
 
 def test_log_player_kill():
     events = telemetry.events_from_type('LogPlayerKill')
-    data = events[50]
+    data = events[10]
     assert isinstance(data, LogPlayerKill)
     assert isinstance(data.killer, Character)
     assert isinstance(data.victim, Character)
@@ -256,7 +258,18 @@ def test_log_object_destroy():
     assert isinstance(data, LogObjectDestroy)
     assert isinstance(data.character, Character)
     assert isinstance(data.object_location, Location)
-    assert data.object_type in DESTRUCTIBLE_OBJ
+    assert data.object_type in OBJECT_TYPE
+
+
+def test_log_object_intercation():
+    events = telemetry.events_from_type('LogObjectInteraction')
+    data = events[0]
+    assert isinstance(data, LogObjectInteraction)
+    assert isinstance(data.character, Character)
+    assert isinstance(data.object_location, Location)
+    assert isinstance(data.object_type_count, int)
+    assert data.object_type in OBJECT_TYPE
+    assert data.object_type_status in OBJECT_TYPE_STATUS
 
 
 def test_log_vault_start():
@@ -424,7 +437,7 @@ def test_log_wheel_destroy():
 
 def test_log_player_make_groggy():
     events = telemetry.events_from_type('LogPlayerMakeGroggy')
-    data = events[25]
+    data = events[27]
     assert isinstance(data, LogPlayerMakeGroggy)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.victim, Character)
@@ -440,7 +453,7 @@ def test_log_player_make_groggy():
     if not data.victim_weapon:
         assert True
     else:
-        assert data.victim_weapon[:-2] in DAMAGE_CAUSER_MAP
+        assert data.victim_weapon[:-3] in DAMAGE_CAUSER_MAP
 
 
 def test_log_player_revive():

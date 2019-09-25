@@ -187,6 +187,18 @@ class LogObjectDestroy(Event):
             self._data.get('objectLocation', {}))
 
 
+class LogObjectInteraction(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.object_type = self._data.get('objectType')
+        self.object_type_status = self._data.get('objectTypeStatus')
+        self.object_type_additional_info = self._data.get(
+            'objectTypeAdditionalInfo')
+        self.object_type_count = self._data.get('objectTypeCount')
+
+
 class LogVaultStart(Event):
 
     def from_dict(self):
@@ -378,3 +390,4 @@ class LogRedZoneEnded(Event):
     def from_dict(self):
         super().from_dict()
         self.drivers = self._data.get('drivers', [])
+
