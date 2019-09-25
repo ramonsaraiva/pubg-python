@@ -306,7 +306,7 @@ DAMAGE_CAUSER_MAP = {
     "WeapBizonPP19_C": "Bizon",
     "WeapCowbar_C": "Crowbar",
     "WeapCrossbow_1_C": "Crossbow",
-    "WeapDesertEagle_C": "Deagle",   
+    "WeapDesertEagle_C": "Deagle",
     "WeapDP12_C": "DBS",
     "WeapDP28_C": "DP-28",
     "WeapFNFal_C": "SLR",

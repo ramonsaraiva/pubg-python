@@ -391,4 +391,3 @@ class LogRedZoneEnded(Event):
     def from_dict(self):
         super().from_dict()
         self.drivers = self._data.get('drivers', [])
-
