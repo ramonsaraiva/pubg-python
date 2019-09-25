@@ -1,3 +1,7 @@
+## 0.12.0 / 2019-09-25
+
+* Sync with V14.2.0 - @glmn
+
 ## 0.11.5 / 2019-09-16
 
 * Sync with API known issues - @glmn
