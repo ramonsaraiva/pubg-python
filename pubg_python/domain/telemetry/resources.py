@@ -100,6 +100,7 @@ ITEM_MAP = {
     "Item_Weapon_Cowbar_C": "Crowbar",
     "Item_Weapon_Crossbow_C": "Crossbow",
     "Item_Weapon_DesertEagle_C": "Deagle",
+    "Item_Weapon_DP12_C": "DBS",
     "Item_Weapon_DP28_C": "DP-28",
     "Item_Weapon_FlareGun_C": "Flare Gun",
     "Item_Weapon_FlashBang_C": "Flashbang",
@@ -306,6 +307,7 @@ DAMAGE_CAUSER_MAP = {
     "WeapCowbar_C": "Crowbar",
     "WeapCrossbow_1_C": "Crossbow",
     "WeapDesertEagle_C": "Deagle",
+    "WeapDP12_C": "DBS",
     "WeapDP28_C": "DP-28",
     "WeapFNFal_C": "SLR",
     "WeapG18_C": "P18C",
@@ -442,9 +444,14 @@ SEASON_STATE = [
     "progress"
 ]
 
-DESTRUCTIBLE_OBJ = [
+OBJECT_TYPE = [
     "Door",
     "Fence",
     "Window",
     "Jerrycan"
+]
+
+OBJECT_TYPE_STATUS = [
+    'Closing',
+    'Opening'
 ]

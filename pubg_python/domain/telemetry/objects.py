@@ -99,6 +99,10 @@ class Vehicle(Object):
         super().from_dict()
         self.vehicle_type = self._data.get('vehicleType')
         self.vehicle_id = self._data.get('vehicleId')
+        self.vehicle_unique_id = self._data.get('vehicleUniqueId')
+        self.vehicle_rotation_pitch = self._data.get('rotationPitch')
+        self.vehicle_is_wheels_in_air = self._data.get('isWheelsInAir')
+        self.vehicle_is_in_water_volume = self._data.get('isInWaterVolume')
         self.health_percent = self._data.get('healthPercent')
         # TODO: update feulPercent when fixed in API
         self.fuel_percent = self._data.get('feulPercent')

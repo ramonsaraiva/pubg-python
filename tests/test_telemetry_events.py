@@ -20,6 +20,7 @@ from pubg_python.domain.telemetry.events import (
     LogItemPickupFromLootBox,
     LogHeal,
     LogObjectDestroy,
+    LogObjectInteraction,
     LogVaultStart,
     LogVehicleRide,
     LogVehicleLeave,
@@ -58,7 +59,8 @@ from pubg_python.domain.telemetry.resources import (
     DAMAGE_REASON,
     MAP_NAME,
     WEATHER_MAP,
-    DESTRUCTIBLE_OBJ
+    OBJECT_TYPE,
+    OBJECT_TYPE_STATUS
 )
 
 telemetry = Telemetry.from_json('tests/telemetry_response.json')
@@ -108,7 +110,7 @@ def test_log_weapon_fire_count():
 
 def test_log_player_attack():
     events = telemetry.events_from_type('LogPlayerAttack')
-    data = events[32]
+    data = events[62]
     assert isinstance(data, LogPlayerAttack)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.weapon, Item)
@@ -149,7 +151,7 @@ def test_log_player_kill():
     assert data.damage_causer_name in DAMAGE_CAUSER_MAP
     assert data.damage_reason in DAMAGE_REASON
     if data.victim_weapon:
-        assert data.victim_weapon[:-2] in DAMAGE_CAUSER_MAP
+        assert data.victim_weapon[:-3] in DAMAGE_CAUSER_MAP
 
 
 def test_log_parachute_landing():
@@ -240,6 +242,7 @@ def test_log_item_pickup_from_loot_box():
     events = telemetry.events_from_type('LogItemPickupFromLootBox')
     data = events[0]
     assert isinstance(data, LogItemPickupFromLootBox)
+    assert isinstance(data.creator_id, str)
     assert isinstance(data.team_id, int)
 
 
@@ -256,7 +259,17 @@ def test_log_object_destroy():
     assert isinstance(data, LogObjectDestroy)
     assert isinstance(data.character, Character)
     assert isinstance(data.object_location, Location)
-    assert data.object_type in DESTRUCTIBLE_OBJ
+    assert data.object_type in OBJECT_TYPE
+
+
+def test_log_object_intercation():
+    events = telemetry.events_from_type('LogObjectInteraction')
+    data = events[0]
+    assert isinstance(data, LogObjectInteraction)
+    assert isinstance(data.character, Character)
+    assert isinstance(data.object_type_count, int)
+    assert data.object_type in OBJECT_TYPE
+    assert data.object_type_status in OBJECT_TYPE_STATUS
 
 
 def test_log_vault_start():
@@ -268,25 +281,46 @@ def test_log_vault_start():
 
 def test_log_vehicle_ride():
     events = telemetry.events_from_type('LogVehicleRide')
-    data = events[256]
+    for idx, ev in enumerate(events):
+        if ev.fellow_passengers and ev.vehicle.fuel_percent != 0:
+            data = events[idx]
+            break
+    else:
+        assert False
     assert isinstance(data, LogVehicleRide)
     assert isinstance(data.character, Character)
     assert isinstance(data.vehicle, Vehicle)
     if data.vehicle.health_percent != 100:
         assert isinstance(data.vehicle.health_percent, float)
     assert isinstance(data.vehicle.fuel_percent, float)
-    assert isinstance(data.vehicle, Vehicle)
-    assert isinstance(data.fellow_passengers[0], Character)
+    assert isinstance(data.vehicle.vehicle_id, str)
+    assert isinstance(data.vehicle.vehicle_unique_id, int)
+    assert isinstance(data.vehicle.vehicle_rotation_pitch, float)
+    assert isinstance(data.vehicle.vehicle_is_wheels_in_air, bool)
+    assert isinstance(data.vehicle.vehicle_is_in_water_volume, bool)
     assert isinstance(data.seat_index, int)
     assert str(data.vehicle) in VEHICLE_MAP_VALUES
 
 
 def test_log_vehicle_leave():
     events = telemetry.events_from_type('LogVehicleLeave')
-    data = events[253]
+    for idx, ev in enumerate(events):
+        if ev.fellow_passengers and ev.vehicle.fuel_percent != 0:
+            data = events[idx]
+            break
+    else:
+        assert False
     assert isinstance(data, LogVehicleLeave)
     assert isinstance(data.character, Character)
     assert isinstance(data.vehicle, Vehicle)
+    if data.vehicle.health_percent != 100:
+        assert isinstance(data.vehicle.health_percent, float)
+    assert isinstance(data.vehicle.fuel_percent, float)
+    assert isinstance(data.vehicle.vehicle_id, str)
+    assert isinstance(data.vehicle.vehicle_unique_id, int)
+    assert isinstance(data.vehicle.vehicle_rotation_pitch, float)
+    assert isinstance(data.vehicle.vehicle_is_wheels_in_air, bool)
+    assert isinstance(data.vehicle.vehicle_is_in_water_volume, bool)
     assert isinstance(data.fellow_passengers[0], Character)
     assert isinstance(data.seat_index, int)
     assert isinstance(data.ride_distance, float)
@@ -296,7 +330,7 @@ def test_log_vehicle_leave():
 
 def test_log_vehicle_destroy():
     events = telemetry.events_from_type('LogVehicleDestroy')
-    data = events[0]
+    data = events[3]
     assert isinstance(data, LogVehicleDestroy)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.vehicle, Vehicle)
@@ -440,7 +474,7 @@ def test_log_player_make_groggy():
     if not data.victim_weapon:
         assert True
     else:
-        assert data.victim_weapon[:-2] in DAMAGE_CAUSER_MAP
+        assert data.victim_weapon[:-3] in DAMAGE_CAUSER_MAP
 
 
 def test_log_player_revive():
