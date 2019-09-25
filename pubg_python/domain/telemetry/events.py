@@ -167,6 +167,7 @@ class LogItemPickupFromLootBox(LogItemPickup):
 
     def from_dict(self):
         super().from_dict()
+        self.creator_id = self._data.get('creatorAccountId')
         self.team_id = self._data.get('ownerTeamId')
 
 

@@ -242,6 +242,7 @@ def test_log_item_pickup_from_loot_box():
     events = telemetry.events_from_type('LogItemPickupFromLootBox')
     data = events[0]
     assert isinstance(data, LogItemPickupFromLootBox)
+    assert isinstance(data.creator_id, str)
     assert isinstance(data.team_id, int)
 
 
