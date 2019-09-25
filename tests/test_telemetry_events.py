@@ -281,14 +281,23 @@ def test_log_vault_start():
 
 def test_log_vehicle_ride():
     events = telemetry.events_from_type('LogVehicleRide')
-    data = events[220]
+    for idx, ev in enumerate(events):
+        if ev.fellow_passengers and ev.vehicle.fuel_percent != 0:
+            data = events[idx]
+            break
+    else:
+        assert False
     assert isinstance(data, LogVehicleRide)
     assert isinstance(data.character, Character)
     assert isinstance(data.vehicle, Vehicle)
-    assert isinstance(data.vehicle.health_percent, float)
+    if data.vehicle.health_percent != 100:
+        assert isinstance(data.vehicle.health_percent, float)
     assert isinstance(data.vehicle.fuel_percent, float)
-    assert isinstance(data.vehicle, Vehicle)
-    assert isinstance(data.fellow_passengers[0], Character)
+    assert isinstance(data.vehicle.vehicle_id, str)
+    assert isinstance(data.vehicle.vehicle_unique_id, int)
+    assert isinstance(data.vehicle.vehicle_rotation_pitch, float)
+    assert isinstance(data.vehicle.vehicle_is_wheels_in_air, bool)
+    assert isinstance(data.vehicle.vehicle_is_in_water_volume, bool)
     assert isinstance(data.seat_index, int)
     assert str(data.vehicle) in VEHICLE_MAP_VALUES
 
@@ -296,7 +305,7 @@ def test_log_vehicle_ride():
 def test_log_vehicle_leave():
     events = telemetry.events_from_type('LogVehicleLeave')
     for idx, ev in enumerate(events):
-        if ev.fellow_passengers:
+        if ev.fellow_passengers and ev.vehicle.fuel_percent != 0:
             data = events[idx]
             break
     else:
@@ -304,6 +313,14 @@ def test_log_vehicle_leave():
     assert isinstance(data, LogVehicleLeave)
     assert isinstance(data.character, Character)
     assert isinstance(data.vehicle, Vehicle)
+    if data.vehicle.health_percent != 100:
+        assert isinstance(data.vehicle.health_percent, float)
+    assert isinstance(data.vehicle.fuel_percent, float)
+    assert isinstance(data.vehicle.vehicle_id, str)
+    assert isinstance(data.vehicle.vehicle_unique_id, int)
+    assert isinstance(data.vehicle.vehicle_rotation_pitch, float)
+    assert isinstance(data.vehicle.vehicle_is_wheels_in_air, bool)
+    assert isinstance(data.vehicle.vehicle_is_in_water_volume, bool)
     assert isinstance(data.fellow_passengers[0], Character)
     assert isinstance(data.seat_index, int)
     assert isinstance(data.ride_distance, float)
