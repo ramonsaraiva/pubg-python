@@ -239,7 +239,7 @@ season_data = api.seasons(
 ```python
 players = api.players().filter(player_names=['epickitten'])[0]
 player = players[0]
-wm = api.weapon_mastery(player_id=player.id).get()
+wm = api.weapon_mastery(player.id).get()
 print(wm.weapon_summaries)
 ```
 

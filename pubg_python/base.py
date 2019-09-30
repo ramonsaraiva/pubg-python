@@ -83,8 +83,7 @@ class PUBG:
         return QuerySet(self.api_client, self.shard_url.join(
             'leaderboards/{}'.format(game_mode)))
 
-    def weapon_mastery(self, **kwargs):
-        player_id = kwargs.pop('player_id', None)
+    def weapon_mastery(self, player_id):
         return QuerySet(self.api_client, self.shard_url.join(
             'players/{}/weapon_mastery'.format(player_id)))
 
