@@ -230,7 +230,7 @@ season_data = api.seasons(
 
 ## Weapon Mastery
 
-* Seasons
+* Weapon Mastery
   * [Official docs](https://documentation.pubg.com/en/weapon-mastery-endpoint.html)
   * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
 
