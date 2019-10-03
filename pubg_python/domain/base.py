@@ -21,10 +21,11 @@ class Shard(Enum):
     XBOX_OC = 'xbox-oc'  # Oceania
     XBOX_SA = 'xbox-sa'  # South America
     KAKAO = 'kakao'  # Kakao
-    PSN = 'psn'
-    STEAM = 'steam'
+    PSN = 'psn'  # PSN (Deprecated)
+    STEAM = 'steam'  # Steam
     TOURNAMENT = 'tournament'  # Tournaments
-    XBOX = 'xbox'  # Xbox
+    XBOX = 'xbox'  # Xbox (Deprecated)
+    CONSOLE = 'console'  # Xbox/Psn
 
 
 class Filter(Enum):
