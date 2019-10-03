@@ -228,6 +228,21 @@ season_data = api.seasons(
     'lifetime' , player_id='epickitten').get()
 ```
 
+## Weapon Mastery
+
+* Weapon Mastery
+  * [Official docs](https://documentation.pubg.com/en/weapon-mastery-endpoint.html)
+  * [Data structure](https://github.com/ramonsaraiva/pubg-python/blob/master/pubg_python/domain/base.py)
+
+### Retrieving a weapon mastery data
+
+```python
+players = api.players().filter(player_names=['epickitten'])[0]
+player = players[0]
+wm = api.weapon_mastery(player.id).get()
+print(wm.weapon_summaries)
+```
+
 ## Leaderboards
 
 * Leaderboards

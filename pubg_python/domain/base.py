@@ -262,3 +262,12 @@ class Leaderboard(Domain):
         super().from_dict()
         self.shard_id = self.attributes.get('shardId')
         self.game_mode = self.attributes.get('gameMode')
+
+
+class Weaponmasterysummary(Domain):
+
+    def from_dict(self):
+        super().from_dict()
+        self.platform = self.attributes.get('platform')
+        self.weapon_summaries = self.attributes.get('weaponSummaries')
+        self.latest_match_id = self.attributes.get('latestMatchId')

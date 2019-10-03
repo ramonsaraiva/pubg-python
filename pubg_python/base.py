@@ -83,6 +83,10 @@ class PUBG:
         return QuerySet(self.api_client, self.shard_url.join(
             'leaderboards/{}'.format(game_mode)))
 
+    def weapon_mastery(self, player_id):
+        return QuerySet(self.api_client, self.shard_url.join(
+            'players/{}/weapon_mastery'.format(player_id)))
+
     def telemetry(self, url):
         data = self.telemetry_client.request(url)
         return Telemetry(data, url)
