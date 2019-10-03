@@ -1,3 +1,8 @@
+## 0.12.1 / 2019-10-04
+
+* Sync with V15.0.0 - @glmn
+* Add weapon mastery endpoint - @glmn
+
 ## 0.12.0 / 2019-09-25
 
 * Sync with V14.2.0 - @glmn
