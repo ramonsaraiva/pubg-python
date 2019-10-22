@@ -391,3 +391,21 @@ class LogRedZoneEnded(Event):
     def from_dict(self):
         super().from_dict()
         self.drivers = self._data.get('drivers', [])
+
+
+class LogPhaseChange(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.phase = self._data.get('phase')
+
+
+class LogPlayerUseThrowable(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attackId = self._data.get('attackId')
+        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.attack_type = self._data.get('attackType')
+        self.weapon = objects.Item(self._data.get('weapon', {}))
