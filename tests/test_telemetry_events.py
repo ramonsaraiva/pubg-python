@@ -100,7 +100,7 @@ def test_log_player_position():
     assert isinstance(data.vehicle, Vehicle)
     if data.vehicle.vehicle_id:
         assert str(data.vehicle) in VEHICLE_MAP_VALUES
-    #assert isinstance(data.elapsed_time, int)  # Seems like they removed it
+    # assert isinstance(data.elapsed_time, int)  # Seems like they removed it
     assert isinstance(data.num_alive_players, int)
 
 
