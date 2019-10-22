@@ -37,7 +37,9 @@ from pubg_python.domain.telemetry.events import (
     LogWheelDestroy,
     LogPlayerMakeGroggy,
     LogPlayerRevive,
-    LogRedZoneEnded
+    LogRedZoneEnded,
+    LogPhaseChange,
+    LogPlayerUseThrowable
 )
 from pubg_python.domain.telemetry.objects import (
     Location,
@@ -89,13 +91,16 @@ def test_log_player_create():
 
 def test_log_player_position():
     events = telemetry.events_from_type('LogPlayerPosition')
-    data = events[0]
+    for i in events:
+        if isinstance(i.vehicle, Vehicle):
+            data = i
+            break
     assert isinstance(data, LogPlayerPosition)
     assert isinstance(data.character, Character)
     assert isinstance(data.vehicle, Vehicle)
     if data.vehicle.vehicle_id:
         assert str(data.vehicle) in VEHICLE_MAP_VALUES
-    assert isinstance(data.elapsed_time, int)
+    #assert isinstance(data.elapsed_time, int)  # Seems like they removed it
     assert isinstance(data.num_alive_players, int)
 
 
@@ -110,7 +115,10 @@ def test_log_weapon_fire_count():
 
 def test_log_player_attack():
     events = telemetry.events_from_type('LogPlayerAttack')
-    data = events[62]
+    for e in events:
+        if e.weapon.item_id != '':
+            data = e
+            break
     assert isinstance(data, LogPlayerAttack)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.weapon, Item)
@@ -151,7 +159,8 @@ def test_log_player_kill():
     assert data.damage_causer_name in DAMAGE_CAUSER_MAP
     assert data.damage_reason in DAMAGE_REASON
     if data.victim_weapon:
-        assert data.victim_weapon[:-3] in DAMAGE_CAUSER_MAP
+        cut_idx = data.victim_weapon.index('_C_') + 2
+        assert data.victim_weapon[:cut_idx] in DAMAGE_CAUSER_MAP
 
 
 def test_log_parachute_landing():
@@ -330,7 +339,7 @@ def test_log_vehicle_leave():
 
 def test_log_vehicle_destroy():
     events = telemetry.events_from_type('LogVehicleDestroy')
-    data = events[3]
+    data = events[0]
     assert isinstance(data, LogVehicleDestroy)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.vehicle, Vehicle)
@@ -474,7 +483,8 @@ def test_log_player_make_groggy():
     if not data.victim_weapon:
         assert True
     else:
-        assert data.victim_weapon[:-3] in DAMAGE_CAUSER_MAP
+        cut_idx = data.victim_weapon.index('_C_') + 2
+        assert data.victim_weapon[:cut_idx] in DAMAGE_CAUSER_MAP
 
 
 def test_log_player_revive():
@@ -491,3 +501,20 @@ def test_log_red_zone_ended():
     data = events[0]
     assert isinstance(data, LogRedZoneEnded)
     assert isinstance(data.drivers, list)
+
+
+def test_log_phase_change():
+    events = telemetry.events_from_type('LogPhaseChange')
+    data = events[0]
+    assert isinstance(data, LogPhaseChange)
+    assert isinstance(data.phase, int)
+
+
+def test_log_player_use_throwable():
+    events = telemetry.events_from_type('LogPlayerUseThrowable')
+    data = events[0]
+    assert isinstance(data, LogPlayerUseThrowable)
+    assert isinstance(data.attacker, Character)
+    assert isinstance(data.weapon, Item)
+    assert isinstance(data.fire_weapon_stack_count, int)
+    assert data.attack_type in ATTACK_TYPE
