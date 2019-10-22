@@ -357,6 +357,7 @@ DAMAGE_TYPE_MAP = {
     "Damage_Gun": "Gun Damage",
     "Damage_Instant_Fall": "Fall Damage",
     "Damage_Melee": "Melee Damage",
+    "Damage_MeleeThrow": "Melee Throw Damage",
     "Damage_Molotov": "Molotov Damage",
     "Damage_Punch": "Punch Damage",
     "Damage_VehicleCrashHit": "Vehicle Crash Damage",
@@ -447,11 +448,13 @@ SEASON_STATE = [
 OBJECT_TYPE = [
     "Door",
     "Fence",
-    "Window",
-    "Jerrycan"
+    "Jerrycan",
+    "VendingMachine",
+    "Window"
 ]
 
 OBJECT_TYPE_STATUS = [
+    'ACTIVATED',
     'Closing',
     'Opening'
 ]
