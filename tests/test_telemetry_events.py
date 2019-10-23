@@ -100,8 +100,7 @@ def test_log_player_position():
     assert isinstance(data.vehicle, Vehicle)
     if data.vehicle.vehicle_id:
         assert str(data.vehicle) in VEHICLE_MAP_VALUES
-    # Seems like they removed it
-    # assert isinstance(data.elapsed_time, int)
+    assert isinstance(data.elapsed_time, int)
     assert isinstance(data.num_alive_players, int)
 
 
@@ -137,7 +136,7 @@ def test_log_player_take_damage():
     assert isinstance(data, LogPlayerTakeDamage)
     assert isinstance(data.attacker, Character)
     assert isinstance(data.victim, Character)
-    assert isinstance(data.damage, float)
+    assert data.damage > 0
     assert data.damage_type_category in DAMAGE_TYPE_MAP
     assert data.damage_reason in DAMAGE_REASON
     assert data.damage_causer_name in DAMAGE_CAUSER_MAP
