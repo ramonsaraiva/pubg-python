@@ -79,6 +79,15 @@ class LogPlayerTakeDamage(Event):
         self.damage = self._data.get('damage')
         self.damage_causer_name = self._data.get('damageCauserName')
 
+class LogPlayerUseThrowable(Event):
+    
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.attack_type = self._data.get('attackType')
+        self.weapon = objects.Item(self._data.get('weapon', {}))
 
 class LogPlayerKill(Event):
 
