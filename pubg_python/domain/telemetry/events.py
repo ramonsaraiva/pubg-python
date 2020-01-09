@@ -272,7 +272,7 @@ class LogMatchDefinition(Event):
     def from_dict(self):
         super().from_dict()
         self.match_id = self._data.get('MatchId')
-        self.ping_quality = self._data.get('pingQuality')
+        self.ping_quality = self._data.get('PingQuality')
         self.season_state = self._data.get('SeasonState')
 
 
