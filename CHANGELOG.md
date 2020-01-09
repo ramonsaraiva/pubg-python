@@ -1,3 +1,7 @@
+## 0.12.3 / 2020-01-09
+
+* Fix PingQuality capitalization - @Koyah
+
 ## 0.12.2 / 2019-10-23
 
 * Sync with V15.2.0 - @glmn
