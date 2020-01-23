@@ -287,6 +287,15 @@ class LogMatchDefinition(Event):
         self.season_state = self._data.get('SeasonState')
 
 
+class LogBlackZoneEnded(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.survivors = [
+            objects.Character(data)
+            for data in self._data.get('characters', [])
+        ]
+
 class LogMatchEvent(Event):
 
     def from_dict(self):
