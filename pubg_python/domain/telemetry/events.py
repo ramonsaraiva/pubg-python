@@ -90,6 +90,12 @@ class LogPlayerUseThrowable(Event):
         self.attack_type = self._data.get('attackType')
         self.weapon = objects.Item(self._data.get('weapon', {}))
 
+class LogPlayerDestroyBreachableWall(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attacker = objects.Character(self._data.get('character', {}))
+        self.weapon = objects.Item(self._data.get('weapon', {}))
 
 class LogPlayerKill(Event):
 
