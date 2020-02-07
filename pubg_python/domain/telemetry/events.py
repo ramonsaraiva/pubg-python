@@ -175,6 +175,8 @@ class LogHeal(Event):
 
     def from_dict(self):
         super().from_dict()
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
         self.heal_amount = self._data.get('healAmount')
 
 
