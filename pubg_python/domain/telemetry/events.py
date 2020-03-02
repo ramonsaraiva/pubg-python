@@ -78,10 +78,12 @@ class LogPlayerTakeDamage(Event):
         self.damage_reason = self._data.get('damageReason')
         self.damage = self._data.get('damage')
         self.damage_causer_name = self._data.get('damageCauserName')
+        self.is_through_penetrable_wall = self._data.get(
+            'isThroughPenetrableWall')
 
 
 class LogPlayerUseThrowable(Event):
-    
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -90,12 +92,14 @@ class LogPlayerUseThrowable(Event):
         self.attack_type = self._data.get('attackType')
         self.weapon = objects.Item(self._data.get('weapon', {}))
 
+
 class LogPlayerDestroyBreachableWall(Event):
 
     def from_dict(self):
         super().from_dict()
         self.attacker = objects.Character(self._data.get('character', {}))
         self.weapon = objects.Item(self._data.get('weapon', {}))
+
 
 class LogPlayerKill(Event):
 
@@ -117,6 +121,8 @@ class LogPlayerKill(Event):
         self.distance = self._data.get('distance')
         self.victim_game_result = objects.GameResult(
             self._data.get('victimGameResult', {}))
+        self.is_through_penetrable_wall = self._data.get(
+            'isThroughPenetrableWall')
 
 
 class LogParachuteLanding(Event):
@@ -302,6 +308,7 @@ class LogBlackZoneEnded(Event):
             for data in self._data.get('characters', [])
         ]
 
+
 class LogMatchEvent(Event):
 
     def from_dict(self):
@@ -424,14 +431,3 @@ class LogPhaseChange(Event):
     def from_dict(self):
         super().from_dict()
         self.phase = self._data.get('phase')
-
-
-class LogPlayerUseThrowable(Event):
-
-    def from_dict(self):
-        super().from_dict()
-        self.attackId = self._data.get('attackId')
-        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
-        self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.attack_type = self._data.get('attackType')
-        self.weapon = objects.Item(self._data.get('weapon', {}))

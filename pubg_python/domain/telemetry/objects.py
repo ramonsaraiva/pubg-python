@@ -132,6 +132,8 @@ class GameState(Object):
             'poisonGasWarningRadius')
         self.red_zone_position = self._data.get('redZonePosition')
         self.red_zone_radius = self._data.get('redZoneRadius')
+        self.black_zone_position = self._data.get('blackZonePosition')
+        self.black_zone_radius = self._data.get('blackZoneRadius')
 
 
 class BlueZone(Object):
