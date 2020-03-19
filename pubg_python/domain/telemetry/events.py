@@ -82,6 +82,17 @@ class LogPlayerTakeDamage(Event):
             'isThroughPenetrableWall')
 
 
+class LogPlayerUseFlareGun(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.attack_type = self._data.get('attackType')
+        self.weapon = objects.Item(self._data.get('weapon', {}))
+
+
 class LogPlayerUseThrowable(Event):
 
     def from_dict(self):
