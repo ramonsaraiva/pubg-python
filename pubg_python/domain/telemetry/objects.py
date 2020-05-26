@@ -100,10 +100,14 @@ class Vehicle(Object):
         self.vehicle_type = self._data.get('vehicleType')
         self.vehicle_id = self._data.get('vehicleId')
         self.vehicle_unique_id = self._data.get('vehicleUniqueId')
-        self.vehicle_rotation_pitch = self._data.get('rotationPitch')
         self.vehicle_is_wheels_in_air = self._data.get('isWheelsInAir')
         self.vehicle_is_in_water_volume = self._data.get('isInWaterVolume')
+        self.vehicle_is_engine_on = self._data.get('isEngineOn')
         self.health_percent = self._data.get('healthPercent')
+        self.altitude_abs = self._data.get('altitudeAbs')
+        self.altitude_rel = self._data.get('altitudeRel')
+        self.velocity = self._data.get('velocity')
+
         # TODO: update feulPercent when fixed in API
         self.fuel_percent = self._data.get('feulPercent')
 
@@ -132,6 +136,8 @@ class GameState(Object):
             'poisonGasWarningRadius')
         self.red_zone_position = self._data.get('redZonePosition')
         self.red_zone_radius = self._data.get('redZoneRadius')
+        self.black_zone_position = self._data.get('blackZonePosition')
+        self.black_zone_radius = self._data.get('blackZoneRadius')
 
 
 class BlueZone(Object):

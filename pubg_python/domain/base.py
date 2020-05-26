@@ -122,6 +122,7 @@ class Match(Domain):
         self.tags = self.attributes.get('tags')
         self.title_id = self.attributes.get('titleId')
         self.season_state = self.attributes.get('seasonState')
+        self.match_type = self.attributes.get('matchType')
 
 
 class Roster(Domain):
