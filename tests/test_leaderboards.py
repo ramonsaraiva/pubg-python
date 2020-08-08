@@ -26,11 +26,12 @@ def leaderboard_response():
 def test_leaderboard(mock, leaderboard_response):
     game_mode = 'squad-fpp'
     page_number = 0
+    season_id = 'division.bro.official.pc-2018-02'
 
-    url = furl(BASE_URL).join(ENDPOINT_PATH + '/' + game_mode).add(
+    url = furl(BASE_URL).join(ENDPOINT_PATH + '/' + season_id + '/' + game_mode).add(
         {'page[number]': page_number}).url
     mock.get(url, json=leaderboard_response)
-    data = api.leaderboards(game_mode=game_mode).page(page_number).get()
+    data = api.leaderboards(game_mode=game_mode, season_id=season_id).page(page_number).get()
     assert isinstance(data, Leaderboard)
     assert data.shard_id in Shard._value2member_map_
     assert data.game_mode in GAME_MODE
