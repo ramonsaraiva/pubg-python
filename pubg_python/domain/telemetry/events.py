@@ -78,6 +78,38 @@ class LogPlayerTakeDamage(Event):
         self.damage_reason = self._data.get('damageReason')
         self.damage = self._data.get('damage')
         self.damage_causer_name = self._data.get('damageCauserName')
+        self.is_through_penetrable_wall = self._data.get(
+            'isThroughPenetrableWall')
+
+
+class LogPlayerUseFlareGun(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.attack_type = self._data.get('attackType')
+        self.weapon = objects.Item(self._data.get('weapon', {}))
+
+
+class LogPlayerUseThrowable(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
+        self.attacker = objects.Character(self._data.get('attacker', {}))
+        self.attack_type = self._data.get('attackType')
+        self.weapon = objects.Item(self._data.get('weapon', {}))
+
+
+class LogPlayerDestroyBreachableWall(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attacker = objects.Character(self._data.get('character', {}))
+        self.weapon = objects.Item(self._data.get('weapon', {}))
 
 
 class LogPlayerKill(Event):
@@ -100,6 +132,8 @@ class LogPlayerKill(Event):
         self.distance = self._data.get('distance')
         self.victim_game_result = objects.GameResult(
             self._data.get('victimGameResult', {}))
+        self.is_through_penetrable_wall = self._data.get(
+            'isThroughPenetrableWall')
 
 
 class LogParachuteLanding(Event):
@@ -161,6 +195,7 @@ class LogItemPickupFromCarepackage(LogItemPickup):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
+        self.care_package_unique_id = self._data.get('carePackageUniqueId')
 
 
 class LogItemPickupFromLootBox(LogItemPickup):
@@ -169,13 +204,16 @@ class LogItemPickupFromLootBox(LogItemPickup):
         super().from_dict()
         self.creator_id = self._data.get('creatorAccountId')
         self.team_id = self._data.get('ownerTeamId')
+        self.creator_account_id = self._data.get('creatorAccountId')
 
 
 class LogHeal(Event):
 
     def from_dict(self):
         super().from_dict()
-        self.heal_amount = self._data.get('healAmount')
+        self.character = objects.Character(self._data.get('character', {}))
+        self.item = objects.Item(self._data.get('item', {}))
+        self.heal_amount = self._data.get('healamount')
 
 
 class LogObjectDestroy(Event):
@@ -197,7 +235,6 @@ class LogObjectInteraction(Event):
         self.object_type_status = self._data.get('objectTypeStatus')
         self.object_type_additional_info = self._data.get(
             'objectTypeAdditionalInfo')
-        self.object_type_count = self._data.get('objectTypeCount')
 
 
 class LogVaultStart(Event):
@@ -205,6 +242,7 @@ class LogVaultStart(Event):
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
+        self.is_ledge_grab = self._data.get('isLedgeGrab')
 
 
 class LogVehicle(Event):
@@ -274,6 +312,16 @@ class LogMatchDefinition(Event):
         self.match_id = self._data.get('MatchId')
         self.ping_quality = self._data.get('PingQuality')
         self.season_state = self._data.get('SeasonState')
+
+
+class LogBlackZoneEnded(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.survivors = [
+            objects.Character(data)
+            for data in self._data.get('characters', [])
+        ]
 
 
 class LogMatchEvent(Event):
@@ -398,14 +446,4 @@ class LogPhaseChange(Event):
     def from_dict(self):
         super().from_dict()
         self.phase = self._data.get('phase')
-
-
-class LogPlayerUseThrowable(Event):
-
-    def from_dict(self):
-        super().from_dict()
-        self.attackId = self._data.get('attackId')
-        self.fire_weapon_stack_count = self._data.get('fireWeaponStackCount')
-        self.attacker = objects.Character(self._data.get('attacker', {}))
-        self.attack_type = self._data.get('attackType')
-        self.weapon = objects.Item(self._data.get('weapon', {}))
+        self.elapsed_time = self._data.get('elapsedTime')
