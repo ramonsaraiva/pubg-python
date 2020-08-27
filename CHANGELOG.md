@@ -1,3 +1,7 @@
+## 0.12.4 / 2020-02-07
+
+* Add character and item relations to LogHeal - @jgrinaveckis
+
 ## 0.12.3 / 2020-01-09
 
 * Fix PingQuality capitalization - @Koyah

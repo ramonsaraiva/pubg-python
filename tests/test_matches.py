@@ -36,6 +36,7 @@ def test_match_get(mock, match_response):
     assert isinstance(participant, Participant)
     assert isinstance(match.created_at, str)
     assert isinstance(match.duration, int)
+    assert isinstance(match.match_type, str)
     assert match.game_mode in GAME_MODE
     assert match.shard_id in Shard._value2member_map_
     assert match.season_state in SEASON_STATE
