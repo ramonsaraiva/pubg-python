@@ -213,7 +213,10 @@ class LogHeal(Event):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
-        self.heal_amount = self._data.get('healamount')
+        if self._data.get('healamount'):
+            self.heal_amount = self._data.get('healamount')
+        else:
+            self.heal_amount = self._data.get('healAmount')
 
 
 class LogObjectDestroy(Event):
