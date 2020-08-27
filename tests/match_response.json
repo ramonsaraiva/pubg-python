@@ -12,7 +12,8 @@
       "stats": null,
       "shardId": "steam",
       "tags": null,
-      "mapName": "Baltic_Main"
+      "mapName": "Baltic_Main",
+      "matchType": "official"
     },
     "relationships": {
       "rosters": {
