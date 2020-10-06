@@ -292,6 +292,10 @@ class LogVehicleDestroy(Event):
         self.distance = self._data.get('distance')
 
 
+class LogVehicleDamage(Event):
+    pass
+
+
 class LogCarePackageEvent(Event):
 
     def from_dict(self):
