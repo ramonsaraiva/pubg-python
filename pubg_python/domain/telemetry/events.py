@@ -312,6 +312,10 @@ class LogCarePackageLand(LogCarePackageEvent):
     pass
 
 
+class LogItemPickupFromCustomPackage(LogCarePackageEvent):
+    pass
+
+
 class LogMatchDefinition(Event):
 
     def from_dict(self):
