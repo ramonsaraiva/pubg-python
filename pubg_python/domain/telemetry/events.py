@@ -138,7 +138,20 @@ class LogPlayerKill(Event):
 class LogPlayerKillV2(Event):
     
     def from_dict(self):
-        pass
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.dbno_id = self._data.get('dBNOId')
+        self.victim = objects.Character(self._data.get('victim', {}))
+        self.victim_weapon = self._data.get('victimWeapon')
+        self.victim_weapon_additional_info = self._data.get(
+            'victimWeaponAdditionalInfo')
+        self.dbno_marker = objects.Character(self._data.get('dBNOMaker', {}))
+        self.dbno_damage_info = objects.DamageInfo('dBNODamageInfo', {})
+        self.finisher = objects.Character(self._data.get('dBNOMaker', {}))
+        self.finisher_damage_info = objects.DamageInfo('finishDamageInfo', {})
+        self.killer = objects.Character(self._data.get('killer', {}))
+        self.killer_damage_info = objects.DamageInfo('killerDamageInfo', {})
+        self.is_suicide = self._data.get('isSuicide')
 
 
 class LogParachuteLanding(Event):
