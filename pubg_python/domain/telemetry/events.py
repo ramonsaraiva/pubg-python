@@ -135,6 +135,11 @@ class LogPlayerKill(Event):
         self.is_through_penetrable_wall = self._data.get(
             'isThroughPenetrableWall')
 
+class LogPlayerKillV2(Event):
+    
+    def from_dict(self):
+        pass
+
 
 class LogParachuteLanding(Event):
 

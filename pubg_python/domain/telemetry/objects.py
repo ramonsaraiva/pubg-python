@@ -189,3 +189,16 @@ class GameResult(Object):
         self.team_id = self._data.get('teamId')
         self.stats = Stats(self._data.get('stats', {}))
         self.account_id = self._data.get('accountId')
+
+
+class DamageInfo(Object):
+    
+    def from_dict(self):
+        super().from_dict()
+        self.damage_reason = self._data.get('damageReason')
+        self.damage_type_category = self._data.get('damageTypeCategory')
+        self.damage_causer_name = self._data.get('damageCauserName')
+        self.additional_info = self._data.get("additionalInfo")
+        self.distance = self._data.get("distance")
+        self.is_through_penetrable_wall = self._data.get(
+            'isThroughPenetrableWall')
