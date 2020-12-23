@@ -146,11 +146,11 @@ class LogPlayerKillV2(Event):
         self.victim_weapon_additional_info = self._data.get(
             'victimWeaponAdditionalInfo')
         self.dbno_marker = objects.Character(self._data.get('dBNOMaker', {}))
-        self.dbno_damage_info = objects.DamageInfo('dBNODamageInfo', {})
+        self.dbno_damage_info = objects.DamageInfo(self._data.get('dBNODamageInfo', {}))
         self.finisher = objects.Character(self._data.get('dBNOMaker', {}))
-        self.finisher_damage_info = objects.DamageInfo('finishDamageInfo', {})
+        self.finisher_damage_info = objects.DamageInfo(self._data.get('finishDamageInfo', {}))
         self.killer = objects.Character(self._data.get('killer', {}))
-        self.killer_damage_info = objects.DamageInfo('killerDamageInfo', {})
+        self.killer_damage_info = objects.DamageInfo(self._data.get('killerDamageInfo', {}))
         self.is_suicide = self._data.get('isSuicide')
 
 
