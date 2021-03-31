@@ -476,3 +476,7 @@ class LogPhaseChange(Event):
         super().from_dict()
         self.phase = self._data.get('phase')
         self.elapsed_time = self._data.get('elapsedTime')
+
+
+class LogEmPickupLiftOff(Event):
+    pass
