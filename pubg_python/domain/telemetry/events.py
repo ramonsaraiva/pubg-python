@@ -135,8 +135,9 @@ class LogPlayerKill(Event):
         self.is_through_penetrable_wall = self._data.get(
             'isThroughPenetrableWall')
 
+
 class LogPlayerKillV2(Event):
-    
+
     def from_dict(self):
         super().from_dict()
         self.attack_id = self._data.get('attackId')
@@ -146,11 +147,14 @@ class LogPlayerKillV2(Event):
         self.victim_weapon_additional_info = self._data.get(
             'victimWeaponAdditionalInfo')
         self.dbno_marker = objects.Character(self._data.get('dBNOMaker', {}))
-        self.dbno_damage_info = objects.DamageInfo(self._data.get('dBNODamageInfo', {}))
+        self.dbno_damage_info = objects.DamageInfo(
+            self._data.get('dBNODamageInfo', {}))
         self.finisher = objects.Character(self._data.get('dBNOMaker', {}))
-        self.finisher_damage_info = objects.DamageInfo(self._data.get('finishDamageInfo', {}))
+        self.finisher_damage_info = objects.DamageInfo(
+            self._data.get('finishDamageInfo', {}))
         self.killer = objects.Character(self._data.get('killer', {}))
-        self.killer_damage_info = objects.DamageInfo(self._data.get('killerDamageInfo', {}))
+        self.killer_damage_info = objects.DamageInfo(
+            self._data.get('killerDamageInfo', {}))
         self.is_suicide = self._data.get('isSuicide')
 
 
@@ -479,4 +483,8 @@ class LogPhaseChange(Event):
 
 
 class LogEmPickupLiftOff(Event):
+    pass
+
+
+class LogPlayerDestroyProp(Event):
     pass
