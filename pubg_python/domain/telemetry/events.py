@@ -480,3 +480,11 @@ class LogPhaseChange(Event):
 
 class LogEmPickupLiftOff(Event):
     pass
+
+
+class LogPlayerRedeployBRStart(Event):
+    pass
+
+
+class LogPlayerRedeploy(Event):
+    pass
