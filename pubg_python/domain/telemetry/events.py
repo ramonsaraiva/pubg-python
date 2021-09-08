@@ -497,3 +497,10 @@ class LogPlayerRedeployBRStart(Event):
 class LogPlayerRedeploy(Event):
     pass
 
+
+class LogItemPutToVehicleTrunk(Event):
+    pass
+
+
+class LogItemPickupFromVehicleTrunk(Event):
+    pass
