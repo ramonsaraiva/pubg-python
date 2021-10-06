@@ -504,3 +504,7 @@ class LogItemPutToVehicleTrunk(Event):
 
 class LogItemPickupFromVehicleTrunk(Event):
     pass
+
+
+class LogCharacterCarry(Event):
+    pass
