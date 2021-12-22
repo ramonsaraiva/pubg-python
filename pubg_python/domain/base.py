@@ -39,8 +39,9 @@ class Domain:
 
     def __init__(self, data, meta=None):
         self._raw_data = copy.deepcopy(data)
-        self._meta = meta or Meta(self._raw_data)
-        self._data = self._raw_data.pop('data', {})
+        raw_data = copy.deepcopy(data)
+        self._meta = meta or Meta(raw_data)
+        self._data = raw_data.pop('data', {})
         self.from_dict()
 
         self.process_relationships()
@@ -61,6 +62,9 @@ class Domain:
         self.type = self._data.get('type')
         self.attributes = self._data.pop('attributes', {})
         self.relationships = self._data.pop('relationships', {})
+
+    def to_dict(self):
+        return self._raw_data
 
     def process_relationships(self):
         if not self.relationships:
