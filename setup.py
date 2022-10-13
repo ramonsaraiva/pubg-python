@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name='pubg-python',
-    version='0.12.4',
+    version='0.12.5',
     description='A python wrapper for the PUBG developer API',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
