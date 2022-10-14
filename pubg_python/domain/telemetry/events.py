@@ -136,6 +136,28 @@ class LogPlayerKill(Event):
             'isThroughPenetrableWall')
 
 
+class LogPlayerKillV2(Event):
+
+    def from_dict(self):
+        super().from_dict()
+        self.attack_id = self._data.get('attackId')
+        self.dbno_id = self._data.get('dBNOId')
+        self.victim = objects.Character(self._data.get('victim', {}))
+        self.victim_weapon = self._data.get('victimWeapon')
+        self.victim_weapon_additional_info = self._data.get(
+            'victimWeaponAdditionalInfo')
+        self.dbno_marker = objects.Character(self._data.get('dBNOMaker', {}))
+        self.dbno_damage_info = objects.DamageInfo(
+            self._data.get('dBNODamageInfo', {}))
+        self.finisher = objects.Character(self._data.get('dBNOMaker', {}))
+        self.finisher_damage_info = objects.DamageInfo(
+            self._data.get('finishDamageInfo', {}))
+        self.killer = objects.Character(self._data.get('killer', {}))
+        self.killer_damage_info = objects.DamageInfo(
+            self._data.get('killerDamageInfo', {}))
+        self.is_suicide = self._data.get('isSuicide')
+
+
 class LogParachuteLanding(Event):
 
     def from_dict(self):
@@ -195,6 +217,7 @@ class LogItemPickupFromCarepackage(LogItemPickup):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
+        self.care_package_unique_id = self._data.get('carePackageUniqueId')
 
 
 class LogItemPickupFromLootBox(LogItemPickup):
@@ -203,6 +226,7 @@ class LogItemPickupFromLootBox(LogItemPickup):
         super().from_dict()
         self.creator_id = self._data.get('creatorAccountId')
         self.team_id = self._data.get('ownerTeamId')
+        self.creator_account_id = self._data.get('creatorAccountId')
 
 
 class LogHeal(Event):
@@ -211,7 +235,10 @@ class LogHeal(Event):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
         self.item = objects.Item(self._data.get('item', {}))
-        self.heal_amount = self._data.get('healAmount')
+        if self._data.get('healamount'):
+            self.heal_amount = self._data.get('healamount')
+        else:
+            self.heal_amount = self._data.get('healAmount')
 
 
 class LogObjectDestroy(Event):
@@ -233,7 +260,6 @@ class LogObjectInteraction(Event):
         self.object_type_status = self._data.get('objectTypeStatus')
         self.object_type_additional_info = self._data.get(
             'objectTypeAdditionalInfo')
-        self.object_type_count = self._data.get('objectTypeCount')
 
 
 class LogVaultStart(Event):
@@ -241,6 +267,7 @@ class LogVaultStart(Event):
     def from_dict(self):
         super().from_dict()
         self.character = objects.Character(self._data.get('character', {}))
+        self.is_ledge_grab = self._data.get('isLedgeGrab')
 
 
 class LogVehicle(Event):
@@ -287,6 +314,10 @@ class LogVehicleDestroy(Event):
         self.distance = self._data.get('distance')
 
 
+class LogVehicleDamage(Event):
+    pass
+
+
 class LogCarePackageEvent(Event):
 
     def from_dict(self):
@@ -300,6 +331,10 @@ class LogCarePackageSpawn(LogCarePackageEvent):
 
 
 class LogCarePackageLand(LogCarePackageEvent):
+    pass
+
+
+class LogItemPickupFromCustomPackage(LogCarePackageEvent):
     pass
 
 
@@ -444,3 +479,32 @@ class LogPhaseChange(Event):
     def from_dict(self):
         super().from_dict()
         self.phase = self._data.get('phase')
+        self.elapsed_time = self._data.get('elapsedTime')
+
+
+class LogEmPickupLiftOff(Event):
+    pass
+
+
+class LogPlayerDestroyProp(Event):
+    pass
+
+
+class LogPlayerRedeployBRStart(Event):
+    pass
+
+
+class LogPlayerRedeploy(Event):
+    pass
+
+
+class LogItemPutToVehicleTrunk(Event):
+    pass
+
+
+class LogItemPickupFromVehicleTrunk(Event):
+    pass
+
+
+class LogCharacterCarry(Event):
+    pass
